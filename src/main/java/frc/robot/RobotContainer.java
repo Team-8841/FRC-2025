@@ -18,10 +18,12 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.MagnetSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.*;
@@ -34,6 +36,8 @@ import swervelib.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final MagnetSubsystem m_magnet = new MagnetSubsystem();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -56,9 +60,9 @@ public class RobotContainer {
                                                                 m_driverController.getHID()::getBButtonPressed);
                                                               
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getLeftY() * -1,
-                                                                () -> m_driverController.getLeftX() * -1)
-                                                            .withControllerRotationAxis(m_driverController::getRightX)
+                                                                () -> m_driverController.getLeftY() ,
+                                                                () -> m_driverController.getLeftX())
+                                                            .withControllerRotationAxis(() -> MathUtil.applyDeadband(m_driverController.getRightX() *-1,OperatorConstants.DEADBAND))
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -81,6 +85,7 @@ public class RobotContainer {
                                                                .scaleTranslation(0.8)
                                                                .allianceRelativeControl(true);
   // Derive the heading axis with math!
+  
   SwerveInputStream driveDirectAngleSim     = driveAngularVelocitySim.copy()
                                                                      .withControllerHeadingAxis(() -> Math.sin(
                                                                                                     m_driverController.getRawAxis(
@@ -91,9 +96,10 @@ public class RobotContainer {
                                                                                                       (Math.PI * 2))
                                                                      .headingWhile(true);
 
+                                                                     
   Command driveFieldOrientedDirectAngleSim = drivebase.driveFieldOriented(driveDirectAngleSim);
 
-  Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
+  //Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
   /* --------------------- SWERVE INTIT END ---------------------------- */
 
@@ -114,7 +120,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
-    driveFieldOrientedDirectAngle :
+    driveFieldOrientedAnglularVelocity :
     driveFieldOrientedDirectAngleSim);
 
     if (Robot.isSimulation())
@@ -136,14 +142,15 @@ public class RobotContainer {
     {
     m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-    m_driverController.b().whileTrue(
-    drivebase.driveToPose(
-    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      );
-    m_driverController.y().whileTrue(drivebase.aimAtSpeaker(2));
+    m_driverController.b().onTrue(new InstantCommand( () -> {
+      m_magnet.setMagnet(true);
+    })).onFalse(new InstantCommand(() -> {
+      m_magnet.setMagnet(false);
+    }));
+    m_driverController.y().whileTrue(Commands.none());
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
-    m_driverController.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    m_driverController.leftBumper().whileTrue(Commands.none());
     m_driverController.rightBumper().onTrue(Commands.none());
 }
   }
