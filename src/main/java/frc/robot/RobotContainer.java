@@ -5,9 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -37,7 +34,6 @@ import swervelib.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -46,7 +42,7 @@ public class RobotContainer {
   /* --------------------- SWERVE INIT ---------------------------- */
 
   // Change to correct drive base configuration 
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve/falcon")); // TODO UPDATE Type
+  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve/falcon"));
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.LEFT_Y_DEADBAND),
@@ -101,19 +97,6 @@ public class RobotContainer {
 
   /* --------------------- SWERVE INTIT END ---------------------------- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -130,13 +113,39 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
+    driveFieldOrientedDirectAngle :
+    driveFieldOrientedDirectAngleSim);
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    if (Robot.isSimulation())
+    {
+    m_driverController.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+    }
+    if (DriverStation.isTest())
+    {
+    drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+
+    m_driverController.b().whileTrue(drivebase.sysIdDriveMotorCommand());
+    m_driverController.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    m_driverController.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+    m_driverController.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    m_driverController.back().whileTrue(drivebase.centerModulesCommand());
+    m_driverController.leftBumper().onTrue(Commands.none());
+    m_driverController.rightBumper().onTrue(Commands.none());
+    } else
+    {
+    m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    m_driverController.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+    m_driverController.b().whileTrue(
+    drivebase.driveToPose(
+    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+      );
+    m_driverController.y().whileTrue(drivebase.aimAtSpeaker(2));
+    m_driverController.start().whileTrue(Commands.none());
+    m_driverController.back().whileTrue(Commands.none());
+    m_driverController.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    m_driverController.rightBumper().onTrue(Commands.none());
+}
   }
 
   /**
@@ -146,7 +155,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
   }
 
   public void setDriveMode()
