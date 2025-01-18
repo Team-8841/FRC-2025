@@ -37,6 +37,23 @@ public final class Constants {
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
+  public static final class ElevatorConstants
+  {
+    public static final int M1_CANID = 16; //Left Motor for elevator
+    public static final int M2_CANID = 17; // Right Motor for elevator
+
+    // Feedforward
+    public static final double FF_kS = 0.5;  // Static gain (N·m)
+    public static final double FF_kG = 1.0;  // Gravity gain (N·m)
+    public static final double FF_kV = 0.1;  // Velocity gain (N·m/(m/s))
+    public static final double FF_kA = 0.05; // Acceleration gain (N·m/(m/s^2))
+
+    //PID 
+    public static final double PID_kS = 0.1;
+    public static final double PID_kG = 0.0;
+    public static final double PID_kA = 0.0;
+  }
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
       
