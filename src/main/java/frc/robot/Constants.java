@@ -42,6 +42,8 @@ public final class Constants {
     public static final int M1_CANID = 16; //Left Motor for elevator
     public static final int M2_CANID = 17; // Right Motor for elevator
 
+    public static final int CURRENT_LIMIT = 40;
+
     // Feedforward
     public static final double FF_kS = 0.5;  // Static gain (N·m)
     public static final double FF_kG = 1.0;  // Gravity gain (N·m)

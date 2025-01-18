@@ -8,6 +8,7 @@ import frc.robot.Constants.ElevatorConstants;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -19,6 +20,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final SparkMax motor2;
     private final ElevatorFeedforward feedforward;
     private final PIDController pidController;
+
+    private final SparkMaxConfig config_m1;
+    private final SparkMaxConfig config_m2;
 
     private double currentPosition;
     private double pidOutput;
@@ -35,19 +39,21 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
         // Configure Motor 1
-        SparkMaxConfig config_m1 = new SparkMaxConfig();
+        config_m1 = new SparkMaxConfig();
         config_m1.inverted(false).idleMode(IdleMode.kBrake);
+        config_m1.smartCurrentLimit(ElevatorConstants.CURRENT_LIMIT);
         config_m1.encoder.positionConversionFactor(1000).velocityConversionFactor(1000);
         config_m1.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-        motor1.configure(config_m1, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor1.configure(config_m1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         // Configure Motor 2 (Follows Motor 1, Inverted?)
-        SparkMaxConfig config_m2 = new SparkMaxConfig();
+        config_m2 = new SparkMaxConfig();
         config_m2.inverted(false).idleMode(IdleMode.kBrake);
+        config_m2.smartCurrentLimit(ElevatorConstants.CURRENT_LIMIT);
         config_m2.encoder.positionConversionFactor(1000).velocityConversionFactor(1000);
         config_m2.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         config_m2.follow(motor1, true);
-        motor2.configure(config_m2, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor2.configure(config_m2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         // Control Structures
         pidController = new PIDController(ElevatorConstants.PID_kS, ElevatorConstants.PID_kG, ElevatorConstants.PID_kA);
@@ -81,11 +87,24 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor1.set(0);
     }
 
+    public void releaseElevator() {
+        config_m1.idleMode(IdleMode.kCoast);
+        config_m2.idleMode(IdleMode.kCoast);
+
+        motor1.configure(config_m1, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor2.configure(config_m2, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
     @Override
     public void periodic() {
 
         // For Testing
-        SmartDashboard.putNumber("Actual Position", motor1.getEncoder().getPosition());
+        // Display debugging information on the SmartDashboard
+        SmartDashboard.putNumber("Elevator Setpoint", setpoint);
+        SmartDashboard.putNumber("Elevator Current Position", currentPosition);
+        SmartDashboard.putNumber("Elevator PID Output", pidOutput);
+        SmartDashboard.putNumber("Elevator Feedforward Output", feedforwardOutput);
+        SmartDashboard.putNumber("Elevator Total Output", motorOutput);
 
         currentPosition = motor1.getEncoder().getPosition();
         pidOutput = pidController.calculate(currentPosition, setpoint);
