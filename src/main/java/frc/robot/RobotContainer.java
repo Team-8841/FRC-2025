@@ -24,6 +24,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.swervedrive.Vision.Cameras;
+
 import java.io.File;
 import swervelib.*;
 
@@ -141,7 +144,7 @@ public class RobotContainer {
     {
     m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-    m_driverController.b().onTrue(Commands.none());
+    m_driverController.b().whileTrue(drivebase.aimAtTarget(Cameras.CENTER_CAM));
     m_driverController.y().whileTrue(Commands.none());
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
