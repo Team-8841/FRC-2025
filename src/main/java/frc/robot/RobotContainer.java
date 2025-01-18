@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
-import frc.robot.subsystems.MagnetSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.*;
@@ -36,7 +35,7 @@ import swervelib.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final MagnetSubsystem m_magnet = new MagnetSubsystem();
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -142,11 +141,7 @@ public class RobotContainer {
     {
     m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-    m_driverController.b().onTrue(new InstantCommand( () -> {
-      m_magnet.setMagnet(true);
-    })).onFalse(new InstantCommand(() -> {
-      m_magnet.setMagnet(false);
-    }));
+    m_driverController.b().onTrue(Commands.none());
     m_driverController.y().whileTrue(Commands.none());
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
