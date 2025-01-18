@@ -65,4 +65,26 @@ public final class Constants {
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+
+
+  public static final class GripperConstants { //TODO: change this one we figure out the canivore
+    public static final int WRIST_MOTOR_CANID = 3;
+    public static final int GRIPPER_MOTOR1_CANID = 4;
+    public static final int GRIPPER_MOTOR2_CANID = 5;
+
+    public static final double WRIST_ALLOWED_ERROR = 200; //TODO: Tune this value
+    
+    public static final double WRIST_P = 1;
+    public static final double WRIST_I = 0;
+    public static final double WRIST_D = 0;
+
+    public static final int CORAL_SENSOR_PORT = 0; //TODO: Change this value
+    public static final int ALGAE_SENSOR_PORT = 1; //TODO: Change this value
+    
+  }
+
+  public static final class LightingConstants { 
+    public static final int CANDLE_CANID = 0; //TODO: Change this value
+  }
 }
