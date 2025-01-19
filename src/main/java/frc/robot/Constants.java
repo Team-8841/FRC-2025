@@ -39,21 +39,22 @@ public final class Constants {
 
   public static final class ElevatorConstants
   {
-    public static final int M1_CANID = 16; //Left Motor for elevator
-    public static final int M2_CANID = 17; // Right Motor for elevator
+    public static final int M1_CANID = 20; //Left Motor for elevator
+    public static final int M2_CANID = 21; // Right Motor for elevator
 
-    public static final int CURRENT_LIMIT = 40;
+    public static final int DIO_TOPSENSOR = 1;
+    public static final int DIO_BOTTOMSENSOR = 0;
 
-    // Feedforward
-    public static final double FF_kS = 0.5;  // Static gain (N·m)
-    public static final double FF_kG = 1.0;  // Gravity gain (N·m)
-    public static final double FF_kV = 0.1;  // Velocity gain (N·m/(m/s))
-    public static final double FF_kA = 0.05; // Acceleration gain (N·m/(m/s^2))
+    public static final int CURRENT_LIMIT = 60;
+
+    public static final int TRAVEL_ROT = 10; // Number of rotations to travel full distance
+
 
     //PID 
-    public static final double PID_kS = 0.1;
-    public static final double PID_kG = 0.0;
-    public static final double PID_kA = 0.0;
+    public static final double PID_P = 0.1;
+    public static final double PID_I = 0.0;
+    public static final double PID_D = 0.0;
+    public static final double PID_FF = .000156;
   }
 
   public static class OperatorConstants {

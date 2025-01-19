@@ -62,8 +62,6 @@ public class Gripper extends SubsystemBase{
         config.closedLoop
             .feedbackSensor(feedbackSensor) //FeedbackSensor.kPrimaryEncoder
             .pid(p, i, d);
-
-
     }
 
     @Override
