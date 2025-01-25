@@ -122,7 +122,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         {
             stopElevator();
         }
-        motor1.
+        //motor1.
 
         // This method will be called once per scheduler run
         // Add any telemetry or logging here

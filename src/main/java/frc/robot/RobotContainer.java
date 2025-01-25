@@ -26,6 +26,9 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+
+import org.photonvision.PhotonCamera;
+
 import swervelib.*;
 
 /**
@@ -39,6 +42,9 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+
+  private PhotonCamera mainCam = new PhotonCamera("center");
 
   /* --------------------- SWERVE INIT ---------------------------- */
 
@@ -101,14 +107,12 @@ public class RobotContainer {
   /* --------------------- SWERVE INTIT END ---------------------------- */
 
   ElevatorSubsystem elevator = new ElevatorSubsystem();
-
-
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     elevator.resetEncoders();
+
   }
 
   /**
@@ -149,7 +153,7 @@ public class RobotContainer {
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
     m_driverController.leftBumper().whileTrue(Commands.none());
-    m_driverController.rightBumper().onTrue(Commands.none());
+    m_driverController.rightBumper().whileTrue(Commands.none());
 }
   }
 
