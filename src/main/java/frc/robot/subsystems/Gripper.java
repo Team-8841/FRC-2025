@@ -25,7 +25,7 @@ public class Gripper extends SubsystemBase{
         m_gripperMotor1 =  new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID);
         m_gripperMotor2 = new TalonFX(GripperConstants.GRIPPER_MOTOR2_CANID);
         m_wristMotor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID);
-
+       
         wristSetPoint = 0; // Start at neutral position
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
@@ -47,17 +47,18 @@ public class Gripper extends SubsystemBase{
         config.MotorOutput.NeutralMode = neutralMode;
         config.CurrentLimits.StatorCurrentLimit = currentLimit;
         config.CurrentLimits.StatorCurrentLimitEnable = true;
-       
+    
         talon.getConfigurator().apply(config);
+    
  }
 
 
 
 //not sure bout this part i just tried to do what ever i could idk tho 
-    private void configureTalonFXPID(TalonFX spark, TalonFXConfiguration wristConfig2, InvertedValue clockwisePositive, NeutralMode neutralMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
+    private void configureTalonFXPID(TalonFX spark, TalonFXConfiguration wristConfig2, InvertedValue inverted , NeutralMode neutralMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
              
             wristConfig2
-                .inverted(true)
+                .inverted(true);
                 .idleMode(neutralMode);
             wristConfig2.encoder
                 .positionConversionFactor(positionConversionFactor) //1000
