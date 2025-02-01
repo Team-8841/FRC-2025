@@ -1,13 +1,12 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,51 +14,55 @@ import frc.robot.Constants.GripperConstants;
 
 public class Gripper extends SubsystemBase{
 
-    private SparkMax m_gripperMotor1, m_gripperMotor2, m_wristMotor;
-    private SparkBaseConfig gripperConfig, wristConfig;
+    private TalonFX m_gripperMotor1,m_wristMotor,m_gripperMotor2;
+    private TalonFXConfiguration gripperConfig; 
+    private TalonFXConfiguration wristConfig;
     private DigitalInput coralSensor, algaeSensor;
 
     private double wristSetPoint;
 
-
     public Gripper() {
-        m_gripperMotor1 = new SparkMax(GripperConstants.GRIPPER_MOTOR1_CANID, MotorType.kBrushless);
-        m_gripperMotor2 = new SparkMax(GripperConstants.GRIPPER_MOTOR2_CANID, MotorType.kBrushless);
-        m_wristMotor = new SparkMax(GripperConstants.WRIST_MOTOR_CANID, MotorType.kBrushless);
+        m_gripperMotor1 =  new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID);
+        m_gripperMotor2 = new TalonFX(GripperConstants.GRIPPER_MOTOR2_CANID);
+        m_wristMotor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID);
 
         wristSetPoint = 0; // Start at neutral position
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
         algaeSensor = new DigitalInput(GripperConstants.ALGAE_SENSOR_PORT);
 
-        gripperConfig = new SparkMaxConfig();
-        wristConfig = new SparkMaxConfig();
+        //configureTalonFX(m_gripperMotor1);
+        //configureTalonFX(m_gripperMotor2);
+        
+        configureTalonFX(m_gripperMotor1, gripperConfig, InvertedValue.Clockwise_Positive, NeutralModeValue.Brake, 20.0);
+        configureTalonFX(m_gripperMotor1, gripperConfig, InvertedValue.CounterClockwise_Positive, NeutralModeValue.Brake, 20.0);
 
-        configureSparkMax(m_gripperMotor1, gripperConfig, false, IdleMode.kBrake, 20);
-        configureSparkMax(m_gripperMotor1, gripperConfig, true, IdleMode.kBrake, 20);
-
-        configureSparkPID(m_wristMotor, wristConfig, false, IdleMode.kBrake, 1000, 1000, 
+        configureTalonFXPID(m_wristMotor, wristConfig, InvertedValue.Clockwise_Positive, NeutralModeValue.Brake, 1000.0, 1000.0, 
             FeedbackSensor.kPrimaryEncoder, GripperConstants.WRIST_P, GripperConstants.WRIST_I, GripperConstants.WRIST_D);
     }
+// i wasn't able to do this part yet because i couldn't figure out how to invert
+ private void configureTalonFX(TalonFX talon, TalonFXConfiguration config,  InvertedValue inverted, NeutralModeValue neutralMode, double currentLimit) {
+        //config.MotorOutput.setInverted(inverted);
+        config.MotorOutput.Inverted = inverted;
+        config.MotorOutput.NeutralMode = neutralMode;
+        config.CurrentLimits.StatorCurrentLimit = currentLimit;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+       
+        talon.getConfigurator().apply(config);
+ }
 
-    private void configureSparkMax(SparkMax spark, SparkBaseConfig config, boolean inverted, IdleMode idleMode, int currentLimit) {
-        config.inverted(inverted);
-        config.idleMode(idleMode);
-        config.smartCurrentLimit(currentLimit);
 
 
-        spark.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
-
-    private void configureSparkPID(SparkMax spark, SparkBaseConfig config, boolean inverted, IdleMode idleMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
-        
-        config
-            .inverted(true)
-            .idleMode(idleMode);
-        config.encoder
-            .positionConversionFactor(positionConversionFactor) //1000
-            .velocityConversionFactor(velocityConversionFactor); //10000
-        config.closedLoop
+//not sure bout this part i just tried to do what ever i could idk tho 
+    private void configureTalonFXPID(TalonFX spark, TalonFXConfiguration wristConfig2, InvertedValue clockwisePositive, NeutralMode neutralMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
+             
+            wristConfig2
+                .inverted(true)
+                .idleMode(neutralMode);
+            wristConfig2.encoder
+                .positionConversionFactor(positionConversionFactor) //1000
+                .velocityConversionFactor(velocityConversionFactor); //10000
+            wristConfig2.closedLoop
             .feedbackSensor(feedbackSensor) //FeedbackSensor.kPrimaryEncoder
             .pid(p, i, d);
     }
@@ -76,11 +79,11 @@ public class Gripper extends SubsystemBase{
 
     public void setWristPosition(double position) {
         wristSetPoint = position;
-        m_wristMotor.set(position);
+        m_wristMotor.setControl(new PositionVoltage(position));
     }
 
     public boolean wristAtPosition() {
-        double currentPosition = m_wristMotor.getEncoder().getPosition();
+        double currentPosition = m_wristMotor.getPosition().getValue();
         return Math.abs(currentPosition - wristSetPoint) <= GripperConstants.WRIST_ALLOWED_ERROR;
     }
 
