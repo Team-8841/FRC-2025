@@ -67,7 +67,6 @@ public final class Constants {
 
     public final double MAX_POS = 98;
     public final double MIN_POS = 0;
-
   }
 
   public static class OperatorConstants {
@@ -103,5 +102,6 @@ public final class Constants {
 
   public static final class LightingConstants { 
     public static final int CANDLE_CANID = 0; //TODO: Change this value
+    public static final String CANDLE_BUS = "canivore";
   }
 }
