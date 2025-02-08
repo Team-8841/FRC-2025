@@ -62,6 +62,7 @@ public class Gripper extends SubsystemBase{
     @Override
     public void periodic() {
         // Put your periodic code here, called once per scheduler run
+        setWristPosition(wristSetPoint);
     }
 
     public void setGripperSpeed(double speed) {

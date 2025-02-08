@@ -22,8 +22,6 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private static final int MOTOR1_CAN_ID = 18; //Elevators, Leader
-  private static final int MOTOR2_CAN_ID = 16;
 
   private StatusSignal<Angle> position;
 
@@ -32,8 +30,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   /* Keep a brake request so we can disable the motor */
   private final CoastOut m_coast = new CoastOut();
 
-  private final TalonFX m_elevator_leader= new TalonFX(MOTOR1_CAN_ID, ElevatorConstants.CANBUS_NAME);
-  private final TalonFX m_elevator_follower = new TalonFX(MOTOR2_CAN_ID, ElevatorConstants.CANBUS_NAME);
+  private final TalonFX m_elevator_leader= new TalonFX(ElevatorConstants.M1_CANID, ElevatorConstants.CANBUS_NAME);
+  private final TalonFX m_elevator_follower = new TalonFX(ElevatorConstants.M2_CANID, ElevatorConstants.CANBUS_NAME);
 
 
   // Elevator Range is from 0 to 98. With 98 being fully up and touching top
@@ -60,15 +58,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         follower = new Follower(m_elevator_leader.getDeviceID(), true); // Inverted Follower
         m_elevator_follower.setControl(follower);
 
-        /* Retry config apply up to 5 times, report if failure */
-        StatusCode status = StatusCode.StatusCodeNotInitialized;
-        for (int i = 0; i < 5; ++i) {
-            status = m_elevator_leader.getConfigurator().apply(leaderConfig);
-        if (status.isOK()) break;
-        }
-        if (!status.isOK()) {
-            System.out.println("Could not apply configs, error code: " + status.toString());
-        }
         /* Make sure we start at 0 */
         m_elevator_leader.setPosition(0);
     }
@@ -100,7 +89,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void setElevatorPosition(double targetposition)
     {
-        if (targetposition < ElevatorConstants.MAX_POS && targetposition > ElevatorConstants.MIN_POS) {
+        if (targetposition > ElevatorConstants.MIN_POS && targetposition < ElevatorConstants.MAX_POS) {
             setPoint = targetposition;
             m_elevator_follower.setControl(follower);
             m_elevator_leader.setControl(new PositionDutyCycle(setPoint));
