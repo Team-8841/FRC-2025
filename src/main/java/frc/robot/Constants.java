@@ -56,6 +56,13 @@ public final class Constants {
     public static final double PID_D = 0.01;
     public static final double PID_FF = .000156;
 
+    // Predefined Positions
+    private final double BOTTOM_POS = -5.0;
+    private final double LOW_POS = -10.0;
+    private final double MID_POS = -40.0;
+    private final double HIGH_POS = -70.0;
+    private final double TOP_POS = -115.0;
+
   }
 
   public static class OperatorConstants {
