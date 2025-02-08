@@ -1,13 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-import edu.wpi.first.math.controller.ElevatorFeedforward;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
@@ -17,14 +12,10 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.DutyCycleOut;
@@ -38,22 +29,16 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /* Be able to switch which control request to use based on a button press */
   /* Start at position 0, use slot 0 */
-  private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlot(0);
   /* Keep a brake request so we can disable the motor */
-  private final NeutralOut m_brake = new NeutralOut();
   private final CoastOut m_coast = new CoastOut();
 
-  private final TalonFX m_elevator_leader= new TalonFX(MOTOR1_CAN_ID);
-  private final TalonFX m_elevator_follower = new TalonFX(MOTOR2_CAN_ID);
+  private final TalonFX m_elevator_leader= new TalonFX(MOTOR1_CAN_ID, ElevatorConstants.CANBUS_NAME);
+  private final TalonFX m_elevator_follower = new TalonFX(MOTOR2_CAN_ID, ElevatorConstants.CANBUS_NAME);
 
 
-  // Elevator Range is from 0 to -110. With -110 being fully extended up
+  // Elevator Range is from 0 to 98. With 98 being fully up and touching top
   // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
-  private double setPoint = -5.0;
-
-
-
-  private int x = 0;
+  private double setPoint = 5.0; 
 
   private static DigitalInput topSensor;
   private static DigitalInput bottomSensor; 

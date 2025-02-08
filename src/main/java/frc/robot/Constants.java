@@ -39,6 +39,7 @@ public final class Constants {
 
   public static final class ElevatorConstants
   {
+    public static final String CANBUS_NAME = "canivore";
     public static final int M1_CANID = 18; //Left Motor for elevator
     public static final int M2_CANID = 16; // Right Motor for elevator
 
@@ -57,11 +58,12 @@ public final class Constants {
     public static final double PID_FF = .000156;
 
     // Predefined Positions
-    private final double BOTTOM_POS = -5.0;
-    private final double LOW_POS = -10.0;
-    private final double MID_POS = -40.0;
-    private final double HIGH_POS = -70.0;
-    private final double TOP_POS = -115.0;
+    // 98 IS ABSOLUTE TOP
+    public final double TOP_POS = 95;
+    public final double HIGH_POS = 69;
+    public final double MID_POS = 38.5;
+    public final double LOW_POS = 14.8;
+    public final double BOTTOM_POS = 5.0;
 
   }
 
