@@ -102,10 +102,21 @@ public class RobotContainer {
 
   /* --------------------- SWERVE INTIT END ---------------------------- */
 
+<<<<<<< Updated upstream
+=======
+  ElevatorSubsystem elevator = new ElevatorSubsystem();
+
+
+
+>>>>>>> Stashed changes
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+<<<<<<< Updated upstream
+=======
+    elevator.resetEncoders();
+>>>>>>> Stashed changes
   }
 
   /**
