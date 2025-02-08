@@ -52,7 +52,6 @@ public final class Constants {
 
     public static final double RAMP_UP = .1;
 
-
     //PID 
     public static final double PID_P = 0.4;
     public static final double PID_I = 0.0;
@@ -101,6 +100,11 @@ public final class Constants {
 
     public static final int CORAL_SENSOR_PORT = 2; //TODO: Change this value
     public static final int ALGAE_SENSOR_PORT = 3; //TODO: Change this value
+
+    // 0 is Home (UP) and -86 is Down rotated clockwise as viewed from right side 
+    public static final double CLOSE_POS = -20.0;
+    public static final double MID_POS = -40.0;
+    public static final double FAR_POS = -80.0;
 
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;

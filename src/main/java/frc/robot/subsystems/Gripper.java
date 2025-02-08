@@ -73,6 +73,7 @@ public class Gripper extends SubsystemBase{
         m_gripper_motor.setControl(m_brake);
     }
 
+    //TODO: Perform check for elevator configuration to avoid hitting elevator
     public void setWristPosition(double position) {
         if (position > 0) {
             position = position * -1; //Should always be negative
