@@ -39,8 +39,8 @@ public final class Constants {
 
   public static final class ElevatorConstants
   {
-    public static final int M1_CANID = 20; //Left Motor for elevator
-    public static final int M2_CANID = 21; // Right Motor for elevator
+    public static final int M1_CANID = 18; //Left Motor for elevator
+    public static final int M2_CANID = 16; // Right Motor for elevator
 
     public static final int DIO_TOPSENSOR = 1;
     public static final int DIO_BOTTOMSENSOR = 0;
@@ -51,10 +51,11 @@ public final class Constants {
 
 
     //PID 
-    public static final double PID_P = 0.1;
+    public static final double PID_P = 0.4;
     public static final double PID_I = 0.0;
-    public static final double PID_D = 0.0;
+    public static final double PID_D = 0.01;
     public static final double PID_FF = .000156;
+
   }
 
   public static class OperatorConstants {

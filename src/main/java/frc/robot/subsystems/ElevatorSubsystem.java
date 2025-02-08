@@ -1,68 +1,94 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
+import com.ctre.phoenix6.StatusCode;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.ctre.phoenix6.controls.CoastOut;
+import com.ctre.phoenix6.controls.ControlRequest;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-    private final SparkMax motor1;
-    private final SparkMax motor2;
+  private static final int MOTOR1_CAN_ID = 18; //Elevators, Leader
+  private static final int MOTOR2_CAN_ID = 16;
 
-    private final SparkMaxConfig config_m1;
-    private final SparkMaxConfig config_m2;
-    
-    private static DigitalInput topSensor;
-    private static DigitalInput bottomSensor;  
-    
-    private double currentPosition; // Current position reading
-    private double pidOutput;
-    private double feedforwardOutput;
-    private double setpoint; // Position Elevator should be at percentage (0-100)
-    private double motorOutput; // Defines motor drivepoint
+  private StatusSignal<Angle> position;
 
-    private double min_setpoint; //Starting location
+  /* Be able to switch which control request to use based on a button press */
+  /* Start at position 0, use slot 0 */
+  private final PositionVoltage m_positionVoltage = new PositionVoltage(0).withSlot(0);
+  /* Keep a brake request so we can disable the motor */
+  private final NeutralOut m_brake = new NeutralOut();
+  private final CoastOut m_coast = new CoastOut();
+
+  private final TalonFX m_elevator_leader= new TalonFX(MOTOR1_CAN_ID);
+  private final TalonFX m_elevator_follower = new TalonFX(MOTOR2_CAN_ID);
+
+
+  // Elevator Range is from 0 to -110. With -110 being fully extended up
+  // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
+  private final double BOTTOM_POS = -5.0;
+  private final double LOW_POS = -10.0;
+  private final double MID_POS = -40.0;
+  private final double HIGH_POS = -70.0;
+  private final double TOP_POS = -115.0;
+  private double targetposition = BOTTOM_POS;
+
+  private int x = 0;
+
+  private static DigitalInput topSensor;
+  private static DigitalInput bottomSensor; 
+
+  private ControlRequest follower;
+
+
+  private final DutyCycleOut StopMotor = new DutyCycleOut(0);
 
     public ElevatorSubsystem() {
-        // Initialize Spark Max motor controllers
-        motor1 = new SparkMax(ElevatorConstants.M1_CANID, MotorType.kBrushless); 
-        motor2 = new SparkMax(ElevatorConstants.M2_CANID, MotorType.kBrushless); 
+        TalonFXConfiguration leaderConfig = new TalonFXConfiguration();
+            leaderConfig.Slot0.kP = ElevatorConstants.PID_P; // Proportional gain
+            leaderConfig.Slot0.kI = ElevatorConstants.PID_I; // Integral gain
+            leaderConfig.Slot0.kD = ElevatorConstants.PID_D; // Derivative gain
+            leaderConfig.Feedback.SensorToMechanismRatio = 1.0; // 1:1 ratio for simplicity
+            leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.1; // In seconds to ramp up to 100
+            m_elevator_leader.getConfigurator().apply(leaderConfig);
+        
+        follower = new Follower(m_elevator_leader.getDeviceID(), true); // Inverted Follower
+        m_elevator_follower.setControl(follower);
 
-        topSensor = new DigitalInput(ElevatorConstants.DIO_TOPSENSOR);
-        bottomSensor = new DigitalInput(ElevatorConstants.DIO_BOTTOMSENSOR);
-
-        // Configure Motor 1
-        config_m1 = new SparkMaxConfig();
-        config_m1.inverted(false).idleMode(IdleMode.kBrake);
-        config_m1.smartCurrentLimit(ElevatorConstants.CURRENT_LIMIT);
-        config_m1.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder).pidf(ElevatorConstants.PID_P,
-            ElevatorConstants.PID_I, ElevatorConstants.PID_D,ElevatorConstants.PID_FF);
-        motor1.configure(config_m1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-        // Configure Motor 2 (Follows Motor 1, Inverted?)
-        config_m2 = new SparkMaxConfig();
-        config_m2.inverted(false).idleMode(IdleMode.kBrake);
-        config_m2.smartCurrentLimit(ElevatorConstants.CURRENT_LIMIT);
-        config_m2.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder).pidf(ElevatorConstants.PID_P,
-            ElevatorConstants.PID_I, ElevatorConstants.PID_D,ElevatorConstants.PID_FF);
-        config_m2.follow(motor1, true);
-        motor2.configure(config_m2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-       
-        // Init Location
-        min_setpoint = motor1.getEncoder().getPosition();
+        /* Retry config apply up to 5 times, report if failure */
+        StatusCode status = StatusCode.StatusCodeNotInitialized;
+        for (int i = 0; i < 5; ++i) {
+            status = m_elevator_leader.getConfigurator().apply(leaderConfig);
+        if (status.isOK()) break;
+        }
+        if (!status.isOK()) {
+            System.out.println("Could not apply configs, error code: " + status.toString());
+        }
+        /* Make sure we start at 0 */
+        m_elevator_leader.setPosition(0);
     }
 
     /**
@@ -70,41 +96,33 @@ public class ElevatorSubsystem extends SubsystemBase {
      * @param velocity The desired velocity of the elevator in meters per second.
      * @param acceleration The desired acceleration of the elevator in meters per second squared.
      */
-    public void setPositionElevator(double new_setPoint) {
-        // Ensure reasonable values
-        double rot_setpoint = convertLocToRot(new_setPoint);
-        motor1.getClosedLoopController().setReference(rot_setpoint, SparkBase.ControlType.kPosition);
-    }
 
     /**
      * Stops the elevator.
      */
     public void stopElevator() {
-        motor1.set(0);
+        m_elevator_leader.setControl(StopMotor);
+        m_elevator_follower.setControl(StopMotor);
     }
 
     public void releaseElevator() {
-        config_m1.idleMode(IdleMode.kCoast);
-        config_m2.idleMode(IdleMode.kCoast);
-
-        motor1.configure(config_m1, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-        motor2.configure(config_m2, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-
-    public double convertLocToRot(double lift_percentage) 
-    {
-     // TODO: Take into account interuppted lift
-       // currentPosition
-       double percent_change = lift_percentage - setpoint;
-
-       //Positive Up, Negative Down
-        return percent_change * ElevatorConstants.TRAVEL_ROT;
+      m_elevator_leader.setControl(m_coast);
+      m_elevator_follower.setControl(m_coast);
     }
 
     public void resetEncoders()
     {
-        motor1.getEncoder().setPosition(0);
-        motor2.getEncoder().setPosition(0);
+        m_elevator_leader.setPosition(0);
+        m_elevator_follower.setPosition(0);
+    }
+
+    public void setElevatorPosition(double targetposition)
+    {
+        if (targetposition > 0) {
+            targetposition = targetposition * -1; // Invert because should never be positive
+        }
+        m_elevator_follower.setControl(follower);
+        m_elevator_leader.setControl(new PositionDutyCycle(targetposition));
     }
 
     @Override
@@ -112,11 +130,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         // For Testing
         // Display debugging information on the SmartDashboard
-        SmartDashboard.putNumber("Elevator Setpoint", setpoint);
-        SmartDashboard.putNumber("Elevator Current Position", currentPosition);
-        SmartDashboard.putNumber("Elevator PID Output", pidOutput);
-        SmartDashboard.putNumber("Elevator Feedforward Output", feedforwardOutput);
-        SmartDashboard.putNumber("Elevator Total Output", motorOutput);
+        position = m_elevator_leader.getRotorPosition();
+        SmartDashboard.putNumber("RotorPosition", position.getValueAsDouble());
 
         if (topSensor.get() == false || bottomSensor.get() == false)
         {
@@ -127,4 +142,5 @@ public class ElevatorSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         // Add any telemetry or logging here
     }
+
 }
