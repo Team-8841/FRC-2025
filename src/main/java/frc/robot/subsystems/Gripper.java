@@ -34,7 +34,7 @@ public class Gripper extends SubsystemBase{
     private final TalonFX m_gripper_motor = new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID, GripperConstants.CANBUS_NAME);
     private final TalonFX m_wrist_motor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID, GripperConstants.CANBUS_NAME);
 
-    private DigitalInput coralSensor, algaeSensor;
+    private DigitalInput coralSensor, algaeSensor, homeSensor, rotatedSensor;
 
     private double wristSetPoint;
     private final NeutralOut m_brake = new NeutralOut();
@@ -54,6 +54,9 @@ public class Gripper extends SubsystemBase{
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
         algaeSensor = new DigitalInput(GripperConstants.ALGAE_SENSOR_PORT);
+
+        homeSensor = new DigitalInput(GripperConstants.HOME_SENSOR_PORT);
+        rotatedSensor = new DigitalInput(GripperConstants.ROT_SENSOR_PORT);
     }
 
     @Override
