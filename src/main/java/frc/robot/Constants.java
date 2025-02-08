@@ -50,6 +50,7 @@ public final class Constants {
 
     public static final int TRAVEL_ROT = 10; // Number of rotations to travel full distance
 
+    public static final double RAMP_UP = .1;
 
     //PID 
     public static final double PID_P = 0.4;
@@ -59,14 +60,15 @@ public final class Constants {
 
     // Predefined Positions
     // 98 IS ABSOLUTE TOP
-    public final double TOP_POS = 95;
-    public final double HIGH_POS = 69;
-    public final double MID_POS = 38.5;
-    public final double LOW_POS = 14.8;
-    public final double BOTTOM_POS = 5.0;
+    public static final double TOP_POS = 95;
+    public static final double HIGH_POS = 69;
+    public static final double MID_POS = 38.5;
+    public static final double LOW_POS = 14.8;
+    public static final double BOTTOM_POS = 5.0;
 
-    public final double MAX_POS = 98;
-    public final double MIN_POS = 0;
+    public static final double MAX_POS = 98.0;
+    public static final double MIN_POS = 0.0;
+
   }
 
   public static class OperatorConstants {
@@ -82,21 +84,32 @@ public final class Constants {
 
 
   public static final class GripperConstants { //TODO: change this one we figure out the canivore
+    public static final String CANBUS_NAME = "canivore";
     public static final int WRIST_MOTOR_CANID = 3;
     public static final int GRIPPER_MOTOR1_CANID = 4;
-    public static final int GRIPPER_MOTOR2_CANID = 5;
+    public static final int HOME_SENSOR_PORT = 5;
+    public static final int ROT_SENSOR_PORT = 6;
 
-    public static final double WRIST_ALLOWED_ERROR = 200; //TODO: Tune this value
+    public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
-    public static final double WRIST_P = 1;
+    public static final double WRIST_P = 0.1;
     public static final double WRIST_I = 0;
-    public static final double WRIST_D = 0;
+    public static final double WRIST_D = 0.01;
 
-    public static final int CORAL_SENSOR_PORT = 0; //TODO: Change this value
-    public static final int ALGAE_SENSOR_PORT = 1; //TODO: Change this value
+    public static final double RAMP_UP = 0.05;
+
+    public static final int CORAL_SENSOR_PORT = 2; //TODO: Change this value
+    public static final int ALGAE_SENSOR_PORT = 3; //TODO: Change this value
+
+    // 0 is Home (UP) and -86 is Down rotated clockwise as viewed from right side 
+    public static final double CLOSE_POS = -20.0;
+    public static final double MID_POS = -40.0;
+    public static final double FAR_POS = -80.0;
 
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;
+
+   
     
   }
 
