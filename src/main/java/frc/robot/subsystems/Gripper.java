@@ -60,13 +60,6 @@ public class Gripper extends SubsystemBase{
         rotatedSensor = new DigitalInput(GripperConstants.ROT_SENSOR_PORT);
     }
 
-    @Override
-    public void periodic() {
-        // Put your periodic code here, called once per scheduler run
-        SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
-        SmartDashboard.putNumber("Gripper Speed", gripperSpeed);
-    }
-
     public void setGripperSpeed(double speed) {
         m_gripper_motor.set(speed);
         gripperSpeed = speed;
@@ -101,4 +94,11 @@ public class Gripper extends SubsystemBase{
         return algaeSensor.get();
     }
     
+    @Override
+    public void periodic() {
+        // Put your periodic code here, called once per scheduler run
+        SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
+        SmartDashboard.putNumber("Gripper Speed", gripperSpeed);
+    }
+
 }
