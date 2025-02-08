@@ -90,6 +90,9 @@ public final class Constants {
 
     public static final int CORAL_SENSOR_PORT = 0; //TODO: Change this value
     public static final int ALGAE_SENSOR_PORT = 1; //TODO: Change this value
+
+    public static final int MIN_POS = 0;
+    public static final int MAX_POS = -86;
     
   }
 

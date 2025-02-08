@@ -49,12 +49,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   // Elevator Range is from 0 to -110. With -110 being fully extended up
   // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
-  private final double BOTTOM_POS = -5.0;
-  private final double LOW_POS = -10.0;
-  private final double MID_POS = -40.0;
-  private final double HIGH_POS = -70.0;
-  private final double TOP_POS = -115.0;
-  private double targetposition = BOTTOM_POS;
+  private double setPoint = -5.0;
+
+
 
   private int x = 0;
 
@@ -121,8 +118,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         if (targetposition > 0) {
             targetposition = targetposition * -1; // Invert because should never be positive
         }
+        setPoint = targetposition;
         m_elevator_follower.setControl(follower);
-        m_elevator_leader.setControl(new PositionDutyCycle(targetposition));
+        m_elevator_leader.setControl(new PositionDutyCycle(setPoint));
     }
 
     @Override
@@ -131,16 +129,13 @@ public class ElevatorSubsystem extends SubsystemBase {
         // For Testing
         // Display debugging information on the SmartDashboard
         position = m_elevator_leader.getRotorPosition();
-        SmartDashboard.putNumber("RotorPosition", position.getValueAsDouble());
-
+        m_elevator_leader.setControl(new PositionDutyCycle(setPoint));
+        SmartDashboard.putNumber("Elevator Encoder", position.getValueAsDouble());
+        SmartDashboard.putNumber("Elevator SetPoint", setPoint);
         if (topSensor.get() == false || bottomSensor.get() == false)
         {
             stopElevator();
         }
-        //motor1.
-
-        // This method will be called once per scheduler run
-        // Add any telemetry or logging here
     }
 
 }

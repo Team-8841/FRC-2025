@@ -36,7 +36,7 @@ public class Gripper extends SubsystemBase{
         wristConfig = new SparkMaxConfig();
 
         configureSparkMax(m_gripperMotor1, gripperConfig, false, IdleMode.kBrake, 20);
-        configureSparkMax(m_gripperMotor1, gripperConfig, true, IdleMode.kBrake, 20);
+        configureSparkMax(m_gripperMotor2, gripperConfig, true, IdleMode.kBrake, 20);
 
         configureSparkPID(m_wristMotor, wristConfig, false, IdleMode.kBrake, 1000, 1000, 
             FeedbackSensor.kPrimaryEncoder, GripperConstants.WRIST_P, GripperConstants.WRIST_I, GripperConstants.WRIST_D);
@@ -46,8 +46,6 @@ public class Gripper extends SubsystemBase{
         config.inverted(inverted);
         config.idleMode(idleMode);
         config.smartCurrentLimit(currentLimit);
-
-
         spark.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
@@ -75,8 +73,13 @@ public class Gripper extends SubsystemBase{
     }
 
     public void setWristPosition(double position) {
-        wristSetPoint = position;
-        m_wristMotor.set(position);
+        if (position > 0) {
+            position = position * -1; //Should always be negative
+        }
+        if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
+            wristSetPoint = position;
+            m_wristMotor.set(position);
+        }
     }
 
     public boolean wristAtPosition() {
