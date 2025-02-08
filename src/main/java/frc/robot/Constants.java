@@ -65,6 +65,9 @@ public final class Constants {
     public final double LOW_POS = 14.8;
     public final double BOTTOM_POS = 5.0;
 
+    public final double MAX_POS = 98;
+    public final double MIN_POS = 0;
+
   }
 
   public static class OperatorConstants {
