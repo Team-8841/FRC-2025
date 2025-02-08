@@ -1,5 +1,21 @@
 package frc.robot.subsystems;
 
+
+import edu.wpi.first.units.measure.Angle;
+
+import com.ctre.phoenix6.StatusCode;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.controls.CoastOut;
+import com.ctre.phoenix6.controls.ControlRequest;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -15,51 +31,29 @@ import frc.robot.Constants.GripperConstants;
 
 public class Gripper extends SubsystemBase{
 
-    private SparkMax m_gripperMotor1, m_gripperMotor2, m_wristMotor;
-    private SparkBaseConfig gripperConfig, wristConfig;
+    private final TalonFX m_gripper_motor = new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID, GripperConstants.CANBUS_NAME);
+    private final TalonFX m_wrist_motor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID, GripperConstants.CANBUS_NAME);
+
     private DigitalInput coralSensor, algaeSensor;
 
     private double wristSetPoint;
+    private final NeutralOut m_brake = new NeutralOut();
 
 
     public Gripper() {
-        m_gripperMotor1 = new SparkMax(GripperConstants.GRIPPER_MOTOR1_CANID, MotorType.kBrushless);
-        m_gripperMotor2 = new SparkMax(GripperConstants.GRIPPER_MOTOR2_CANID, MotorType.kBrushless);
-        m_wristMotor = new SparkMax(GripperConstants.WRIST_MOTOR_CANID, MotorType.kBrushless);
+        TalonFXConfiguration wristConfig =  new TalonFXConfiguration();
 
+        // Wrist Config
+        wristConfig.Slot0.kP = GripperConstants.WRIST_P;
+        wristConfig.Slot0.kI = GripperConstants.WRIST_I;
+        wristConfig.Slot0.kD = GripperConstants.WRIST_D;
+        wristConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = GripperConstants.RAMP_UP;
+        m_wrist_motor.getConfigurator().apply(wristConfig);
+        m_wrist_motor.setPosition(0);
         wristSetPoint = 0; // Start at neutral position
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
         algaeSensor = new DigitalInput(GripperConstants.ALGAE_SENSOR_PORT);
-
-        gripperConfig = new SparkMaxConfig();
-        wristConfig = new SparkMaxConfig();
-
-        configureSparkMax(m_gripperMotor1, gripperConfig, false, IdleMode.kBrake, 20);
-        configureSparkMax(m_gripperMotor2, gripperConfig, true, IdleMode.kBrake, 20);
-
-        configureSparkPID(m_wristMotor, wristConfig, false, IdleMode.kBrake, 1000, 1000, 
-            FeedbackSensor.kPrimaryEncoder, GripperConstants.WRIST_P, GripperConstants.WRIST_I, GripperConstants.WRIST_D);
-    }
-
-    private void configureSparkMax(SparkMax spark, SparkBaseConfig config, boolean inverted, IdleMode idleMode, int currentLimit) {
-        config.inverted(inverted);
-        config.idleMode(idleMode);
-        config.smartCurrentLimit(currentLimit);
-        spark.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
-
-    private void configureSparkPID(SparkMax spark, SparkBaseConfig config, boolean inverted, IdleMode idleMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
-        
-        config
-            .inverted(true)
-            .idleMode(idleMode);
-        config.encoder
-            .positionConversionFactor(positionConversionFactor) //1000
-            .velocityConversionFactor(velocityConversionFactor); //10000
-        config.closedLoop
-            .feedbackSensor(feedbackSensor) //FeedbackSensor.kPrimaryEncoder
-            .pid(p, i, d);
     }
 
     @Override
@@ -68,8 +62,12 @@ public class Gripper extends SubsystemBase{
     }
 
     public void setGripperSpeed(double speed) {
-        m_gripperMotor1.set(speed);
-        m_gripperMotor2.set(speed);
+        m_gripper_motor.set(speed);
+    }
+
+    public void stopGripper() {
+        m_gripper_motor.set(0);
+        m_gripper_motor.setControl(m_brake);
     }
 
     public void setWristPosition(double position) {
@@ -78,12 +76,12 @@ public class Gripper extends SubsystemBase{
         }
         if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
             wristSetPoint = position;
-            m_wristMotor.set(position);
+            m_wrist_motor.set(position);
         }
     }
 
     public boolean wristAtPosition() {
-        double currentPosition = m_wristMotor.getEncoder().getPosition();
+        double currentPosition = m_wrist_motor.getPosition().getValueAsDouble();
         return Math.abs(currentPosition - wristSetPoint) <= GripperConstants.WRIST_ALLOWED_ERROR;
     }
 
