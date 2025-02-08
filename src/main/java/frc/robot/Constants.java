@@ -61,14 +61,14 @@ public final class Constants {
 
     // Predefined Positions
     // 98 IS ABSOLUTE TOP
-    public final double TOP_POS = 95;
-    public final double HIGH_POS = 69;
-    public final double MID_POS = 38.5;
-    public final double LOW_POS = 14.8;
-    public final double BOTTOM_POS = 5.0;
+    public static final double TOP_POS = 95;
+    public static final double HIGH_POS = 69;
+    public static final double MID_POS = 38.5;
+    public static final double LOW_POS = 14.8;
+    public static final double BOTTOM_POS = 5.0;
 
-    public final double MAX_POS = 98.0;
-    public final double MIN_POS = 0.0;
+    public static final double MAX_POS = 98.0;
+    public static final double MIN_POS = 0.0;
 
   }
 
