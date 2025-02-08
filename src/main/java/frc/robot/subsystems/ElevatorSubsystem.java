@@ -102,7 +102,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         // For Testing
         // Display debugging information on the SmartDashboard
         position = m_elevator_leader.getRotorPosition();
-        m_elevator_leader.setControl(new PositionDutyCycle(setPoint));
         SmartDashboard.putNumber("Elevator Encoder", position.getValueAsDouble());
         SmartDashboard.putNumber("Elevator SetPoint", setPoint);
         if (topSensor.get() == false || bottomSensor.get() == false)

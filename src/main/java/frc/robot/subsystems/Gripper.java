@@ -24,6 +24,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,7 +37,7 @@ public class Gripper extends SubsystemBase{
 
     private DigitalInput coralSensor, algaeSensor, homeSensor, rotatedSensor;
 
-    private double wristSetPoint;
+    private double wristSetPoint, gripperSpeed;
     private final NeutralOut m_brake = new NeutralOut();
 
 
@@ -62,11 +63,13 @@ public class Gripper extends SubsystemBase{
     @Override
     public void periodic() {
         // Put your periodic code here, called once per scheduler run
-        setWristPosition(wristSetPoint);
+        SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
+        SmartDashboard.putNumber("Gripper Speed", gripperSpeed);
     }
 
     public void setGripperSpeed(double speed) {
         m_gripper_motor.set(speed);
+        gripperSpeed = speed;
     }
 
     public void stopGripper() {
