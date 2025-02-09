@@ -13,6 +13,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -38,8 +39,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
   private double setPoint = 5.0; 
 
-  private static DigitalInput topSensor;
-  private static DigitalInput bottomSensor; 
+  private static DigitalInput topSensor = new DigitalInput(ElevatorConstants.DIO_TOPSENSOR);
+  private static DigitalInput bottomSensor = new DigitalInput(ElevatorConstants.DIO_BOTTOMSENSOR); 
 
   private ControlRequest follower;
 
@@ -62,15 +63,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         m_elevator_leader.setPosition(0);
     }
 
-    /**
-     * Sets the elevator position using feedforward control.
-     * @param velocity The desired velocity of the elevator in meters per second.
-     * @param acceleration The desired acceleration of the elevator in meters per second squared.
-     */
-
-    /**
-     * Stops the elevator.
-     */
     public void stopElevator() {
         m_elevator_leader.setControl(StopMotor);
         m_elevator_follower.setControl(StopMotor);
@@ -94,6 +86,10 @@ public class ElevatorSubsystem extends SubsystemBase {
             m_elevator_follower.setControl(follower);
             m_elevator_leader.setControl(new PositionDutyCycle(setPoint));
         }
+    }
+
+    public void driveElevator(double speed){
+        //m_elevator_leader.setControl(Voltage);
     }
 
     @Override

@@ -60,25 +60,68 @@ public final class Constants {
 
     // Predefined Positions
     // 98 IS ABSOLUTE TOP
-    public static final double TOP_POS = 95;
-    public static final double HIGH_POS = 69;
-    public static final double MID_POS = 38.5;
-    public static final double LOW_POS = 14.8;
-    public static final double BOTTOM_POS = 5.0;
+    //public static final double TOP_POS = 95;
+    //public static final double HIGH_POS = 69;
+    //public static final double MID_POS = 38.5;
+    //public static final double LOW_POS = 14.8;
+    //public static final double BOTTOM_POS = 5.0;
 
     public static final double MAX_POS = 98.0;
     public static final double MIN_POS = 0.0;
 
   }
 
+  public static final class SetpointConstants { //TODO: Update these values
+    // Positions for each elevator and wrist position
+    // Setup as an array of {Elevator Position, Wrist Position}
+    public static final double[] CoralL1 = {14.8, 10}; // 14.8
+    public static final double[] CoralL2 = {38.5, 20}; // 38.5
+    public static final double[] CoralL3 = {69, 30}; //69
+    public static final double[] CoralL4 = {95, 40}; //95
+
+    public static final double[] AlgaeL1 = {14.8, 10};
+    public static final double[] AlgaeL2 = {38.5, 20};
+    public static final double[] AlgaeL3 = {69, 30};
+    public static final double[] AlgaeL4 = {195, 40};
+    
+
+    public static final double[] startingConfiguration = {0, 0};
+    public static final double[] groundPickup = {5, 10};
+    public static final double[] feederStation = {20, 0};
+  
+  }
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kCoPilotControllerPort = 1;
       
   // Joystick Deadband
     public static final double DEADBAND        = 0.1;
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
+
+
+
+
+    public static final int CoralL1 = 1; //Button 1
+    public static final int CoralL2 = 2; //Button 2
+    public static final int CoralL3 = 3; //Button 3
+    public static final int CoralL4 = 4; //Button 4
+
+    public static final int AlgaeL1 = 5; //Button 5
+    public static final int AlgaeL2 = 6; //Button 6
+    public static final int AlgaeL3 = 7; //Button 7
+    public static final int AlgaeL4 = 8; //Button 8
+
+    public static final int groundPickup = 9;
+    public static final int feederStation = 10;
+
+    public static final int IntakeIn = 11;
+    public static final int IntakeOut = 12;
+
+    public static final int ElevatorLock = 13;
+    public static final int ManualOverride = 14;
   }
 
 
