@@ -30,6 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /* Start at position 0, use slot 0 */
   /* Keep a brake request so we can disable the motor */
   private final CoastOut m_coast = new CoastOut();
+  //private final CoastOut m_brake = new BrakeOut();
 
   private final TalonFX m_elevator_leader= new TalonFX(ElevatorConstants.M1_CANID, ElevatorConstants.CANBUS_NAME);
   private final TalonFX m_elevator_follower = new TalonFX(ElevatorConstants.M2_CANID, ElevatorConstants.CANBUS_NAME);
@@ -54,6 +55,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             leaderConfig.Slot0.kD = ElevatorConstants.PID_D; // Derivative gain
             leaderConfig.Feedback.SensorToMechanismRatio = 1.0; // 1:1 ratio for simplicity
             leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ElevatorConstants.RAMP_UP; // In seconds to ramp up to 100
+
             m_elevator_leader.getConfigurator().apply(leaderConfig);
         
         follower = new Follower(m_elevator_leader.getDeviceID(), true); // Inverted Follower

@@ -150,7 +150,6 @@ public class RobotContainer {
     m_driverController.leftBumper().whileTrue(new MoveToSetpoint(elevator, m_Gripper, SetpointConstants.groundPickup));
     m_driverController.rightBumper().whileTrue(Commands.none());
 
-
     m_copilotController.button(OperatorConstants.CoralL1).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL1));
     m_copilotController.button(OperatorConstants.CoralL2).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL2));
     m_copilotController.button(OperatorConstants.CoralL3).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL3));

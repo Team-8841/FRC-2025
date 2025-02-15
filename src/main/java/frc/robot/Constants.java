@@ -128,8 +128,8 @@ public final class Constants {
 
   public static final class GripperConstants { //TODO: change this one we figure out the canivore
     public static final String CANBUS_NAME = "canivore";
-    public static final int WRIST_MOTOR_CANID = 3;
-    public static final int GRIPPER_MOTOR1_CANID = 4;
+    public static final int WRIST_MOTOR_CANID = 19;
+    public static final int GRIPPER_MOTOR1_CANID = 20;
     public static final int HOME_SENSOR_PORT = 5;
     public static final int ROT_SENSOR_PORT = 6;
 
