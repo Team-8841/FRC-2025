@@ -161,6 +161,9 @@ public final class Constants {
     public static final int CLIMBER_FOLLOWER_CANID = 22;
     public static final String Climber_BUS = "canivore";
 
+    public static final int HOME_SENSOR_PORT = 6;
+    public static final int DEPLOYED_SENSOR_PORT = 7;
+
     public static final double CLIMBER_KP = 0.01;
     public static final double CLIMBER_KI = 0.0;
     public static final double CLIMBER_KD = 0.0;
