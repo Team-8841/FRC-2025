@@ -159,7 +159,17 @@ public final class Constants {
   public static final class ClimberConstants {
     public static final int CLIMBER_MAIN_CANID = 21;
     public static final int CLIMBER_FOLLOWER_CANID = 22;
-    public static final String CANDLE_BUS = "canivore";
+    public static final String Climber_BUS = "canivore";
+
+    public static final double CLIMBER_KP = 0.01;
+    public static final double CLIMBER_KI = 0.0;
+    public static final double CLIMBER_KD = 0.0;
+    public static final double CLIMBER_MAX_OUTPUT = 0.5;
+    public static final double CLIMBER_RAMPUP =  0.1;
+
+
+    public static final double CLIMBER_DEPLOY_POSITION = 0.0;
+    public static final double CLIMBER_RETRACT_POSITION = 0.0;
   }
 
   public static final class LightingConstants { 

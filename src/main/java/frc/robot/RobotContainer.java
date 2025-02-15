@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SetpointConstants;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,9 +27,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Climber.MoveClimberToPosition;
 import frc.robot.commands.Elevator.MoveToSetpoint;
 import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -54,6 +57,7 @@ public class RobotContainer {
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
+  private final Climber m_Climber = new Climber();
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.LEFT_Y_DEADBAND),
@@ -133,8 +137,8 @@ public class RobotContainer {
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
     m_driverController.b().whileTrue(drivebase.sysIdDriveMotorCommand());
-    m_driverController.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-    m_driverController.y().whileTrue(Commands.none());
+    m_driverController.x().whileTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_RETRACT_POSITION));
+    m_driverController.y().whileTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_DEPLOY_POSITION));
     m_driverController.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.back().whileTrue(drivebase.centerModulesCommand());
     m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
