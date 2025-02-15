@@ -160,6 +160,9 @@ public final class Constants {
     public static final int CLIMBER_MAIN_CANID = 21;
     public static final int CLIMBER_FOLLOWER_CANID = 22;
     public static final String CANDLE_BUS = "canivore";
+
+    public static final int HOME_SENSOR = 6;
+    public static final int DEPLOYED_SENSOR = 7;
   }
 
   public static final class LightingConstants { 
