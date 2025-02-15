@@ -164,16 +164,18 @@ public final class Constants {
     public static final int HOME_SENSOR_PORT = 6;
     public static final int DEPLOYED_SENSOR_PORT = 7;
 
-    public static final double CLIMBER_KP = 1.0;
+    public static final double CLIMBER_KP = .5;
     public static final double CLIMBER_KI = 0.0;
-    public static final double CLIMBER_KD = 0.1;
+    public static final double CLIMBER_KD = 0.01;
     public static final double CLIMBER_MAX_OUTPUT = 0.5;
-    public static final double CLIMBER_RAMPUP =  0.1;
+    public static final double CLIMBER_RAMPUP =  0.05;
 
 
-    public static final double CLIMBER_DEPLOY_POSITION = 20.0; // Gets corrected to negative in code
-    public static final double CLIMBER_RETRACT_POSITION = 0.0;
-    public static final double MAX_POS = 512.0;
+    public static final double CLIMBER_DEPLOY_POSITION = 190.0; // Gets corrected to negative in code
+    public static final double CLIMBER_RETRACT_POSITION = 60.0;
+    public static final double CLIMBER_HOME_POSITION = 0.0;
+
+    public static final double MAX_POS = -200.0;
     public static final double MIN_POS = 0;
   }
 

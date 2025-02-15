@@ -9,21 +9,27 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.Constants.ElevatorConstants;
 
 public class Climber extends SubsystemBase{
 
     private TalonFX m_climberMain = new TalonFX(ClimberConstants.CLIMBER_MAIN_CANID, ClimberConstants.Climber_BUS);
     private TalonFX m_climberFollower = new TalonFX(ClimberConstants.CLIMBER_FOLLOWER_CANID, ClimberConstants.Climber_BUS);
 
+
     private ControlRequest follower;
 
     private DutyCycleOut stopMotor = new DutyCycleOut(0);
 
     private double setPoint = 0;
+
+    private static DigitalInput stopSensor = new DigitalInput(ClimberConstants.DEPLOYED_SENSOR_PORT);
+    private static DigitalInput homeSensor = new DigitalInput(ClimberConstants.HOME_SENSOR_PORT);
 
 
 
@@ -40,19 +46,24 @@ public class Climber extends SubsystemBase{
 
         follower = new Follower(m_climberMain.getDeviceID(), true); // Inverted Follower
         m_climberFollower.setControl(follower);
+        m_climberMain.setPosition(0);
     }
 
     public void stopClimber() {
-        m_climberMain.setControl(stopMotor);
-        m_climberFollower.setControl(stopMotor);
+        m_climberMain.set(0);
+        m_climberFollower.set(0);
+        //m_climberMain.setControl(stopMotor);
+        //m_climberFollower.setControl(stopMotor);
     }
 
     public void setClimberPosition(double targetposition)
     {
+        //TODO: Validate Elevator position 
         if (targetposition > 0)
         {
             targetposition = targetposition * -1;
         }
+        if (targetposition > ClimberConstants.MAX_POS && targetposition <= ClimberConstants.MIN_POS)
             setPoint = targetposition;
             m_climberMain.setControl(new PositionVoltage(setPoint));
             m_climberFollower.setControl(follower);  
@@ -62,6 +73,13 @@ public class Climber extends SubsystemBase{
     public void periodic() {
         SmartDashboard.putNumber("Climber Encoder", m_climberMain.getRotorPosition().getValueAsDouble());
         SmartDashboard.putNumber("Climber SetPoint", setPoint);
+        SmartDashboard.putBoolean("Climber Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("Climber Overrun Sensor", stopSensor.get());
+
+        if (stopSensor.get () == false)
+        {
+            stopClimber();
+        }
     }
     
 }

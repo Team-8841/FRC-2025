@@ -144,7 +144,7 @@ public class RobotContainer {
     m_driverController.rightBumper().onTrue(Commands.none());
     } else
     {
-    m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    m_driverController.a().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_HOME_POSITION));
     m_driverController.x().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_RETRACT_POSITION));
     m_driverController.y().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_DEPLOY_POSITION));
     m_driverController.b().onTrue(Commands.none());
