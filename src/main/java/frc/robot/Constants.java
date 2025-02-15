@@ -139,7 +139,7 @@ public final class Constants {
     public static final double WRIST_I = 0;
     public static final double WRIST_D = 0.01;
 
-    public static final double RAMP_UP = 0.05;
+    public static final double RAMP_UP = .1;
 
     public static final int CORAL_SENSOR_PORT = 2; //TODO: Change this value
     public static final int ALGAE_SENSOR_PORT = 3; //TODO: Change this value

@@ -102,6 +102,7 @@ public class Gripper extends SubsystemBase{
         SmartDashboard.putNumber("[Gripper]: Position", m_gripper_motor.getPosition().getValueAsDouble());
          SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
+        SmartDashboard.putNumber("Writs Position", m_wrist_motor.getPosition().getValueAsDouble());
     }
 
 }

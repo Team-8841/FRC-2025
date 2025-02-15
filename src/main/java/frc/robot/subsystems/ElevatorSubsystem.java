@@ -30,6 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /* Start at position 0, use slot 0 */
   /* Keep a brake request so we can disable the motor */
   private final CoastOut m_coast = new CoastOut();
+
   //private final CoastOut m_brake = new BrakeOut();
 
   private final TalonFX m_elevator_leader= new TalonFX(ElevatorConstants.M1_CANID, ElevatorConstants.CANBUS_NAME);
