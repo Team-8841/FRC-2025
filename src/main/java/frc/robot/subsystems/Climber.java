@@ -5,6 +5,7 @@ import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -12,7 +13,6 @@ import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
-import frc.robot.Constants.ElevatorConstants;
 
 public class Climber extends SubsystemBase{
 
@@ -27,7 +27,7 @@ public class Climber extends SubsystemBase{
 
 
 
-    public void Climber() {
+    public Climber() {
         TalonFXConfiguration m_leaderConfig = new TalonFXConfiguration();
         m_leaderConfig.Slot0.kP = ClimberConstants.CLIMBER_KP;
         m_leaderConfig.Slot0.kI = ClimberConstants.CLIMBER_KI;
@@ -47,13 +47,15 @@ public class Climber extends SubsystemBase{
         m_climberFollower.setControl(stopMotor);
     }
 
-        public void setClimberPosition(double targetposition)
+    public void setClimberPosition(double targetposition)
     {
-        if (targetposition > ElevatorConstants.MIN_POS && targetposition < ElevatorConstants.MAX_POS) {
-            setPoint = targetposition;
-            m_climberFollower.setControl(follower);
-            m_climberFollower.setControl(new PositionDutyCycle(setPoint));
+        if (targetposition > 0)
+        {
+            targetposition = targetposition * -1;
         }
+            setPoint = targetposition;
+            m_climberMain.setControl(new PositionVoltage(setPoint));
+            m_climberFollower.setControl(follower);  
     }
 
     @Override

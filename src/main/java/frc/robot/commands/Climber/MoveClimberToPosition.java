@@ -9,10 +9,10 @@ public class MoveClimberToPosition extends Command {
     double m_target;
 
     public MoveClimberToPosition(Climber climber, double target) {
-        m_Climber = climber;
-        m_target = target;
+        this.m_Climber = climber;
+        this.m_target = target;
 
-        this.addRequirements(m_Climber);
+        this.addRequirements(climber);
     }
 
     @Override

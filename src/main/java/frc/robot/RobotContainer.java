@@ -137,8 +137,7 @@ public class RobotContainer {
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
     m_driverController.b().whileTrue(drivebase.sysIdDriveMotorCommand());
-    m_driverController.x().whileTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_RETRACT_POSITION));
-    m_driverController.y().whileTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_DEPLOY_POSITION));
+
     m_driverController.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.back().whileTrue(drivebase.centerModulesCommand());
     m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
@@ -146,9 +145,9 @@ public class RobotContainer {
     } else
     {
     m_driverController.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-    m_driverController.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+    m_driverController.x().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_RETRACT_POSITION));
+    m_driverController.y().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_DEPLOY_POSITION));
     m_driverController.b().onTrue(Commands.none());
-    m_driverController.y().whileTrue(Commands.none());
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
     m_driverController.leftBumper().whileTrue(new MoveToSetpoint(elevator, m_Gripper, SetpointConstants.groundPickup));
@@ -165,7 +164,7 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
 
     m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new RunCommand( () -> {
-      m_Gripper.setGripperSpeed(-1);
+      m_Gripper.setGripperSpeed(-.75);
     }, m_Gripper)).onFalse(new InstantCommand(() -> {
       m_Gripper.setGripperSpeed(0);
     }));
