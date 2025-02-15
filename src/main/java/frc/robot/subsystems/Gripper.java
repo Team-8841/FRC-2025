@@ -40,6 +40,10 @@ public class Gripper extends SubsystemBase{
     private double wristSetPoint, gripperSpeed;
     private final NeutralOut m_brake = new NeutralOut();
 
+    private final DutyCycleOut StopMotor = new DutyCycleOut(0);
+
+    private boolean getoffsensor = false;
+
 
     public Gripper() {
         TalonFXConfiguration wristConfig =  new TalonFXConfiguration();
@@ -77,6 +81,10 @@ public class Gripper extends SubsystemBase{
         }
         if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
             wristSetPoint = position;
+            if (homeSensor.get() == false) // Home sensor is triggered 
+            {
+                getoffsensor = true; // Set variable to allow to leave home
+            }
             m_wrist_motor.setControl(new PositionDutyCycle(wristSetPoint));
         }
     }
@@ -96,6 +104,17 @@ public class Gripper extends SubsystemBase{
     
     @Override
     public void periodic() {
+        if (homeSensor.get() == false || rotatedSensor.get() == false) {
+            if (getoffsensor == false) {
+                m_wrist_motor.setControl(StopMotor);
+            }   
+        }
+
+        if (homeSensor.get() == true && getoffsensor == true)
+        {
+            getoffsensor = false;
+        }
+
         // Put your periodic code here, called once per scheduler run
         SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
         SmartDashboard.putNumber("Gripper Speed", gripperSpeed);
@@ -103,9 +122,7 @@ public class Gripper extends SubsystemBase{
          SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
         SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
-
-        if homeSensor
-
-    }
+        SmartDashboard.putBoolean("Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("Rotated Sensor", rotatedSensor.get());    }
 
 }
