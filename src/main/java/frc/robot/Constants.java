@@ -130,8 +130,8 @@ public final class Constants {
     public static final String CANBUS_NAME = "canivore";
     public static final int WRIST_MOTOR_CANID = 19;
     public static final int GRIPPER_MOTOR1_CANID = 20;
-    public static final int HOME_SENSOR_PORT = 5;
-    public static final int ROT_SENSOR_PORT = 6;
+    public static final int HOME_SENSOR_PORT = 4;
+    public static final int ROT_SENSOR_PORT = 5;
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
