@@ -77,7 +77,7 @@ public class Gripper extends SubsystemBase{
         }
         if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
             wristSetPoint = position;
-            m_wrist_motor.set(position);
+            m_wrist_motor.setControl(new PositionDutyCycle(wristSetPoint));
         }
     }
 
@@ -102,7 +102,7 @@ public class Gripper extends SubsystemBase{
         SmartDashboard.putNumber("[Gripper]: Position", m_gripper_motor.getPosition().getValueAsDouble());
          SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
-        SmartDashboard.putNumber("Writs Position", m_wrist_motor.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
     }
 
 }

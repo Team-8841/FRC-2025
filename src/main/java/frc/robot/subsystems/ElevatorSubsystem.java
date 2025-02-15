@@ -17,6 +17,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.DutyCycleOut;
@@ -55,6 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             leaderConfig.Slot0.kI = ElevatorConstants.PID_I; // Integral gain
             leaderConfig.Slot0.kD = ElevatorConstants.PID_D; // Derivative gain
             leaderConfig.Feedback.SensorToMechanismRatio = 1.0; // 1:1 ratio for simplicity
+            leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ElevatorConstants.RAMP_UP; // In seconds to ramp up to 100
 
             m_elevator_leader.getConfigurator().apply(leaderConfig);
@@ -101,7 +103,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         // For Testing
         // Display debugging information on the SmartDashboard
         position = m_elevator_leader.getRotorPosition();
-        SmartDashboard.putNumber("Elevator Encoder", position.getValueAsDouble());
+        SmartDashboard.putNumber("Elevator Position", position.getValueAsDouble());
         SmartDashboard.putNumber("Elevator SetPoint", setPoint);
         if (topSensor.get() == false || bottomSensor.get() == false)
         {

@@ -51,7 +51,7 @@ public class RobotContainer {
   /* --------------------- SWERVE INIT ---------------------------- */
 
   // Change to correct drive base configuration 
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve/falcon"));
+  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve/modules"));
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
 
