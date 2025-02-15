@@ -74,9 +74,9 @@ public final class Constants {
   public static final class SetpointConstants { //TODO: Update these values
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position}
-    public static final double[] CoralL1 = {14.8, 10}; // 14.8
-    public static final double[] CoralL2 = {38.5, 80}; // 38.5
-    public static final double[] CoralL3 = {69, 500}; //69
+    public static final double[] CoralL1 = {14.8, 10000}; // 14.8
+    public static final double[] CoralL2 = {38.5,10000}; // 38.5
+    public static final double[] CoralL3 = {69, 100000}; //69
     public static final double[] CoralL4 = {95, 100000}; //95
 
     public static final double[] AlgaeL1 = {14.8, 10};
@@ -130,8 +130,8 @@ public final class Constants {
     public static final String CANBUS_NAME = "canivore";
     public static final int WRIST_MOTOR_CANID = 19;
     public static final int GRIPPER_MOTOR1_CANID = 20;
-    public static final int HOME_SENSOR_PORT = 5;
-    public static final int ROT_SENSOR_PORT = 6;
+    public static final int HOME_SENSOR_PORT = 4;
+    public static final int ROT_SENSOR_PORT = 5;
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
