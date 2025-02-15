@@ -51,7 +51,7 @@ public class RobotContainer {
   /* --------------------- SWERVE INIT ---------------------------- */
 
   // Change to correct drive base configuration 
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve/modules"));
+  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
 
@@ -137,7 +137,7 @@ public class RobotContainer {
     m_driverController.y().whileTrue(Commands.none());
     m_driverController.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     m_driverController.back().whileTrue(drivebase.centerModulesCommand());
-    m_driverController.leftBumper().onTrue(Commands.none());
+    m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
     m_driverController.rightBumper().onTrue(Commands.none());
     } else
     {
@@ -161,7 +161,12 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
 
     m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new RunCommand( () -> {
-      m_Gripper.setGripperSpeed(0.5);
+      m_Gripper.setGripperSpeed(-1);
+    }, m_Gripper)).onFalse(new InstantCommand(() -> {
+      m_Gripper.setGripperSpeed(0);
+    }));
+    m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new RunCommand( () -> {
+      m_Gripper.setGripperSpeed(0.75);
     }, m_Gripper)).onFalse(new InstantCommand(() -> {
       m_Gripper.setGripperSpeed(0);
     }));

@@ -75,9 +75,9 @@ public final class Constants {
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position}
     public static final double[] CoralL1 = {14.8, 10}; // 14.8
-    public static final double[] CoralL2 = {38.5, 20}; // 38.5
-    public static final double[] CoralL3 = {69, 30}; //69
-    public static final double[] CoralL4 = {95, 40}; //95
+    public static final double[] CoralL2 = {38.5, 80}; // 38.5
+    public static final double[] CoralL3 = {69, 500}; //69
+    public static final double[] CoralL4 = {95, 100000}; //95
 
     public static final double[] AlgaeL1 = {14.8, 10};
     public static final double[] AlgaeL2 = {38.5, 20};
@@ -85,7 +85,7 @@ public final class Constants {
     public static final double[] AlgaeL4 = {195, 40};
     
 
-    public static final double[] startingConfiguration = {0, 0};
+    public static final double[] startingConfiguration = {2, 2};
     public static final double[] groundPickup = {5, 10};
     public static final double[] feederStation = {20, 0};
   

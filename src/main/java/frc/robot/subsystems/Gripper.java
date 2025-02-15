@@ -103,6 +103,9 @@ public class Gripper extends SubsystemBase{
          SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
         SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
+
+        if homeSensor
+
     }
 
 }
