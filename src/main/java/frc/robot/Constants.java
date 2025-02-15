@@ -156,8 +156,14 @@ public final class Constants {
     
   }
 
-  public static final class LightingConstants { 
-    public static final int CANDLE_CANID = 0; //TODO: Change this value
+  public static final class ClimberConstants {
+    public static final int CLIMBER_MAIN_CANID = 21;
+    public static final int CLIMBER_FOLLOWER_CANID = 22;
     public static final String CANDLE_BUS = "canivore";
+  }
+
+  public static final class LightingConstants { 
+    public static final int CANDLE_CANID = 23; //TODO: Change this value
+    public static final String CANDLE_BUS = "rio";
   }
 }
