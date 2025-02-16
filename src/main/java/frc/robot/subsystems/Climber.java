@@ -77,11 +77,11 @@ public class Climber extends SubsystemBase{
 
 
     public boolean getInSensor() {
-        return homeSensor.get();
+        return !homeSensor.get();
     }
 
     public boolean getOutSensorO() {
-        return stopSensor.get();
+        return !stopSensor.get();
     }
 
     @Override

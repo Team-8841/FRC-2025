@@ -20,9 +20,9 @@ public class DriveClimberWithJoystick extends Command {
 
     @Override
     public void execute() {
-        if(m_input > 0.3) {
+        if(m_input > 0.3 && !m_outSensor) {
             m_Climber.driveClimber(-0.3);
-          }else if(m_input < -0.3) {
+          }else if(m_input < -0.3 && !m_inSensor) {
             m_Climber.driveClimber(0.3);
           } else {
             m_Climber.driveClimber(0);

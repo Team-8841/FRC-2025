@@ -37,7 +37,7 @@ public class Gripper extends SubsystemBase{
 
     private DigitalInput coralSensor, algaeSensor, homeSensor, rotatedSensor;
 
-    private double wristSetPoint, gripperSpeed;
+    private double wristSetPoint;
     private final NeutralOut m_brake = new NeutralOut();
 
     private final DutyCycleOut StopMotor = new DutyCycleOut(0);
@@ -52,7 +52,7 @@ public class Gripper extends SubsystemBase{
         wristConfig.Slot0.kP = GripperConstants.WRIST_P;
         wristConfig.Slot0.kI = GripperConstants.WRIST_I;
         wristConfig.Slot0.kD = GripperConstants.WRIST_D;
-        
+
         wristConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = GripperConstants.RAMP_UP;
         m_wrist_motor.getConfigurator().apply(wristConfig);
         m_wrist_motor.setPosition(0);
@@ -67,7 +67,6 @@ public class Gripper extends SubsystemBase{
 
     public void setGripperSpeed(double speed) {
         m_gripper_motor.set(speed);
-        gripperSpeed = speed;
     }
 
     public void stopGripper() {
@@ -96,11 +95,11 @@ public class Gripper extends SubsystemBase{
     }
 
     public boolean isCoralDetected() {
-        return coralSensor.get();
+        return !coralSensor.get();
     }
 
     public boolean isAlgaeDetected() {
-        return algaeSensor.get();
+        return !algaeSensor.get();
     }
     
     @Override
@@ -118,7 +117,6 @@ public class Gripper extends SubsystemBase{
 
         // Put your periodic code here, called once per scheduler run
         SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
-        SmartDashboard.putNumber("Gripper Speed", gripperSpeed);
         SmartDashboard.putNumber("[Gripper]: Position", m_gripper_motor.getPosition().getValueAsDouble());
          SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());

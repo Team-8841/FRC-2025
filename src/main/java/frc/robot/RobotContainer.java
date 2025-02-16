@@ -165,16 +165,10 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.AlgaeL3).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL3));
     m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
 
-    m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new RunCommand( () -> {
-      m_Gripper.setGripperSpeed(-.75);
-    }, m_Gripper)).onFalse(new InstantCommand(() -> {
-      m_Gripper.setGripperSpeed(0);
-    }));
-    m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new RunCommand( () -> {
-      m_Gripper.setGripperSpeed(0.75);
-    }, m_Gripper)).onFalse(new InstantCommand(() -> {
-      m_Gripper.setGripperSpeed(0);
-    }));
+    m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new IntakeSensorControl(true, false, m_Gripper.isCoralDetected(), m_Gripper.isAlgaeDetected(), m_Gripper))
+      .onFalse(new IntakeSensorControl(false, false, m_Gripper.isCoralDetected(), m_Gripper.isAlgaeDetected(), m_Gripper));
+    m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(false, true, m_Gripper.isCoralDetected(), m_Gripper.isAlgaeDetected(), m_Gripper))
+      .onFalse(new IntakeSensorControl(false, false, m_Gripper.isCoralDetected(), m_Gripper.isAlgaeDetected(), m_Gripper));
 
 
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController.getRawAxis(OperatorConstants.WristjoystickY), m_Climber.getOutSensorO(), m_Climber.getInSensor(), m_Climber));

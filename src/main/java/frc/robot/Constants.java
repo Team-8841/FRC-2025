@@ -136,6 +136,7 @@ public final class Constants {
     public static final String CANBUS_NAME = "canivore";
     public static final int WRIST_MOTOR_CANID = 19;
     public static final int GRIPPER_MOTOR1_CANID = 20;
+
     public static final int HOME_SENSOR_PORT = 4;
     public static final int ROT_SENSOR_PORT = 5;
 
@@ -158,7 +159,8 @@ public final class Constants {
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;
 
-   
+   public static final double IntakeInSpeed = 1;
+   public static final double IntakeOutSpeed = -1;
     
   }
 
