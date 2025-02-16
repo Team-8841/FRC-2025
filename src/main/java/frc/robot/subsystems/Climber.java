@@ -69,6 +69,21 @@ public class Climber extends SubsystemBase{
             m_climberFollower.setControl(follower);  
     }
 
+    public void driveClimber(double speed){
+        m_climberMain.setControl(new DutyCycleOut(speed));
+        m_climberFollower.setControl(follower);
+        
+    }
+
+
+    public boolean getInSensor() {
+        return homeSensor.get();
+    }
+
+    public boolean getOutSensorO() {
+        return stopSensor.get();
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Encoder", m_climberMain.getRotorPosition().getValueAsDouble());

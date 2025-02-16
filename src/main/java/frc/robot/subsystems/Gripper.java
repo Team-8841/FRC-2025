@@ -52,6 +52,7 @@ public class Gripper extends SubsystemBase{
         wristConfig.Slot0.kP = GripperConstants.WRIST_P;
         wristConfig.Slot0.kI = GripperConstants.WRIST_I;
         wristConfig.Slot0.kD = GripperConstants.WRIST_D;
+        
         wristConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = GripperConstants.RAMP_UP;
         m_wrist_motor.getConfigurator().apply(wristConfig);
         m_wrist_motor.setPosition(0);

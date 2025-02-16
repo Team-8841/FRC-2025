@@ -73,21 +73,21 @@ public final class Constants {
 
   public static final class SetpointConstants { //TODO: Update these values
     // Positions for each elevator and wrist position
-    // Setup as an array of {Elevator Position, Wrist Position}
-    public static final double[] CoralL1 = {14.8, 10000}; // 14.8
-    public static final double[] CoralL2 = {38.5,10000}; // 38.5
-    public static final double[] CoralL3 = {69, 100000}; //69
-    public static final double[] CoralL4 = {95, 100000}; //95
+    // Setup as an array of {Elevator Position, Wrist Position} 
+    public static final double[] CoralL1 = {13, 31};  //13, 31 Reef L1
+    public static final double[] CoralL2 = {26, 40};  //26, 40 Reef L2 
+    public static final double[] CoralL3 = {52, 40};  //52, 40 Reef L3
+    public static final double[] CoralL4 = {95, 47};  //95, 47 Reef L4
 
-    public static final double[] AlgaeL1 = {14.8, 10};
-    public static final double[] AlgaeL2 = {38.5, 20};
-    public static final double[] AlgaeL3 = {69, 30};
-    public static final double[] AlgaeL4 = {195, 40};
+    public static final double[] AlgaeL1 = {2, 36};   // 2, 36    processing station
+    public static final double[] AlgaeL2 = {38, 36};  //38, 36    Reef Algae L2
+    public static final double[] AlgaeL3 = {62, 36};  //62, 36    Reef Algae L3
+    public static final double[] AlgaeL4 = {95, 20};  //95, 20    Barge Shot
     
 
-    public static final double[] startingConfiguration = {2, 2};
-    public static final double[] groundPickup = {5, 10};
-    public static final double[] feederStation = {20, 0};
+    public static final double[] startingConfiguration = {2, 2};  //2, 2
+    public static final double[] groundPickup = {5, 10};          //2, 46
+    public static final double[] feederStation = {20, 0};         //22 10
   
   }
 
@@ -122,6 +122,12 @@ public final class Constants {
 
     public static final int ElevatorLock = 13;
     public static final int ManualOverride = 14;
+
+    public static final int WristjoystickX = 0;
+    public static final int WristjoystickY = 1;
+
+    public static final int ElevatorjoystickY = 2;
+    public static final int ElevatorjoystickX = 3; 
   }
 
 

@@ -56,7 +56,8 @@ public class ElevatorSubsystem extends SubsystemBase {
             leaderConfig.Slot0.kI = ElevatorConstants.PID_I; // Integral gain
             leaderConfig.Slot0.kD = ElevatorConstants.PID_D; // Derivative gain
             leaderConfig.Feedback.SensorToMechanismRatio = 1.0; // 1:1 ratio for simplicity
-            leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+            //leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ElevatorConstants.RAMP_UP; // In seconds to ramp up to 100
 
             m_elevator_leader.getConfigurator().apply(leaderConfig);

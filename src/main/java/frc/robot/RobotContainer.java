@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -27,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Climber.DriveClimberWithJoystick;
 import frc.robot.commands.Climber.MoveClimberToPosition;
 import frc.robot.commands.Elevator.MoveToSetpoint;
 import frc.robot.commands.Gripper.IntakeSensorControl;
@@ -144,9 +146,9 @@ public class RobotContainer {
     m_driverController.rightBumper().onTrue(Commands.none());
     } else
     {
-    m_driverController.a().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_HOME_POSITION));
-    m_driverController.x().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_RETRACT_POSITION));
-    m_driverController.y().onTrue(new MoveClimberToPosition(m_Climber, ClimberConstants.CLIMBER_DEPLOY_POSITION));
+    m_driverController.a().onTrue(Commands.none());
+    m_driverController.x().onTrue(Commands.none());
+    m_driverController.y().onTrue(Commands.none());
     m_driverController.b().onTrue(Commands.none());
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
@@ -173,6 +175,9 @@ public class RobotContainer {
     }, m_Gripper)).onFalse(new InstantCommand(() -> {
       m_Gripper.setGripperSpeed(0);
     }));
+
+
+    m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController.getRawAxis(OperatorConstants.WristjoystickY), m_Climber.getOutSensorO(), m_Climber.getInSensor(), m_Climber));
     //m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new IntakeSensorControl(m_Gripper, 0.5)).onFalse(new IntakeSensorControl(m_Gripper, 0));
     //m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(m_Gripper, -0.5)).onFalse(new IntakeSensorControl(m_Gripper, 0));
 
