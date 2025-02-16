@@ -53,7 +53,7 @@ public final class Constants {
     public static final double RAMP_UP = .1;
 
     //PID 
-    public static final double PID_P = 0.4;
+    public static final double PID_P = 0.3;
     public static final double PID_I = 0.0;
     public static final double PID_D = 0.01;
     public static final double PID_FF = .000156;
@@ -75,9 +75,9 @@ public final class Constants {
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position} 
     public static final double[] CoralL1 = {13, 31};  //13, 31 Reef L1
-    public static final double[] CoralL2 = {26, 40};  //26, 40 Reef L2 
-    public static final double[] CoralL3 = {52, 40};  //52, 40 Reef L3
-    public static final double[] CoralL4 = {95, 47};  //95, 47 Reef L4
+    public static final double[] CoralL2 = {32, 43};  //26, 40 Reef L2 
+    public static final double[] CoralL3 = {58, 43};  //52, 40 Reef L3
+    public static final double[] CoralL4 = {97, 43};  //95, 47 Reef L4
 
     public static final double[] AlgaeL1 = {2, 36};   // 2, 36    processing station
     public static final double[] AlgaeL2 = {38, 36};  //38, 36    Reef Algae L2
@@ -85,9 +85,9 @@ public final class Constants {
     public static final double[] AlgaeL4 = {95, 20};  //95, 20    Barge Shot
     
 
-    public static final double[] startingConfiguration = {2, 2};  //2, 2
-    public static final double[] groundPickup = {5, 10};          //2, 46
-    public static final double[] feederStation = {20, 0};         //22 10
+    public static final double[] startingConfiguration = {1, 1};  //2, 2
+    public static final double[] groundPickup = {2, 44};          //2, 46
+    public static final double[] feederStation = {20, 4};         //22 10
   
   }
 
@@ -132,7 +132,7 @@ public final class Constants {
 
 
 
-  public static final class GripperConstants { //TODO: change this one we figure out the canivore
+  public static final class GripperConstants {
     public static final String CANBUS_NAME = "canivore";
     public static final int WRIST_MOTOR_CANID = 19;
     public static final int GRIPPER_MOTOR1_CANID = 20;
@@ -148,8 +148,8 @@ public final class Constants {
 
     public static final double RAMP_UP = .1;
 
-    public static final int CORAL_SENSOR_PORT = 2; //TODO: Change this value
-    public static final int ALGAE_SENSOR_PORT = 3; //TODO: Change this value
+    public static final int CORAL_SENSOR_PORT = 2; 
+    public static final int ALGAE_SENSOR_PORT = 3; 
 
     // 0 is Home (UP) and -86 is Down rotated clockwise as viewed from right side 
     public static final double CLOSE_POS = -20.0;
@@ -159,8 +159,8 @@ public final class Constants {
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;
 
-   public static final double IntakeInSpeed = 1;
-   public static final double IntakeOutSpeed = -1;
+   public static final double IntakeInSpeed = -0.7; // negitive for in
+   public static final double IntakeOutSpeed = 0.7; // positive for out
     
   }
 

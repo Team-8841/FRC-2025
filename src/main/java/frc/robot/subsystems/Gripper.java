@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.units.measure.Angle;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -13,6 +14,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.DutyCycleOut;
@@ -47,6 +49,7 @@ public class Gripper extends SubsystemBase{
 
     public Gripper() {
         TalonFXConfiguration wristConfig =  new TalonFXConfiguration();
+        TalonFXConfiguration grippeConfig = new TalonFXConfiguration();
 
         // Wrist Config
         wristConfig.Slot0.kP = GripperConstants.WRIST_P;
@@ -57,6 +60,9 @@ public class Gripper extends SubsystemBase{
         m_wrist_motor.getConfigurator().apply(wristConfig);
         m_wrist_motor.setPosition(0);
         wristSetPoint = 0; // Start at neutral position
+
+        grippeConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        m_gripper_motor.getConfigurator().apply(grippeConfig);
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
         algaeSensor = new DigitalInput(GripperConstants.ALGAE_SENSOR_PORT);

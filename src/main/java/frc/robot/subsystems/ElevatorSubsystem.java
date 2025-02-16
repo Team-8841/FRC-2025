@@ -56,8 +56,8 @@ public class ElevatorSubsystem extends SubsystemBase {
             leaderConfig.Slot0.kI = ElevatorConstants.PID_I; // Integral gain
             leaderConfig.Slot0.kD = ElevatorConstants.PID_D; // Derivative gain
             leaderConfig.Feedback.SensorToMechanismRatio = 1.0; // 1:1 ratio for simplicity
-            leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-            //leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            //leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+            leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ElevatorConstants.RAMP_UP; // In seconds to ramp up to 100
 
             m_elevator_leader.getConfigurator().apply(leaderConfig);
@@ -98,6 +98,18 @@ public class ElevatorSubsystem extends SubsystemBase {
         //m_elevator_leader.setControl(Voltage);
     }
 
+    public double getElevatorPosition() {
+        return position.getValueAsDouble();
+    }
+
+    public boolean getTopSensor() {
+        return !topSensor.get();
+    }
+
+    public boolean getBottomSensorO() {
+        return !bottomSensor.get();
+    }
+
     @Override
     public void periodic() {
 
@@ -106,10 +118,12 @@ public class ElevatorSubsystem extends SubsystemBase {
         position = m_elevator_leader.getRotorPosition();
         SmartDashboard.putNumber("Elevator Position", position.getValueAsDouble());
         SmartDashboard.putNumber("Elevator SetPoint", setPoint);
-        if (topSensor.get() == false || bottomSensor.get() == false)
-        {
-            stopElevator();
-        }
+        SmartDashboard.putBoolean("Elevator Top Sensor", getTopSensor());
+        SmartDashboard.putBoolean("Elevator Bottom Sensor", getBottomSensorO());
+       // if (topSensor.get() == false || bottomSensor.get() == false)
+        //{
+        //    stopElevator();
+       //}
     }
 
 }

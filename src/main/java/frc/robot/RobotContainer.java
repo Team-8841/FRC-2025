@@ -43,8 +43,9 @@ public class RobotContainer {
   private PhotonCamera mainCam = new PhotonCamera("center");
 
 
-  private double curTargetPosition[], curTargetHomePosition[];
-  private boolean elevatorReadyToMove;
+  private double curTargetPosition[] = SetpointConstants.CoralL1;
+  private double curTargetHomePosition[] = SetpointConstants.startingConfiguration;
+  private boolean elevatorReadyToMove = false;
 
   /* --------------------- SWERVE INIT ---------------------------- */
 
@@ -120,116 +121,85 @@ public class RobotContainer {
 
 
   private void updateElevatorStatus() {
-    SmartDashboard.putBoolean("Elevator Ready", elevatorReadyToMove);
-    SmartDashboard.putNumberArray("Elevator Targets", curTargetPosition);
-    SmartDashboard.putNumberArray("Home Targets", curTargetHomePosition);
+    SmartDashboard.putBoolean("Elevator Ready", getReady());
+    SmartDashboard.putNumber("Elevator Target", curTargetPosition[0]);
+    SmartDashboard.putNumber("Gripper Target", curTargetPosition[1]);
+    SmartDashboard.putNumber("Elevator Home Target", curTargetHomePosition[0]);
+    SmartDashboard.putNumber("Gripper Home Target", curTargetHomePosition[1]);
   }
 
+  private void updateReady(boolean ready) {
+    elevatorReadyToMove = ready;
+  }
+
+  private void updateElevatorTarget(double[] targets){
+    curTargetPosition = targets;
+  }
+
+  private double[] getTargets() {
+    return curTargetPosition;
+  }
+
+  private boolean getReady(){
+    return elevatorReadyToMove;
+  }
 
   private void configureBindings() {
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
     driveFieldOrientedAnglularVelocity :
     driveFieldOrientedDirectAngleSim);
 
-    if (Robot.isSimulation())
-    {
-    m_driverController.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-    }
-    if (DriverStation.isTest())
-    {
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.b().whileTrue(drivebase.sysIdDriveMotorCommand());
-
-    m_driverController.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-    m_driverController.back().whileTrue(drivebase.centerModulesCommand());
-
-    m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
-
-    m_driverController.rightBumper().onTrue(new InstantCommand(() -> {
-      if(elevatorReadyToMove && curTargetPosition != null) {
-        new MoveToSetpoint(elevator, m_Gripper, curTargetPosition);
-      }
-    }));
-    
-    m_driverController.a().onTrue(Commands.none());
-    m_driverController.x().onTrue(Commands.none());
-    m_driverController.y().onTrue(Commands.none());
-    m_driverController.b().onTrue(Commands.none());
+    m_driverController.a().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.groundPickup, true));
+    m_driverController.b().onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.feederStation, true));
+    //m_driverController.x().onTrue(new MoveToSetpoint(elevator, m_Gripper, SetpointConstants.CoralL3, true));
+    //m_driverController.y().onTrue(new MoveToSetpoint(elevator, m_Gripper, SetpointConstants.CoralL4, true));
     m_driverController.start().whileTrue(Commands.none());
     m_driverController.back().whileTrue(Commands.none());
-    m_driverController.leftBumper().whileTrue(new MoveToSetpoint(elevator, m_Gripper, SetpointConstants.groundPickup));
-    m_driverController.rightBumper().whileTrue(Commands.none());
+    m_driverController.leftBumper().onTrue(new MoveToSetpoint(elevator, m_Gripper, curTargetHomePosition, true));
+    m_driverController.rightBumper().onTrue(new MoveToSetpoint(elevator, m_Gripper, getTargets(), getReady()));
 
-    m_copilotController.button(OperatorConstants.CoralL1).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.CoralL1;
-      elevatorReadyToMove = true;
-      updateElevatorStatus();
-    })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
-      updateElevatorStatus();
-    }));
+    m_copilotController.button(OperatorConstants.CoralL1).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL1, true));
 
-    m_copilotController.button(OperatorConstants.CoralL2).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.CoralL2;
-      elevatorReadyToMove = true;
-      updateElevatorStatus();
-    })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
-      updateElevatorStatus();
-    }));
+    m_copilotController.button(OperatorConstants.CoralL2).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL2, true));
 
-    m_copilotController.button(OperatorConstants.CoralL3).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.CoralL3;
-      elevatorReadyToMove = true;
-      updateElevatorStatus();
-    })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
-      updateElevatorStatus();
-    }));
-
-    m_copilotController.button(OperatorConstants.CoralL4).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.CoralL4;
-      elevatorReadyToMove = true;
-      updateElevatorStatus();
-    })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
-      updateElevatorStatus();
-    }));
+    m_copilotController.button(OperatorConstants.CoralL3).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL3, true));
+    m_copilotController.button(OperatorConstants.CoralL4).onTrue(new MoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL4, true));
 
     m_copilotController.button(OperatorConstants.AlgaeL1).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.AlgaeL1;
-      elevatorReadyToMove = true;
+      updateElevatorTarget(SetpointConstants.AlgaeL1);
+      updateReady(true);
       updateElevatorStatus();
     })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
+      updateReady(false);
       updateElevatorStatus();
     }));
 
     m_copilotController.button(OperatorConstants.AlgaeL2).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.AlgaeL2;
-      elevatorReadyToMove = true;
+      updateElevatorTarget(SetpointConstants.AlgaeL2);
+      updateReady(true);
       updateElevatorStatus();
     })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
+      updateReady(false);
       updateElevatorStatus();
     }));
 
     m_copilotController.button(OperatorConstants.AlgaeL3).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.AlgaeL3;
-      elevatorReadyToMove = true;
+      updateElevatorTarget(SetpointConstants.AlgaeL3);
+      updateReady(true);
       updateElevatorStatus();
     })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
+      updateReady(false);
       updateElevatorStatus();
     }));
 
     m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new InstantCommand(() -> {
-      curTargetPosition = SetpointConstants.AlgaeL4;
-      elevatorReadyToMove = true;
+      updateElevatorTarget(SetpointConstants.AlgaeL4);
+      updateReady(true);
       updateElevatorStatus();
     })).onFalse(new InstantCommand(() -> {
-      elevatorReadyToMove = false;
+      updateReady(false);
       updateElevatorStatus();
     }));
 
@@ -260,9 +230,6 @@ public class RobotContainer {
 
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(Commands.none());
 
-
-    
-}
   }
 
   /**
