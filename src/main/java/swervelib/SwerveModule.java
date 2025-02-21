@@ -713,7 +713,7 @@ public class SwerveModule {
       rawAbsoluteAnglePublisher.set(absoluteEncoder.getAbsolutePosition());
     }
     if (SwerveDriveTelemetry.isSimulation
-        && SwerveDriveTelemetry.verbosity == TelemetryVerbosity.NONE) {
+        && SwerveDriveTelemetry.verbosity == TelemetryVerbosity.HIGH) {
       SwerveModulePosition pos = simModule.getPosition();
       SwerveModuleState state = simModule.getState();
       rawAnglePublisher.set(pos.angle.getDegrees());
