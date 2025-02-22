@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.GripperConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SetpointConstants;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -106,13 +107,11 @@ public class RobotContainer {
   //Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
   /* --------------------- SWERVE INTIT END ---------------------------- */
-
-  ElevatorSubsystem elevator = new ElevatorSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    elevator.resetEncoders();
+    m_elevator.resetEncoders();
 
 
     // Auto Named Commands
@@ -131,49 +130,50 @@ public class RobotContainer {
     m_driverController.a().onTrue(Commands.none());
     m_driverController.b().onTrue(Commands.none());
     m_driverController.x().onTrue(Commands.none());
-    m_driverController.y().onTrue(new ShootAlgae(m_Gripper));
+    m_driverController.y().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed))
+      .onFalse(new ShootAlgae(m_Gripper, 0));
 
     m_driverController.start().onTrue(Commands.none());
     m_driverController.back().onTrue(Commands.none());
 
-    m_driverController.leftBumper().onTrue(new MoveToHome(elevator, m_Gripper));
-    m_driverController.rightBumper().onTrue(new MoveToSetpoint(elevator, m_Gripper));
+    m_driverController.leftBumper().onTrue(new MoveToHome(m_elevator, m_Gripper));
+    m_driverController.rightBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));
 
-    m_copilotController.button(OperatorConstants.CoralL1).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL1, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL1, false));
+    m_copilotController.button(OperatorConstants.CoralL1).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL1, true, false))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL1, false, false));
 
-    m_copilotController.button(OperatorConstants.CoralL2).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL2, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL2, false));
+    m_copilotController.button(OperatorConstants.CoralL2).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL2, true, false))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL2, false, false));
 
-    m_copilotController.button(OperatorConstants.CoralL3).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL3, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL3, false));
+    m_copilotController.button(OperatorConstants.CoralL3).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL3, true,false))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL3, false,false));
     
-    m_copilotController.button(OperatorConstants.CoralL4).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL4, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL4, false));
+    m_copilotController.button(OperatorConstants.CoralL4).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL4, true, false))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL4, false, false));
 
-    m_copilotController.button(OperatorConstants.AlgaeL1).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL1, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL1, false));
+    m_copilotController.button(OperatorConstants.AlgaeL1).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL1, true, true))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL1, false, true));
 
-    m_copilotController.button(OperatorConstants.AlgaeL2).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL2, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL2, false));
+    m_copilotController.button(OperatorConstants.AlgaeL2).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL2, true, true))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL2, false, true));
 
-    m_copilotController.button(OperatorConstants.AlgaeL3).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL3, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL3, false));
+    m_copilotController.button(OperatorConstants.AlgaeL3).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL3, true, true))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL3, false, true));
 
-    m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL4, true))
-    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL4, false));
+    m_copilotController.button(OperatorConstants.AlgaeL4).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL4, true, true))
+    .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.AlgaeL4, false, true));
 
-    m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new IntakeSensorControl(true, false, m_Gripper))
-      .onFalse(new IntakeSensorControl(false, false, m_Gripper));
+    m_copilotController.button(OperatorConstants.IntakeIn).whileTrue(new IntakeSensorControl(true, false, m_Gripper, m_elevator))
+      .onFalse(new IntakeSensorControl(false, false, m_Gripper, m_elevator));
 
-    m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(false, true, m_Gripper))
-      .onFalse(new IntakeSensorControl(false, false, m_Gripper));
+    m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(false, true, m_Gripper, m_elevator))
+      .onFalse(new IntakeSensorControl(false, false, m_Gripper, m_elevator));
 
-    m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(elevator, SetpointConstants.feederStation))
-    .onFalse(new SetElevatorHomeTarget(elevator, SetpointConstants.startingConfiguration));
+    m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false))
+    .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
-    m_copilotController.button(OperatorConstants.groundPickup).onTrue(new SetElevatorHomeTarget(elevator, SetpointConstants.groundPickup))
-    .onFalse(new SetElevatorHomeTarget(elevator, SetpointConstants.startingConfiguration));
+    m_copilotController.button(OperatorConstants.groundPickup).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.groundPickup, true))
+    .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
 
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController.getRawAxis(OperatorConstants.WristjoystickY), m_Climber.getOutSensorO(), m_Climber.getInSensor(), m_Climber));

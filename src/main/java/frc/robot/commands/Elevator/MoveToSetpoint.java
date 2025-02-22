@@ -16,10 +16,14 @@ public class MoveToSetpoint extends Command{
 
     @Override
     public void execute() {
-
         if(m_Elevator.getElevatorReadyStatus()) {
             m_Elevator.setElevatorPosition(m_Elevator.getElevatorTarget()[0]);
             m_gripper.setWristPosition(m_Elevator.getElevatorTarget()[1]);
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return m_Elevator.elevatorAtSetpoint() && m_gripper.wristAtPosition();
     }
 }

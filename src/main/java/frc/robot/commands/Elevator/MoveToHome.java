@@ -20,7 +20,7 @@ public class MoveToHome extends Command{
     @Override
     public void execute() {
         m_elevator.setElevatorPosition(m_elevator.getElevatorHomeTarget()[0]);
-        m_gripper.setWristPosition(m_elevator.getElevatorHomeTarget()[0]);
+        m_gripper.setWristPosition(m_elevator.getElevatorHomeTarget()[1]);
     }
     
 }

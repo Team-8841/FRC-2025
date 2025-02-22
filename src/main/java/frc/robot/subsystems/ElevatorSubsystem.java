@@ -43,9 +43,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
   private double setPoint = 5.0; 
 
-  private double[] m_targetElevatorSetPoint = SetpointConstants.startingConfiguration;
-  private double[] m_targetElevatorHomeSetPoint = SetpointConstants.startingConfiguration;
-  private boolean m_readyToMove = false;
+  private double[] m_targetElevatorSetPoint;
+  private double[] m_targetElevatorHomeSetPoint;
+  private boolean m_readyToMove, m_isAlgaeState;
 
   private static DigitalInput topSensor = new DigitalInput(ElevatorConstants.DIO_TOPSENSOR);
   private static DigitalInput bottomSensor = new DigitalInput(ElevatorConstants.DIO_BOTTOMSENSOR); 
@@ -66,6 +66,11 @@ public class ElevatorSubsystem extends SubsystemBase {
             leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ElevatorConstants.RAMP_UP; // In seconds to ramp up to 100
 
             m_elevator_leader.getConfigurator().apply(leaderConfig);
+
+            m_readyToMove = false;
+            m_isAlgaeState = false;
+            m_targetElevatorSetPoint = SetpointConstants.startingConfiguration;
+            m_targetElevatorHomeSetPoint = SetpointConstants.startingHomeConfiguration;
         
         follower = new Follower(m_elevator_leader.getDeviceID(), true); // Inverted Follower
         m_elevator_follower.setControl(follower);
@@ -117,16 +122,26 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     public void setElevatorTarget(double[] target)  {
-        m_targetElevatorSetPoint = target;
+        m_targetElevatorSetPoint[0] = target[0];
+        m_targetElevatorSetPoint[1] = target[1];
     }
 
     public void setElevatorHomeTarget(double[] target){
-        m_targetElevatorHomeSetPoint = target;
+        m_targetElevatorHomeSetPoint[0] = target[0];
+        m_targetElevatorHomeSetPoint[1] = target[1];
     }
 
     public void setElevatorReadyStatus(boolean status) {
         m_readyToMove = status;
     }   
+
+    public void setAlgaeState(boolean state) {
+        m_isAlgaeState = state;
+    }
+
+    public boolean getAlgaeState() {
+        return m_isAlgaeState;
+    }
 
     public double[] getElevatorTarget() {
         return m_targetElevatorSetPoint;
@@ -156,6 +171,11 @@ public class ElevatorSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("[Elevator]: Bottom Sensor", getBottomSensorO());
         SmartDashboard.putBoolean("[Elevator]: Ready" , getElevatorReadyStatus());
         SmartDashboard.putBoolean("[Elevaotr]: At Setpoint", elevatorAtSetpoint());
+        SmartDashboard.putNumber("[Elevator Setpoints 0]: ", getElevatorTarget()[0]);
+        SmartDashboard.putNumber("[Elevator Setpoints 1]: ", getElevatorTarget()[1]);
+        SmartDashboard.putNumber("[Elevator Home Setpoints 0]: ", getElevatorHomeTarget()[0]);
+        SmartDashboard.putNumber("[Elevator Home Setpoints 1]: ", getElevatorHomeTarget()[1]);
+        SmartDashboard.putBoolean("[Elevator]: Algae State", m_isAlgaeState);
     }
 
 }

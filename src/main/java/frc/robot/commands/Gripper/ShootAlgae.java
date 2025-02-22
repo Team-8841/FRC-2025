@@ -7,10 +7,12 @@ import frc.robot.subsystems.Gripper;
 public class ShootAlgae extends Command{
 
     private Gripper m_gripper;
+    private double m_speed;
 
-    public ShootAlgae(Gripper gripper)
+    public ShootAlgae(Gripper gripper, double speed)
     {
         this.m_gripper = gripper;
+        this.m_speed = speed;
 
         this.addRequirements(gripper);
     }
@@ -18,11 +20,7 @@ public class ShootAlgae extends Command{
 
     @Override
     public void execute() {
-        if(m_gripper.isAlgaeDetected()) {
-            m_gripper.setGripperSpeed(GripperConstants.IntakeShootSpeed);
-        }else{ 
-            m_gripper.setGripperSpeed(0);
-        }
+        m_gripper.setGripperSpeed(m_speed);
     }
     
 }
