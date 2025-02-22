@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.SetpointConstants;
 
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
@@ -41,6 +42,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   // Elevator Range is from 0 to 98. With 98 being fully up and touching top
   // Grabber range is from 0 to -86. With negative rotating Clock Wise from home looking from side with front right
   private double setPoint = 5.0; 
+
+  private double[] m_targetElevatorSetPoint = SetpointConstants.startingConfiguration;
+  private double[] m_targetElevatorHomeSetPoint = SetpointConstants.startingConfiguration;
+  private boolean m_readyToMove = false;
 
   private static DigitalInput topSensor = new DigitalInput(ElevatorConstants.DIO_TOPSENSOR);
   private static DigitalInput bottomSensor = new DigitalInput(ElevatorConstants.DIO_BOTTOMSENSOR); 
@@ -110,20 +115,47 @@ public class ElevatorSubsystem extends SubsystemBase {
         return !bottomSensor.get();
     }
 
+
+    public void setElevatorTarget(double[] target)  {
+        m_targetElevatorSetPoint = target;
+    }
+
+    public void setElevatorHomeTarget(double[] target){
+        m_targetElevatorHomeSetPoint = target;
+    }
+
+    public void setElevatorReadyStatus(boolean status) {
+        m_readyToMove = status;
+    }   
+
+    public double[] getElevatorTarget() {
+        return m_targetElevatorSetPoint;
+    }
+
+    public double[] getElevatorHomeTarget() {
+        return m_targetElevatorHomeSetPoint;
+    }  
+
+    public boolean getElevatorReadyStatus() {
+        return m_readyToMove;
+    }
+
+    public boolean elevatorAtSetpoint() {
+        return Math.abs(getElevatorPosition() - setPoint) < ElevatorConstants.ELEVATOR_TOLERANCE;
+    }
+
     @Override
     public void periodic() {
 
         // For Testing
         // Display debugging information on the SmartDashboard
         position = m_elevator_leader.getRotorPosition();
-        SmartDashboard.putNumber("Elevator Position", position.getValueAsDouble());
-        SmartDashboard.putNumber("Elevator SetPoint", setPoint);
-        SmartDashboard.putBoolean("Elevator Top Sensor", getTopSensor());
-        SmartDashboard.putBoolean("Elevator Bottom Sensor", getBottomSensorO());
-       // if (topSensor.get() == false || bottomSensor.get() == false)
-        //{
-        //    stopElevator();
-       //}
+        SmartDashboard.putNumber("[Elevator]: Position", position.getValueAsDouble());
+        SmartDashboard.putNumber("[Elevator]: SetPoint", setPoint);
+        SmartDashboard.putBoolean("[Elevator]: Top Sensor", getTopSensor());
+        SmartDashboard.putBoolean("[Elevator]: Bottom Sensor", getBottomSensorO());
+        SmartDashboard.putBoolean("[Elevator]: Ready" , getElevatorReadyStatus());
+        SmartDashboard.putBoolean("[Elevaotr]: At Setpoint", elevatorAtSetpoint());
     }
 
 }

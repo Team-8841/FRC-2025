@@ -69,6 +69,9 @@ public final class Constants {
     public static final double MAX_POS = 98.0;
     public static final double MIN_POS = 0.0;
 
+
+    public static final double ELEVATOR_TOLERANCE = 2.0;
+
   }
 
   public static final class SetpointConstants { //TODO: Update these values
@@ -161,6 +164,8 @@ public final class Constants {
 
    public static final double IntakeInSpeed = -0.7; // negitive for in
    public static final double IntakeOutSpeed = 0.7; // positive for out
+
+   public static final double IntakeShootSpeed = 1.0; // Shoot the ball
     
   }
 

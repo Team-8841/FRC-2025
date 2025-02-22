@@ -1,31 +1,11 @@
 package frc.robot.subsystems;
 
-
-import edu.wpi.first.units.measure.Angle;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix6.StatusCode;
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.controls.CoastOut;
-import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -128,6 +108,7 @@ public class Gripper extends SubsystemBase{
         SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
         SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
         SmartDashboard.putBoolean("Home Sensor", homeSensor.get());
-        SmartDashboard.putBoolean("Rotated Sensor", rotatedSensor.get());    }
-
+        SmartDashboard.putBoolean("Rotated Sensor", rotatedSensor.get()); 
+        SmartDashboard.putBoolean("[Wrist]: At Position", wristAtPosition());   
+    }
 }

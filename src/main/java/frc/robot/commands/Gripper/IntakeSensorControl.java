@@ -7,25 +7,23 @@ import frc.robot.subsystems.Gripper;
 public class IntakeSensorControl extends Command{
 
     private final Gripper m_gripper;
-    private boolean m_in, m_out, m_coralSensor, m_algaeSensor;
+    private boolean m_in, m_out;
 
-    public IntakeSensorControl(boolean in, boolean out, boolean coralSensor, boolean algaeSensor, Gripper gripper){
+    public IntakeSensorControl(boolean in, boolean out, Gripper gripper){
         this.m_gripper = gripper;
         this.m_in = in;
         this.m_out = out;
-        this.m_coralSensor = coralSensor;
-        this.m_algaeSensor = algaeSensor;
 
         addRequirements(gripper);
     }
 
     @Override
     public void execute() {
-        if(m_in && !m_coralSensor && !m_algaeSensor){
+        if(m_in && !m_gripper.isCoralDetected() && !m_gripper.isAlgaeDetected()){
             m_gripper.setGripperSpeed(GripperConstants.IntakeInSpeed);
         }else if(m_out){
             m_gripper.setGripperSpeed(GripperConstants.IntakeOutSpeed);
-        }else if(m_coralSensor || m_algaeSensor || (!m_in && !m_out)){
+        }else if(m_gripper.isCoralDetected() || m_gripper.isAlgaeDetected() || (!m_in && !m_out)){
             m_gripper.setGripperSpeed(0);
         }
     }

@@ -7,11 +7,9 @@ import frc.robot.subsystems.Gripper;
 public class IntakeAndWait extends Command{
 
     private Gripper m_gripper;
-    private boolean m_coralSensor;
 
-    public IntakeAndWait(boolean coralSensor, Gripper gripper) {
+    public IntakeAndWait(Gripper gripper) {
         this.m_gripper = gripper;
-        this.m_coralSensor = coralSensor;
 
         addRequirements(gripper);
     }
@@ -20,7 +18,7 @@ public class IntakeAndWait extends Command{
     @Override
     public void execute() {
 
-        if(!m_coralSensor){
+        if(!m_gripper.isCoralDetected()) {
             m_gripper.setGripperSpeed(GripperConstants.IntakeInSpeed);
         } else {
             m_gripper.setGripperSpeed(0);
@@ -29,7 +27,7 @@ public class IntakeAndWait extends Command{
 
     @Override
     public boolean isFinished() {
-        return m_coralSensor == true;
+        return m_gripper.isCoralDetected() == true;
     }
     
 }
