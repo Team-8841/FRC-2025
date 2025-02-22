@@ -50,7 +50,7 @@ public final class Constants {
 
     public static final int TRAVEL_ROT = 10; // Number of rotations to travel full distance
 
-    public static final double RAMP_UP = .1;
+    public static final double RAMP_UP = .2;
 
     //PID 
     public static final double PID_P = 0.3;
@@ -77,20 +77,20 @@ public final class Constants {
   public static final class SetpointConstants { //TODO: Update these values
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position} 
-    public static final double[] CoralL1 = {13, 31};  //13, 31 Reef L1
-    public static final double[] CoralL2 = {32, 43};  //26, 40 Reef L2 
-    public static final double[] CoralL3 = {58, 43};  //52, 40 Reef L3
-    public static final double[] CoralL4 = {97, 43};  //95, 47 Reef L4
+    public static final double[] CoralL1 = {12, 31};  //12, 31 Reef L1
+    public static final double[] CoralL2 = {31, 43};  //31, 44 Reef L2 
+    public static final double[] CoralL3 = {57, 43};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {97, 43};  //97, 43 Reef L4
 
-    public static final double[] AlgaeL1 = {2, 36};   // 2, 36    processing station
-    public static final double[] AlgaeL2 = {38, 36};  //38, 36    Reef Algae L2
-    public static final double[] AlgaeL3 = {62, 36};  //62, 36    Reef Algae L3
+    public static final double[] AlgaeL1 = {1, 36};   // 1, 36    processing station
+    public static final double[] AlgaeL2 = {37, 36};  //37, 36    Reef Algae L2
+    public static final double[] AlgaeL3 = {61, 36};  //61, 36    Reef Algae L3
     public static final double[] AlgaeL4 = {95, 20};  //95, 20    Barge Shot
     
 
     public static final double[] startingConfiguration = {1, 1};  //2, 2
     public static final double[] groundPickup = {2, 44};          //2, 46
-    public static final double[] feederStation = {20, 4};         //22 10
+    public static final double[] feederStation = {18, 4};         //18 10
   
   }
 
