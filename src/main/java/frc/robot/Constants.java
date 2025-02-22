@@ -191,6 +191,8 @@ public final class Constants {
 
     public static final double MAX_POS = -200.0;
     public static final double MIN_POS = 0;
+
+    public static final double CLIMBER_DEADBAND = 0.2;
   }
 
   public static final class LightingConstants { 

@@ -24,6 +24,8 @@ public class Climber extends SubsystemBase{
 
     private ControlRequest follower;
 
+    public Boolean Extended; 
+
     private DutyCycleOut stopMotor = new DutyCycleOut(0);
 
     private double setPoint = 0;
@@ -47,6 +49,8 @@ public class Climber extends SubsystemBase{
         follower = new Follower(m_climberMain.getDeviceID(), true); // Inverted Follower
         m_climberFollower.setControl(follower);
         m_climberMain.setPosition(0);
+
+        Extended = false;
     }
 
     public void stopClimber() {
@@ -71,17 +75,16 @@ public class Climber extends SubsystemBase{
 
     public void driveClimber(double speed){
         m_climberMain.setControl(new DutyCycleOut(speed));
-        m_climberFollower.setControl(follower);
-        
+        m_climberFollower.setControl(follower); 
     }
 
 
     public boolean getInSensor() {
-        return !homeSensor.get();
+        return homeSensor.get();
     }
 
-    public boolean getOutSensorO() {
-        return !stopSensor.get();
+    public boolean getOutSensor() {
+        return stopSensor.get();
     }
 
     @Override
@@ -91,9 +94,10 @@ public class Climber extends SubsystemBase{
         SmartDashboard.putBoolean("Climber Home Sensor", homeSensor.get());
         SmartDashboard.putBoolean("Climber Overrun Sensor", stopSensor.get());
 
-        if (stopSensor.get () == false)
+        if (stopSensor.get() == false)
         {
             stopClimber();
+            Extended = true;
         }
     }
     

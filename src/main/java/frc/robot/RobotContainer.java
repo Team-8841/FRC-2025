@@ -176,7 +176,7 @@ public class RobotContainer {
     .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
 
-    m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController.getRawAxis(OperatorConstants.WristjoystickY), m_Climber.getOutSensorO(), m_Climber.getInSensor(), m_Climber));
+    m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController.getRawAxis(OperatorConstants.WristjoystickY), m_Climber, true));
 
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(Commands.none());
 
