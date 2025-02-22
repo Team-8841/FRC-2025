@@ -24,20 +24,22 @@ public class DriveClimberWithJoystick extends Command {
       {
         m_input = m_input * -1;
       }
-      if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND){ // Extending
+      // Extend 
+      if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND && !m_Climber.Extended){
         if (m_Climber.getOutSensor()) { // False is triggered
           m_Climber.driveClimber(-.3);
         } else {
           m_Climber.driveClimber(0);
         }
-      } else if (m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND)) // Retract
-      {
+      // Retract after extention
+      } else if (m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND) && m_Climber.Extended){
         if(m_Climber.getInSensor()) { // False is tirggered
           m_Climber.driveClimber(.5);
         } else {
           m_Climber.driveClimber(0);
         }
-      } else {
+      } 
+      else {
         m_Climber.driveClimber(0);
       }
     }

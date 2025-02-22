@@ -96,7 +96,6 @@ public class Climber extends SubsystemBase{
 
         if (stopSensor.get() == false)
         {
-            stopClimber();
             Extended = true;
         }
     }
