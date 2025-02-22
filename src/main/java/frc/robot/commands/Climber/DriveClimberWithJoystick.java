@@ -13,6 +13,7 @@ public class DriveClimberWithJoystick extends Command {
     private CommandJoystick joystick;
     private boolean invertInput;
     private double m_input;
+    private boolean CLIMBER_OVERRIDE;
     
     public DriveClimberWithJoystick(CommandJoystick input, Climber climber, Boolean invert){
             this.m_Climber = climber;
@@ -24,6 +25,7 @@ public class DriveClimberWithJoystick extends Command {
 
     @Override
     public void execute() {
+      CLIMBER_OVERRIDE = joystick.button(Constants.OperatorConstants.ElevatorLock).getAsBoolean();
       m_input = joystick.getRawAxis(OperatorConstants.WristjoystickY);
       if (invertInput == true)
       {
@@ -44,7 +46,7 @@ public class DriveClimberWithJoystick extends Command {
         } else {
           m_Climber.driveClimber(0);
         }
-      } else if (m_Climber.getClimberOveride()) { // Override 
+      } else if (CLIMBER_OVERRIDE) { // Override 
         if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND) {
           m_Climber.driveClimber(-1 * Constants.ClimberConstants.CLIMBER_OVERRIDE_SPEED); // Negative
         } else if(m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND)){

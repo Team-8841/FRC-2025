@@ -54,7 +54,6 @@ public class Climber extends SubsystemBase{
         Extended = false;
 
         CLIMBER_OVERRIDE = false;
-        SmartDashboard.putBoolean("[CLIMBER] OVERRIDE", CLIMBER_OVERRIDE);
     }
 
     public void stopClimber() {
@@ -102,6 +101,7 @@ public class Climber extends SubsystemBase{
         SmartDashboard.putBoolean("Climber Home Sensor", homeSensor.get());
         SmartDashboard.putBoolean("Climber Overrun Sensor", stopSensor.get());
         SmartDashboard.putBoolean("Climber ExtendedState", stopSensor.get());
+        SmartDashboard.putBoolean("[CLIMBER] OVERRIDE",CLIMBER_OVERRIDE);
         CLIMBER_OVERRIDE = SmartDashboard.getBoolean("[CLIMBER] OVERRIDE",false);
     }
     
