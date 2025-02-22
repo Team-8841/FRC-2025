@@ -10,15 +10,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
+import frc.robot.commands.Elevator.AutoMoveToSetpoint;
 import frc.robot.commands.Elevator.MoveToHome;
 import frc.robot.commands.Elevator.MoveToSetpoint;
 import frc.robot.commands.Elevator.SetElevatorHomeTarget;
@@ -33,6 +29,8 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
 import org.photonvision.PhotonCamera;
+
+import com.pathplanner.lib.auto.NamedCommands;
 
 import swervelib.*;
 
@@ -115,6 +113,11 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     elevator.resetEncoders();
+
+
+    // Auto Named Commands
+    NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
+    NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL1));
 
   }
 

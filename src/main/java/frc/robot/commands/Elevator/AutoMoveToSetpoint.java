@@ -1,15 +1,19 @@
 package frc.robot.commands.Elevator;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
 
-public class MoveToSetpoint extends Command{   
+public class AutoMoveToSetpoint extends Command{
+
     private ElevatorSubsystem m_Elevator;
     private Gripper m_gripper;
+    private double[] m_targets;
 
-    public MoveToSetpoint(ElevatorSubsystem elevator, Gripper gripper) {
+    public AutoMoveToSetpoint(ElevatorSubsystem elevator, Gripper gripper, double[] targets) {
         this.m_Elevator = elevator;
         this.m_gripper = gripper;
+        this.m_targets = targets;
 
         this.addRequirements(m_Elevator, m_gripper);
     }
@@ -17,9 +21,8 @@ public class MoveToSetpoint extends Command{
     @Override
     public void execute() {
 
-        if(m_Elevator.getElevatorReadyStatus()) {
-            m_Elevator.setElevatorPosition(m_Elevator.getElevatorTarget()[0]);
-            m_gripper.setWristPosition(m_Elevator.getElevatorTarget()[1]);
-        }
+        m_Elevator.setElevatorPosition(m_targets[0]);
+        m_gripper.setWristPosition(m_targets[1]);
     }
+    
 }
