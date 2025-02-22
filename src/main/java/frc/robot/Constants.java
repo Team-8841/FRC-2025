@@ -193,6 +193,10 @@ public final class Constants {
     public static final double MIN_POS = 0;
 
     public static final double CLIMBER_DEADBAND = 0.2;
+
+    public static final double CLIMBER_OVERRIDE_SPEED = .1;
+    public static final double CLIMBER_RETRACT_SPEED = .9;
+    public static final double CLIMBER_DEPLOY_SPEED = .4;
   }
 
   public static final class LightingConstants { 

@@ -33,6 +33,7 @@ public class Climber extends SubsystemBase{
     private static DigitalInput stopSensor = new DigitalInput(ClimberConstants.DEPLOYED_SENSOR_PORT);
     private static DigitalInput homeSensor = new DigitalInput(ClimberConstants.HOME_SENSOR_PORT);
 
+    private boolean CLIMBER_OVERRIDE;
 
 
     public Climber() {
@@ -51,6 +52,9 @@ public class Climber extends SubsystemBase{
         m_climberMain.setPosition(0);
 
         Extended = false;
+
+        CLIMBER_OVERRIDE = false;
+        SmartDashboard.putBoolean("[CLIMBER] OVERRIDE", CLIMBER_OVERRIDE);
     }
 
     public void stopClimber() {
@@ -87,17 +91,18 @@ public class Climber extends SubsystemBase{
         return stopSensor.get();
     }
 
+    public boolean getClimberOveride() {
+        return CLIMBER_OVERRIDE;
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Encoder", m_climberMain.getRotorPosition().getValueAsDouble());
         SmartDashboard.putNumber("Climber SetPoint", setPoint);
         SmartDashboard.putBoolean("Climber Home Sensor", homeSensor.get());
         SmartDashboard.putBoolean("Climber Overrun Sensor", stopSensor.get());
-
-        if (stopSensor.get() == false)
-        {
-            Extended = true;
-        }
+        SmartDashboard.putBoolean("Climber ExtendedState", stopSensor.get());
+        CLIMBER_OVERRIDE = SmartDashboard.getBoolean("[CLIMBER] OVERRIDE",false);
     }
     
 }

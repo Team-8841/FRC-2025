@@ -176,6 +176,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("[Elevator Home Setpoints 0]: ", getElevatorHomeTarget()[0]);
         SmartDashboard.putNumber("[Elevator Home Setpoints 1]: ", getElevatorHomeTarget()[1]);
         SmartDashboard.putBoolean("[Elevator]: Algae State", m_isAlgaeState);
+
     }
 
 }
