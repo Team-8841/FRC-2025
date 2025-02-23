@@ -1,7 +1,6 @@
 package frc.robot.commands.Gripper;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.GripperConstants;
 import frc.robot.subsystems.Gripper;
 
 public class ShootAlgae extends Command{
@@ -20,7 +19,19 @@ public class ShootAlgae extends Command{
 
     @Override
     public void execute() {
+
         m_gripper.setGripperSpeed(m_speed);
+
+        if(m_gripper.isAlgaeDetected() || m_gripper.isCoralDetected()){ // Game piece is detected
+            m_gripper.enableSwitchablePDHChannel(true); // Light on
+        } else {
+            m_gripper.enableSwitchablePDHChannel(false); // Light off
+        }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return !m_gripper.isAlgaeDetected() && !m_gripper.isCoralDetected();
     }
     
 }

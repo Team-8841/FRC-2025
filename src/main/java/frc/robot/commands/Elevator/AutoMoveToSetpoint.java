@@ -25,4 +25,8 @@ public class AutoMoveToSetpoint extends Command{
         m_gripper.setWristPosition(m_targets[1]);
     }
     
+    @Override
+    public boolean isFinished() {
+        return m_Elevator.elevatorAtSetpoint() && m_gripper.wristAtPosition();
+    }
 }

@@ -19,9 +19,15 @@ public class IntakeAndWait extends Command{
     public void execute() {
 
         if(!m_gripper.isCoralDetected()) {
+
             m_gripper.setGripperSpeed(GripperConstants.IntakeInSpeed);
+            m_gripper.enableSwitchablePDHChannel(false);
+
         } else {
+
             m_gripper.setGripperSpeed(0);
+            m_gripper.enableSwitchablePDHChannel(true);
+
         }
     }
 

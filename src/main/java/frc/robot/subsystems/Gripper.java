@@ -9,6 +9,8 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GripperConstants;
 
@@ -16,6 +18,8 @@ public class Gripper extends SubsystemBase{
 
     private final TalonFX m_gripper_motor = new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID, GripperConstants.CANBUS_NAME);
     private final TalonFX m_wrist_motor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID, GripperConstants.CANBUS_NAME);
+
+    private final PowerDistribution m_PDH = new PowerDistribution(1, ModuleType.kRev);
 
     private DigitalInput coralSensor, algaeSensor, homeSensor, rotatedSensor;
 
@@ -30,6 +34,8 @@ public class Gripper extends SubsystemBase{
     public Gripper() {
         TalonFXConfiguration wristConfig =  new TalonFXConfiguration();
         TalonFXConfiguration grippeConfig = new TalonFXConfiguration();
+
+        m_PDH.setSwitchableChannel(false); // Start with the switchable channel off
 
         // Wrist Config
         wristConfig.Slot0.kP = GripperConstants.WRIST_P;
@@ -58,6 +64,10 @@ public class Gripper extends SubsystemBase{
     public void stopGripper() {
         m_gripper_motor.set(0);
         m_gripper_motor.setControl(m_brake);
+    }
+
+    public void enableSwitchablePDHChannel(boolean enabled) {
+        m_PDH.setSwitchableChannel(enabled);
     }
 
     //TODO: Perform check for elevator configuration to avoid hitting elevator

@@ -20,6 +20,7 @@ import frc.robot.commands.Elevator.MoveToHome;
 import frc.robot.commands.Elevator.MoveToSetpoint;
 import frc.robot.commands.Elevator.SetElevatorHomeTarget;
 import frc.robot.commands.Elevator.SetElevatorTarget;
+import frc.robot.commands.Gripper.IntakeAndWait;
 import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.Gripper.ShootAlgae;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -28,8 +29,6 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
-
-import org.photonvision.PhotonCamera;
 
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -41,9 +40,6 @@ public class RobotContainer {
 
   private final CommandJoystick m_copilotController = 
   new CommandJoystick(OperatorConstants.kCoPilotControllerPort);
-
-
-  private PhotonCamera mainCam = new PhotonCamera("center");
 
   /* --------------------- SWERVE INIT ---------------------------- */
 
@@ -115,8 +111,31 @@ public class RobotContainer {
 
 
     // Auto Named Commands
+
+    // Home positions
     NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
+    NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.groundPickup));
+    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.feederStation));
+
+    // Coral positions
     NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL1));
+    NamedCommands.registerCommand("MoveToCoralL2", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL2));
+    NamedCommands.registerCommand("MoveToCoralL3", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL3));
+    NamedCommands.registerCommand("MoveToCoralL4", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL4));
+
+    // Algae positions
+    NamedCommands.registerCommand("MoveToAlgaeL1", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL1));
+    NamedCommands.registerCommand("MoveToAlgaeL2", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL2));
+    NamedCommands.registerCommand("MoveToAlgaeL3", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL3));
+    NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
+
+    // Shoot
+    NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, 1));
+
+    // Intake commands
+    NamedCommands.registerCommand("IntakeAndWait", new IntakeAndWait(m_Gripper));
+    NamedCommands.registerCommand("IntakeWithSensorControl", new IntakeSensorControl(true, false, m_Gripper, m_elevator));
+    NamedCommands.registerCommand("OuttakeWithSensorControl", new IntakeSensorControl(false, true, m_Gripper, m_elevator));
 
   }
 
@@ -130,14 +149,18 @@ public class RobotContainer {
     m_driverController.a().onTrue(Commands.none());
     m_driverController.b().onTrue(Commands.none());
     m_driverController.x().onTrue(Commands.none());
-    m_driverController.y().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed))
-      .onFalse(new ShootAlgae(m_Gripper, 0));
+    m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
+      
 
     m_driverController.start().onTrue(Commands.none());
     m_driverController.back().onTrue(Commands.none());
 
-    m_driverController.leftBumper().onTrue(new MoveToHome(m_elevator, m_Gripper));
-    m_driverController.rightBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));
+    m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
+
+    m_driverController.rightBumper().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed))  // Shoot algae/coral when held down
+    .onFalse(new ShootAlgae(m_Gripper, 0));
+
+   
 
     m_copilotController.button(OperatorConstants.CoralL1).onTrue(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL1, true, false))
     .onFalse(new SetElevatorTarget(m_elevator, SetpointConstants.CoralL1, false, false));
@@ -169,6 +192,8 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(false, true, m_Gripper, m_elevator))
       .onFalse(new IntakeSensorControl(false, false, m_Gripper, m_elevator));
 
+
+    //TODO: Change this once we have the 6 position rotary switch
     m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false))
     .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
@@ -176,8 +201,10 @@ public class RobotContainer {
     .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
 
+    //TODO: Change this to a digital swtich on the dashboard
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
 
+    //TODO: Change this to fit the new co-pilot controller
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(Commands.none());
 
   }
@@ -187,6 +214,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+   //TODO: Setup auto chooster on the smartdashboard to select between the different autonomous modes
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return null;

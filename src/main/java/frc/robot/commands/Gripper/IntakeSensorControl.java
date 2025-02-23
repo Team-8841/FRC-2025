@@ -22,16 +22,41 @@ public class IntakeSensorControl extends Command{
 
     @Override
     public void execute() {
-        if(m_in && !m_gripper.isCoralDetected() && !m_gripper.isAlgaeDetected()){
+        if(m_in && !m_gripper.isCoralDetected() && !m_gripper.isAlgaeDetected()){ // No game piece is detected
+
             m_gripper.setGripperSpeed(GripperConstants.IntakeInSpeed);
-        }else if(m_out){
+            m_gripper.enableSwitchablePDHChannel(false); // Light off
+
+        }else if(m_out){ // Switch out
+
             m_gripper.setGripperSpeed(GripperConstants.IntakeOutSpeed);
-        }else if(m_elevator.getAlgaeState() && m_gripper.isAlgaeDetected()) {
+
+            if(m_gripper.isAlgaeDetected() || m_gripper.isCoralDetected()){ // Game piece is detected
+                m_gripper.enableSwitchablePDHChannel(true); // Light on
+            } else {
+                m_gripper.enableSwitchablePDHChannel(false); // Light off
+            }
+
+        }else if(m_elevator.getAlgaeState() && m_gripper.isAlgaeDetected()) { // Has game piece and is algae
+
             m_gripper.setGripperSpeed(0);
-        }else if(!m_elevator.getAlgaeState() && m_gripper.isCoralDetected()){
+            m_gripper.enableSwitchablePDHChannel(true); // Light on
+
+        }else if(!m_elevator.getAlgaeState() && m_gripper.isCoralDetected()){ // Has game piece and is coral
+
             m_gripper.setGripperSpeed(0);
-        }else if(!m_in && !m_out) {
+            m_gripper.enableSwitchablePDHChannel(true); // Light on
+
+        }else if(!m_in && !m_out) { // Switch if off
+
             m_gripper.setGripperSpeed(0);
+
+            if(m_gripper.isAlgaeDetected() || m_gripper.isCoralDetected()){ // Game piece is detected
+                m_gripper.enableSwitchablePDHChannel(true); // Light on
+            } else {
+                m_gripper.enableSwitchablePDHChannel(false); // Light off
+            }
+
         }
     }
 }
