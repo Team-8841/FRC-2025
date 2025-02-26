@@ -205,9 +205,7 @@ public final class Constants {
   }
 
   public static final class ControllerFunction {
-    // Implements an expenential curve to the joystick input 
-    // Calulate OFFSET by y = POWER - 1;
+    // Implements an expenential curve to the joystick input to allow for more precise control at lower speeds
     public static final double POWER = 2.7;
-    public static final double OFFSET = POWER - 1;
   }
 }

@@ -236,9 +236,9 @@ public class RobotContainer {
   public double convertJoystickQuadratic(double input)
   {
     if (input < 0) {
-      return -((Math.pow(ControllerFunction.POWER, -input) + 1) / ControllerFunction.OFFSET);
+      return -((Math.pow(ControllerFunction.POWER, -input) - 1) / (ControllerFunction.POWER - 1));
     } else {
-      return (Math.pow(ControllerFunction.POWER, input) - 1) / ControllerFunction.OFFSET;
+      return (Math.pow(ControllerFunction.POWER, input) - 1) / (ControllerFunction.POWER -1);
     }
   }
 }
