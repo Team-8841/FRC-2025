@@ -63,8 +63,8 @@ public class RobotContainer {
   
     // AS of Feb 25 this is the used drive command                      
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> JoystickQuadratic(m_driverController.getLeftY()) ,
-                                                                () -> JoystickQuadratic(m_driverController.getLeftX()))
+                                                                () -> convertJoystickQuadratic(m_driverController.getLeftY()) ,
+                                                                () -> convertJoystickQuadratic(m_driverController.getLeftX()))
                                                             .withControllerRotationAxis(() -> MathUtil.applyDeadband(m_driverController.getRightX() *-1,OperatorConstants.DEADBAND))
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -233,10 +233,10 @@ public class RobotContainer {
     drivebase.setMotorBrake(brake);
   }
 
-  public double JoystickQuadratic(double input)
+  public double convertJoystickQuadratic(double input)
   {
     if (input < 0) {
-      return -Math.pow(ControllerFunction.POWER, -input) + 1 / ControllerFunction.OFFSET;
+      return -((Math.pow(ControllerFunction.POWER, -input) + 1) / ControllerFunction.OFFSET);
     } else {
       return (Math.pow(ControllerFunction.POWER, input) - 1) / ControllerFunction.OFFSET;
     }
