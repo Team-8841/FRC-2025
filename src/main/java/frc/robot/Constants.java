@@ -203,4 +203,11 @@ public final class Constants {
     public static final int CANDLE_CANID = 23; //TODO: Change this value
     public static final String CANDLE_BUS = "rio";
   }
+
+  public static final class ControllerFunction {
+    // Implements an expenential curve to the joystick input 
+    // Calulate OFFSET by y = POWER - 1;
+    public static final double POWER = 2.7;
+    public static final double OFFSET = POWER - 1;
+  }
 }

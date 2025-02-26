@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ControllerFunction;
 import frc.robot.Constants.GripperConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SetpointConstants;
@@ -59,10 +60,11 @@ public class RobotContainer {
                                                                 m_driverController.getHID()::getAButtonPressed,
                                                                 m_driverController.getHID()::getXButtonPressed,
                                                                 m_driverController.getHID()::getBButtonPressed);
-                                                              
+  
+    // AS of Feb 25 this is the used drive command                      
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getLeftY() ,
-                                                                () -> m_driverController.getLeftX())
+                                                                () -> JoystickQuadratic(m_driverController.getLeftY()) ,
+                                                                () -> JoystickQuadratic(m_driverController.getLeftX()))
                                                             .withControllerRotationAxis(() -> MathUtil.applyDeadband(m_driverController.getRightX() *-1,OperatorConstants.DEADBAND))
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -229,5 +231,14 @@ public class RobotContainer {
   public void setMotorBrake(boolean brake)
   {
     drivebase.setMotorBrake(brake);
+  }
+
+  public double JoystickQuadratic(double input)
+  {
+    if (input < 0) {
+      return -Math.pow(ControllerFunction.POWER, -input) + 1 / ControllerFunction.OFFSET;
+    } else {
+      return (Math.pow(ControllerFunction.POWER, input) - 1) / ControllerFunction.OFFSET;
+    }
   }
 }
