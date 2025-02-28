@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
+import frc.robot.Constants.ControllerFunction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Climber;
 
@@ -22,6 +23,16 @@ public class DriveClimberWithJoystick extends Command {
 
             this.addRequirements(climber);
     }
+
+      public double convertJoystickQuadratic(double input)
+  {
+    if (input < 0) {
+      return -((Math.pow(ControllerFunction.POWER, -input) - 1) / (ControllerFunction.POWER - 1));
+    } else {
+      return (Math.pow(ControllerFunction.POWER, input) - 1) / (ControllerFunction.POWER -1);
+    }
+  }
+    
 
     @Override
     public void execute() {
@@ -42,7 +53,7 @@ public class DriveClimberWithJoystick extends Command {
       // Retract after extention
       } else if (m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND) && m_Climber.Extended){
         if(m_Climber.getInSensor()) { // False is tirggered
-          m_Climber.driveClimber(Constants.ClimberConstants.CLIMBER_RETRACT_SPEED);
+          m_Climber.driveClimber(convertJoystickQuadratic(m_input));
         } else {
           m_Climber.driveClimber(0);
         }
