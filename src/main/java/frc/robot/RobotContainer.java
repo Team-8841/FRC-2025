@@ -28,6 +28,7 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -49,6 +50,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
+  private final Vision m_Vision = new Vision();
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.LEFT_Y_DEADBAND),

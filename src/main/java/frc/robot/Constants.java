@@ -208,4 +208,9 @@ public final class Constants {
     // Implements an expenential curve to the joystick input to allow for more precise control at lower speeds
     public static final double POWER = 2.7;
   }
+
+  public static final class ShuffleboardConstatns {
+    public static final String DriverDataTabName = "Driver Data";
+    public static final String DebugDataTabName = "Debug Data";
+  }
 }

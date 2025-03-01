@@ -165,18 +165,17 @@ public class ElevatorSubsystem extends SubsystemBase {
         // For Testing
         // Display debugging information on the SmartDashboard
         position = m_elevator_leader.getRotorPosition();
-        SmartDashboard.putNumber("[Elevator]: Position", position.getValueAsDouble());
-        SmartDashboard.putNumber("[Elevator]: SetPoint", setPoint);
-        SmartDashboard.putBoolean("[Elevator]: Top Sensor", getTopSensor());
-        SmartDashboard.putBoolean("[Elevator]: Bottom Sensor", getBottomSensorO());
-        SmartDashboard.putBoolean("[Elevator]: Ready" , getElevatorReadyStatus());
-        SmartDashboard.putBoolean("[Elevaotr]: At Setpoint", elevatorAtSetpoint());
-        SmartDashboard.putNumber("[Elevator Setpoints 0]: ", getElevatorTarget()[0]);
-        SmartDashboard.putNumber("[Elevator Setpoints 1]: ", getElevatorTarget()[1]);
-        SmartDashboard.putNumber("[Elevator Home Setpoints 0]: ", getElevatorHomeTarget()[0]);
-        SmartDashboard.putNumber("[Elevator Home Setpoints 1]: ", getElevatorHomeTarget()[1]);
-        SmartDashboard.putBoolean("[Elevator]: Algae State", m_isAlgaeState);
-
+        SmartDashboard.putNumber("# [Elevator]: Position", position.getValueAsDouble());
+        SmartDashboard.putNumber("# [Elevator]: SetPoint", setPoint);
+        SmartDashboard.putBoolean("# [Elevator]: Top Sensor", getTopSensor());
+        SmartDashboard.putBoolean("# [Elevator]: Bottom Sensor", getBottomSensorO());
+        SmartDashboard.putBoolean("# [Elevator]: Ready" , getElevatorReadyStatus());
+        SmartDashboard.putBoolean("# [Elevaotr]: At Setpoint", elevatorAtSetpoint());
+        SmartDashboard.putNumber("# [Elevator Setpoints 0]: ", getElevatorTarget()[0]);
+        SmartDashboard.putNumber("# [Elevator Setpoints 1]: ", getElevatorTarget()[1]);
+        SmartDashboard.putNumber("# [Elevator Home Setpoints 0]: ", getElevatorHomeTarget()[0]);
+        SmartDashboard.putNumber("# [Elevator Home Setpoints 1]: ", getElevatorHomeTarget()[1]);
+        SmartDashboard.putBoolean("# [Elevator]: Algae State", m_isAlgaeState);
     }
 
 }

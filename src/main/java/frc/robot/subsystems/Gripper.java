@@ -112,12 +112,12 @@ public class Gripper extends SubsystemBase{
         }
 
         // Put your periodic code here, called once per scheduler run
-        SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
-         SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
-        SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
-        SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
-        SmartDashboard.putBoolean("Home Sensor", homeSensor.get());
-        SmartDashboard.putBoolean("Rotated Sensor", rotatedSensor.get()); 
-        SmartDashboard.putBoolean("[Wrist]: At Position", wristAtPosition());   
+        SmartDashboard.putNumber("# [Wrist]: Setpoint", wristSetPoint);
+        SmartDashboard.putBoolean("# [Gripper]: Coral", isCoralDetected());
+        SmartDashboard.putBoolean("# [Gripper]: Algae", isAlgaeDetected());
+        SmartDashboard.putNumber("# [Wrist]: Position", m_wrist_motor.getPosition().getValueAsDouble());
+        SmartDashboard.putBoolean("# [Elevator]: Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("# [Wrist]: Rotated Sensor", rotatedSensor.get()); 
+        SmartDashboard.putBoolean("# [Wrist]: At Position", wristAtPosition());   
     }
 }
