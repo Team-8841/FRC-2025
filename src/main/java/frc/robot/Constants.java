@@ -77,6 +77,9 @@ public final class Constants {
   public static final class SetpointConstants { //TODO: Update these values
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position} 
+    // Absolute Max elevator position is 98 DO NOT go above this value
+    // Absolute Max wrist position is 86 DO NOT go above this number 
+
     public static final double[] CoralL1 = {12, 31};  //12, 31 Reef L1
     public static final double[] CoralL2 = {31, 43};  //31, 44 Reef L2 
     public static final double[] CoralL3 = {57, 43};  //57, 44 Reef L3
