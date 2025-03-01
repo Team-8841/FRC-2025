@@ -1,127 +1,123 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.controls.DutyCycleOut;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GripperConstants;
 
 public class Gripper extends SubsystemBase{
 
-    private TalonFX m_gripperMotor1,m_wristMotor,m_gripperMotor2;
-    private TalonFX gripperConfig, wristConfig;
-    private DigitalInput coralSensor, algaeSensor;
+    private final TalonFX m_gripper_motor = new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID, GripperConstants.CANBUS_NAME);
+    private final TalonFX m_wrist_motor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID, GripperConstants.CANBUS_NAME);
+
+    private final PowerDistribution m_PDH = new PowerDistribution(1, ModuleType.kRev);
+
+    private DigitalInput coralSensor, algaeSensor, homeSensor, rotatedSensor;
 
     private double wristSetPoint;
+    private final NeutralOut m_brake = new NeutralOut();
+
+    private final DutyCycleOut StopMotor = new DutyCycleOut(0);
+
+    private boolean getoffsensor = false;
+
 
     public Gripper() {
-        m_gripperMotor1 =  new TalonFX(GripperConstants.GRIPPER_MOTOR1_CANID);
-        m_gripperMotor2 = new TalonFX(GripperConstants.GRIPPER_MOTOR2_CANID);
-        m_wristMotor = new TalonFX(GripperConstants.WRIST_MOTOR_CANID);
+        TalonFXConfiguration wristConfig =  new TalonFXConfiguration();
+        TalonFXConfiguration grippeConfig = new TalonFXConfiguration();
 
+        m_PDH.setSwitchableChannel(false); // Start with the switchable channel off
+
+        // Wrist Config
+        wristConfig.Slot0.kP = GripperConstants.WRIST_P;
+        wristConfig.Slot0.kI = GripperConstants.WRIST_I;
+        wristConfig.Slot0.kD = GripperConstants.WRIST_D;
+
+        wristConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = GripperConstants.RAMP_UP;
+        m_wrist_motor.getConfigurator().apply(wristConfig);
+        m_wrist_motor.setPosition(0);
         wristSetPoint = 0; // Start at neutral position
+
+        grippeConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        m_gripper_motor.getConfigurator().apply(grippeConfig);
 
         coralSensor = new DigitalInput(GripperConstants.CORAL_SENSOR_PORT);
         algaeSensor = new DigitalInput(GripperConstants.ALGAE_SENSOR_PORT);
 
-        configureTalonFX(m_gripperMotor1);
-        configureTalonFX(m_gripperMotor2);
-        
-
-<<<<<<< Updated upstream
-        configureTalonFX(m_gripperMotor1, gripperConfig, false, NeutralMode.Brake, 20);
-        configureTalonFX(m_gripperMotor1, gripperConfig, true, NeutralMode.Brake, 20);
-
-        configureTalonFXPID(m_wristMotor, wristConfig, false, NeutralMode.Brake, 1000, 1000, 
-            FeedbackSensor.kPrimaryEncoder, GripperConstants.WRIST_P, GripperConstants.WRIST_I, GripperConstants.WRIST_D);
-    }
-// i wasn't able to do this part yet because i couldn't figure out how to invert
- private void configureTalonFX(TalonFX talon, TalonFXConfiguration config, boolean inverted, NeutralModeValue neutralMode, int currentLimit) {
-        config.MotorOutput.setInverted(inverted);
-=======
-        configureTalonFXPID(m_wristMotor, wristConfig, InvertedValue.Clockwise_Positive, NeutralModeValue.Brake,    GripperConstants.WRIST_P, GripperConstants.WRIST_I, GripperConstants.WRIST_D);
-}
- private void configureTalonFX(TalonFX talon, TalonFXConfiguration config,  InvertedValue inverted, NeutralModeValue neutralMode, double currentLimit) {
-        //config.MotorOutput.setInverted(inverted);
-        config.MotorOutput.Inverted = inverted;
->>>>>>> Stashed changes
-        config.MotorOutput.NeutralMode = neutralMode;
-        config.CurrentLimits.StatorCurrentLimit = currentLimit;
-        config.CurrentLimits.StatorCurrentLimitEnable = true;
-       
-        talon.getConfigurator().apply(config);
- }
-
-
-
-//not sure bout this part i just tried to do what ever i could idk tho 
-<<<<<<< Updated upstream
-    private void configureTalonFXPID(TalonFX spark, TalonFXConfiguration config, boolean inverted, NeutralMode neutralMode, double positionConversionFactor, double velocityConversionFactor, FeedbackSensor feedbackSensor, double p, double i, double d) {
-         
-        config
-            .inverted(true)
-            .idleMode(neutralMode);
-        config.encoder
-            .positionConversionFactor(positionConversionFactor) //1000
-            .velocityConversionFactor(velocityConversionFactor); //10000
-        config.closedLoop
-            .feedbackSensor(feedbackSensor) //FeedbackSensor.kPrimaryEncoder
-            .pid(p, i, d);
-    }
-=======
-private void configureTalonFXPID(TalonFX talon, TalonFXConfiguration config, InvertedValue inverted, NeutralModeValue neutralMode, double p, double i, double d) {
-    config.MotorOutput.Inverted = inverted;
-    config.MotorOutput.NeutralMode = neutralMode;
->>>>>>> Stashed changes
-
-    config.Slot0.kP = p;
-    config.Slot0.kI = i;
-    config.Slot0.kD = d;
-
-    talon.getConfigurator().apply(config);
-}
-    @Override
-    public void periodic() {
-        // Put your periodic code here, called once per scheduler run
+        homeSensor = new DigitalInput(GripperConstants.HOME_SENSOR_PORT);
+        rotatedSensor = new DigitalInput(GripperConstants.ROT_SENSOR_PORT);
     }
 
     public void setGripperSpeed(double speed) {
-        m_gripperMotor1.set(speed);
-        m_gripperMotor2.set(speed);
+        m_gripper_motor.set(speed);
     }
 
+    public void stopGripper() {
+        m_gripper_motor.set(0);
+        m_gripper_motor.setControl(m_brake);
+    }
+
+    public void enableSwitchablePDHChannel(boolean enabled) {
+        m_PDH.setSwitchableChannel(enabled);
+    }
+
+    //TODO: Perform check for elevator configuration to avoid hitting elevator
     public void setWristPosition(double position) {
-        wristSetPoint = position;
-        m_wristMotor.setControl(new PositionVoltage(position));
+        if (position > 0) {
+            position = position * -1; //Should always be negative
+        }
+        if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
+            wristSetPoint = position;
+            if (homeSensor.get() == false) // Home sensor is triggered 
+            {
+                getoffsensor = true; // Set variable to allow to leave home
+            }
+            m_wrist_motor.setControl(new PositionDutyCycle(wristSetPoint));
+        }
     }
 
     public boolean wristAtPosition() {
-        // Get the position of the wrist motor as a double
-        double currentPosition = m_wristMotor.getPosition().getValueAsDouble(); //if needed use the .getValue() instead
+        double currentPosition = m_wrist_motor.getPosition().getValueAsDouble();
         return Math.abs(currentPosition - wristSetPoint) <= GripperConstants.WRIST_ALLOWED_ERROR;
     }
 
-    
     public boolean isCoralDetected() {
-        return coralSensor.get();
+        return !coralSensor.get();
     }
 
     public boolean isAlgaeDetected() {
-        return algaeSensor.get();
+        return !algaeSensor.get();
     }
     
+    @Override
+    public void periodic() {
+        if (homeSensor.get() == false || rotatedSensor.get() == false) {
+            if (getoffsensor == false) {
+                m_wrist_motor.setControl(StopMotor);
+            }   
+        }
+
+        if (homeSensor.get() == true && getoffsensor == true)
+        {
+            getoffsensor = false;
+        }
+
+        // Put your periodic code here, called once per scheduler run
+        SmartDashboard.putNumber("Wrist Setpoint", wristSetPoint);
+         SmartDashboard.putBoolean("[Gripper]: Coral", isCoralDetected());
+        SmartDashboard.putBoolean("[Gripper]: Algae", isAlgaeDetected());
+        SmartDashboard.putNumber("Wrist Position", m_wrist_motor.getPosition().getValueAsDouble());
+        SmartDashboard.putBoolean("Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("Rotated Sensor", rotatedSensor.get()); 
+        SmartDashboard.putBoolean("[Wrist]: At Position", wristAtPosition());   
+    }
 }
-
-
-
