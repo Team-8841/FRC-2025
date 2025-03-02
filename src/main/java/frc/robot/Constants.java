@@ -81,9 +81,9 @@ public final class Constants {
     // Absolute Max wrist position is 86 DO NOT go above this number 
 
     public static final double[] CoralL1 = {12, 25};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {31, 38};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {57, 38};  //57, 44 Reef L3
-    public static final double[] CoralL4 = {97.5, 33};  //97, 43 Reef L4
+    public static final double[] CoralL2 = {31, 37};  //31, 44 Reef L2 
+    public static final double[] CoralL3 = {57, 37};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {97.5, 34};  //97, 43 Reef L4
 
     public static final double[] AlgaeL1 = {1, 24};   // 1, 36    processing station
     public static final double[] AlgaeL2 = {37, 30};  //37, 36    Reef Algae L2
@@ -166,7 +166,7 @@ public final class Constants {
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;
 
-   public static final double IntakeInSpeed = -0.9; // negitive for in
+   public static final double IntakeInSpeed = -0.8; // negitive for in
    public static final double IntakeOutSpeed = 0.9; // positive for out
 
    public static final double IntakeShootSpeed = 1.0; // Shoot the ball\
