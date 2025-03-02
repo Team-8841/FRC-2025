@@ -14,7 +14,7 @@
   "robotMass": 45.0,
   "robotMOI": 6.36,
   "robotTrackwidth": 0.546,
-  "driveWheelRadius": 0.101,
+  "driveWheelRadius": 0.05,
   "driveGearing": 5.9,
   "maxDriveSpeed": 4.75,
   "driveMotorType": "krakenX60",
