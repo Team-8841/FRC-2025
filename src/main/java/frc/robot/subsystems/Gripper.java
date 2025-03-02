@@ -85,9 +85,12 @@ public class Gripper extends SubsystemBase{
         }
     }
 
+    public double getWristPosition() {
+        return m_wrist_motor.getPosition().getValueAsDouble();
+    }
+
     public boolean wristAtPosition() {
-        double currentPosition = m_wrist_motor.getPosition().getValueAsDouble();
-        return Math.abs(currentPosition - wristSetPoint) <= GripperConstants.WRIST_ALLOWED_ERROR;
+        return Math.abs(getWristPosition() - wristSetPoint) <= GripperConstants.WRIST_ALLOWED_ERROR;
     }
 
     public boolean isCoralDetected() {
@@ -112,12 +115,12 @@ public class Gripper extends SubsystemBase{
         }
 
         // Put your periodic code here, called once per scheduler run
-        SmartDashboard.putNumber("# [Wrist]: Setpoint", wristSetPoint);
-        SmartDashboard.putBoolean("# [Gripper]: Coral", isCoralDetected());
-        SmartDashboard.putBoolean("# [Gripper]: Algae", isAlgaeDetected());
-        SmartDashboard.putNumber("# [Wrist]: Position", m_wrist_motor.getPosition().getValueAsDouble());
-        SmartDashboard.putBoolean("# [Elevator]: Home Sensor", homeSensor.get());
-        SmartDashboard.putBoolean("# [Wrist]: Rotated Sensor", rotatedSensor.get()); 
-        SmartDashboard.putBoolean("# [Wrist]: At Position", wristAtPosition());   
+        SmartDashboard.putNumber("#[Wrist]: Setpoint", wristSetPoint);
+        SmartDashboard.putBoolean("#[Gripper]: Coral", isCoralDetected());
+        SmartDashboard.putBoolean("#[Gripper]: Algae", isAlgaeDetected());
+        SmartDashboard.putNumber("#[Wrist]: Position", m_wrist_motor.getPosition().getValueAsDouble());
+        SmartDashboard.putBoolean("#[Elevator]: Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("#[Wrist]: Rotated Sensor", rotatedSensor.get()); 
+        SmartDashboard.putBoolean("#[Wrist]: At Position", wristAtPosition());   
     }
 }

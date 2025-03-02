@@ -14,11 +14,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
-import frc.robot.commands.Elevator.AutoMoveToSetpoint;
+import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
+import frc.robot.commands.Elevator.AutoMoveWristToSetpoint;
 import frc.robot.commands.Elevator.MoveToHome;
 import frc.robot.commands.Elevator.MoveToSetpoint;
+import frc.robot.commands.Elevator.MoveToSetpointGroup;
 import frc.robot.commands.Elevator.SetElevatorHomeTarget;
 import frc.robot.commands.Elevator.SetElevatorTarget;
 import frc.robot.commands.Gripper.IntakeAndWait;
@@ -32,6 +36,7 @@ import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import swervelib.*;
@@ -42,6 +47,8 @@ public class RobotContainer {
 
   private final CommandJoystick m_copilotController = 
   new CommandJoystick(OperatorConstants.kCoPilotControllerPort);
+
+  private final SendableChooser<Command> m_autoChooser;
 
   /* --------------------- SWERVE INIT ---------------------------- */
 
@@ -107,6 +114,7 @@ public class RobotContainer {
   //Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
   /* --------------------- SWERVE INTIT END ---------------------------- */
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -114,24 +122,26 @@ public class RobotContainer {
     m_elevator.resetEncoders();
 
 
+
+
     // Auto Named Commands
 
     // Home positions
-    NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
-    NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.groundPickup));
-    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.feederStation));
+    NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
+    NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.groundPickup));
+    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.feederStation));
 
     // Coral positions
-    NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL1));
-    NamedCommands.registerCommand("MoveToCoralL2", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL2));
-    NamedCommands.registerCommand("MoveToCoralL3", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL3));
-    NamedCommands.registerCommand("MoveToCoralL4", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.CoralL4));
+    NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL1));
+    NamedCommands.registerCommand("MoveToCoralL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL2));
+    NamedCommands.registerCommand("MoveToCoralL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL3));
+    NamedCommands.registerCommand("MoveToCoralL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL4));
 
     // Algae positions
-    NamedCommands.registerCommand("MoveToAlgaeL1", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL1));
-    NamedCommands.registerCommand("MoveToAlgaeL2", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL2));
-    NamedCommands.registerCommand("MoveToAlgaeL3", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL3));
-    NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpoint(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
+    NamedCommands.registerCommand("MoveToAlgaeL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL1));
+    NamedCommands.registerCommand("MoveToAlgaeL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL2));
+    NamedCommands.registerCommand("MoveToAlgaeL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL3));
+    NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
 
     // Shoot
     NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, 1));
@@ -140,6 +150,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeAndWait", new IntakeAndWait(m_Gripper));
     NamedCommands.registerCommand("IntakeWithSensorControl", new IntakeSensorControl(true, false, m_Gripper, m_elevator));
     NamedCommands.registerCommand("OuttakeWithSensorControl", new IntakeSensorControl(false, true, m_Gripper, m_elevator));
+    NamedCommands.registerCommand("StopIntake", new IntakeSensorControl(false, false, m_Gripper, m_elevator));
+
+
+    m_autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData(m_autoChooser);
 
   }
 
@@ -159,7 +174,8 @@ public class RobotContainer {
     m_driverController.start().onTrue(Commands.none());
     m_driverController.back().onTrue(Commands.none());
 
-    m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
+    //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
+    m_driverController.leftBumper().onTrue(new MoveToSetpointGroup(m_elevator, m_Gripper));  // Move elevator to target
 
     m_driverController.rightBumper().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed))  // Shoot algae/coral when held down
     .onFalse(new ShootAlgae(m_Gripper, 0));
@@ -222,7 +238,7 @@ public class RobotContainer {
    //TODO: Setup auto chooster on the smartdashboard to select between the different autonomous modes
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return m_autoChooser.getSelected();
   }
 
   public void setDriveMode()

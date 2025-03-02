@@ -80,21 +80,21 @@ public final class Constants {
     // Absolute Max elevator position is 98 DO NOT go above this value
     // Absolute Max wrist position is 86 DO NOT go above this number 
 
-    public static final double[] CoralL1 = {12, 31};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {31, 43};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {57, 43};  //57, 44 Reef L3
-    public static final double[] CoralL4 = {97.5, 39};  //97, 43 Reef L4
+    public static final double[] CoralL1 = {12, 25};  //12, 31 Reef L1
+    public static final double[] CoralL2 = {31, 38};  //31, 44 Reef L2 
+    public static final double[] CoralL3 = {57, 38};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {97.5, 33};  //97, 43 Reef L4
 
-    public static final double[] AlgaeL1 = {1, 30};   // 1, 36    processing station
-    public static final double[] AlgaeL2 = {37, 36};  //37, 36    Reef Algae L2
-    public static final double[] AlgaeL3 = {61, 36};  //61, 36    Reef Algae L3
-    public static final double[] AlgaeL4 = {97, 5};  //95, 20    Barge Shot
+    public static final double[] AlgaeL1 = {1, 24};   // 1, 36    processing station
+    public static final double[] AlgaeL2 = {37, 30};  //37, 36    Reef Algae L2
+    public static final double[] AlgaeL3 = {61, 30};  //61, 36    Reef Algae L3
+    public static final double[] AlgaeL4 = {97, 3};  //95, 20    Barge Shot
     
 
     public static final double[] startingConfiguration = {1, 1};
     public static final double[] startingHomeConfiguration = {1,1};  //2, 2
-    public static final double[] groundPickup = {2, 44};          //2, 46
-    public static final double[] feederStation = {18, 10};         //18 10
+    public static final double[] groundPickup = {2, 40};          //2, 46
+    public static final double[] feederStation = {18, 4};         //18 10
   
   }
 
@@ -166,10 +166,12 @@ public final class Constants {
     public static final int MIN_POS = 0;
     public static final int MAX_POS = -86;
 
-   public static final double IntakeInSpeed = -0.7; // negitive for in
+   public static final double IntakeInSpeed = -0.9; // negitive for in
    public static final double IntakeOutSpeed = 0.9; // positive for out
 
-   public static final double IntakeShootSpeed = 1.0; // Shoot the ball
+   public static final double IntakeShootSpeed = 1.0; // Shoot the ball\
+
+   public static final double WRIST_TOLERANCE = 2.0;
     
   }
 

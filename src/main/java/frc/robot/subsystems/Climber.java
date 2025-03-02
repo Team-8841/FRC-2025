@@ -90,19 +90,18 @@ public class Climber extends SubsystemBase{
         return stopSensor.get();
     }
 
-    public boolean getClimberOveride() {
-        return CLIMBER_OVERRIDE;
-    }
+    //public boolean getClimberOveride() {
+    //    return CLIMBER_OVERRIDE;
+    //}
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("# [Climber] Encoder", m_climberMain.getRotorPosition().getValueAsDouble());
-        SmartDashboard.putNumber("# [Climber] SetPoint", setPoint);
-        SmartDashboard.putBoolean("# [Climber] Home Sensor", homeSensor.get());
-        SmartDashboard.putBoolean("# [Climber] Overrun Sensor", stopSensor.get());
-        SmartDashboard.putBoolean("# [Climber] ExtendedState", stopSensor.get());
-        SmartDashboard.putBoolean("[Climber] OVERRIDE",CLIMBER_OVERRIDE);
-        CLIMBER_OVERRIDE = SmartDashboard.getBoolean("[Climber] OVERRIDE",false);
+        //SmartDashboard.putNumber("#[Climber] Encoder", m_climberMain.getRotorPosition().getValueAsDouble());
+        //SmartDashboard.putNumber("[Climber] SetPoint", setPoint);
+        SmartDashboard.putBoolean("#[Climber] Home Sensor", homeSensor.get());
+        SmartDashboard.putBoolean("#[Climber] Extended Sensor", stopSensor.get());
+        //SmartDashboard.putBoolean("[Climber] OVERRIDE",CLIMBER_OVERRIDE);
+        //CLIMBER_OVERRIDE = SmartDashboard.getBoolean("[Climber] OVERRIDE",false);
     }
     
 }
