@@ -42,15 +42,15 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Copy of New Path"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "MoveToStartingConfig"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
           }
         }
       ]
