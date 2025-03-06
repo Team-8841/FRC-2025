@@ -15,9 +15,27 @@
                 }
               },
               {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              },
+              {
                 "type": "path",
                 "data": {
                   "pathName": "coral 1 to algae 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToAlgaeL3"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral 1 to algae 1 (2)"
                 }
               },
               {
@@ -30,6 +48,25 @@
                 "type": "path",
                 "data": {
                   "pathName": "processor to algae2"
+                }
+              },
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToStartingConfig"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "algae 2 to processor"
+                      }
+                    }
+                  ]
                 }
               }
             ]

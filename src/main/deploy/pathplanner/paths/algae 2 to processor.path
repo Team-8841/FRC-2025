@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.775,
-        "y": 7.111
+        "x": 5.155,
+        "y": 2.973
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.921676136363636,
-        "y": 6.722315340909091
+        "x": 5.284943181813196,
+        "y": 2.71373579545953
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.8091477272727277,
-        "y": 5.665326704545455
+        "x": 5.9630113636363635,
+        "y": 0.57981534090909
       },
       "prevControl": {
-        "x": 3.1909090909090922,
-        "y": 6.413196022727274
+        "x": 5.853323863636364,
+        "y": 0.9587357954545449
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.41663334350235
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "Robinson",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.168146963306086
+    "rotation": 121.34124602504433
   },
   "useDefaultConstraints": true
 }

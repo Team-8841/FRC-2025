@@ -82,8 +82,8 @@ public final class Constants {
 
     public static final double[] CoralL1 = {12, 25};  //12, 31 Reef L1
     public static final double[] CoralL2 = {31, 37};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {57, 37};  //57, 44 Reef L3
-    public static final double[] CoralL4 = {97.5, 34};  //97, 43 Reef L4
+    public static final double[] CoralL3 = {56, 37};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {97.5, 38};  //97, 43 Reef L4
 
     public static final double[] AlgaeL1 = {1, 24};   // 1, 36    processing station
     public static final double[] AlgaeL2 = {36, 30};  //37, 36    Reef Algae L2
