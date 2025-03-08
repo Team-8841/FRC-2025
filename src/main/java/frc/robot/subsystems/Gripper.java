@@ -72,16 +72,22 @@ public class Gripper extends SubsystemBase{
 
     //TODO: Perform check for elevator configuration to avoid hitting elevator
     public void setWristPosition(double position) {
-        if (position > 0) {
+        /*if (position > 0) {
             position = position * -1; //Should always be negative
-        }
-        if (position < GripperConstants.MIN_POS && position > GripperConstants.MAX_POS) { // Direction is always NEGATIVE
+        }*/
+        if (position > GripperConstants.MIN_POS && position < GripperConstants.MAX_POS) { // Direction is always NEGATIVE
             wristSetPoint = position;
             if (homeSensor.get() == false) // Home sensor is triggered 
             {
                 getoffsensor = true; // Set variable to allow to leave home
             }
-            m_wrist_motor.setControl(new PositionDutyCycle(wristSetPoint));
+            if(!homeSensor.get() && position < m_wrist_motor.getPosition().getValueAsDouble()){
+                stopGripper();
+            }else if(!rotatedSensor.get() && position > m_wrist_motor.getPosition().getValueAsDouble()) {
+                stopGripper();
+            } else {
+                m_wrist_motor.setControl(new PositionDutyCycle(wristSetPoint));
+            }
         }
     }
 

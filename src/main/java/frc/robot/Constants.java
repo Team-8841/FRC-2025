@@ -59,14 +59,9 @@ public final class Constants {
     public static final double PID_FF = .000156;
 
     // Predefined Positions
-    // 98 IS ABSOLUTE TOP
-    //public static final double TOP_POS = 95;
-    //public static final double HIGH_POS = 69;
-    //public static final double MID_POS = 38.5;
-    //public static final double LOW_POS = 14.8;
-    //public static final double BOTTOM_POS = 5.0;
+    // 58 IS ABSOLUTE TOP
 
-    public static final double MAX_POS = 98.0;
+    public static final double MAX_POS = 58.0;
     public static final double MIN_POS = 0.0;
 
 
@@ -77,24 +72,24 @@ public final class Constants {
   public static final class SetpointConstants { //TODO: Update these values
     // Positions for each elevator and wrist position
     // Setup as an array of {Elevator Position, Wrist Position} 
-    // Absolute Max elevator position is 98 DO NOT go above this value
-    // Absolute Max wrist position is 86 DO NOT go above this number 
+    // Absolute Max elevator position is 58 DO NOT go above this value Try to keep it 1 less than max hight
+    // Absolute Max wrist position is 100 DO NOT go above this number 
 
-    public static final double[] CoralL1 = {12, 25};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {31, 37};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {56, 37};  //57, 44 Reef L3
-    public static final double[] CoralL4 = {97.5, 38};  //97, 43 Reef L4
+    public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
+    public static final double[] CoralL2 = {8, 72};  //31, 44 Reef L2 
+    public static final double[] CoralL3 = {24, 72};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {52, 72};  //97, 43 Reef L4
 
-    public static final double[] AlgaeL1 = {1, 24};   // 1, 36    processing station
-    public static final double[] AlgaeL2 = {36, 30};  //37, 36    Reef Algae L2
-    public static final double[] AlgaeL3 = {60, 30};  //61, 36    Reef Algae L3
-    public static final double[] AlgaeL4 = {97, 5};  //95, 20    Barge Shot
+    public static final double[] AlgaeL1 = {1, 63};   // 1, 36    processing station
+    public static final double[] AlgaeL2 = {10, 77};  //37, 36    Reef Algae L2
+    public static final double[] AlgaeL3 = {24, 77};  //61, 36    Reef Algae L3
+    public static final double[] AlgaeL4 = {57, 101};  //95, 20    Barge Shot
     
 
-    public static final double[] startingConfiguration = {1, 1};
-    public static final double[] startingHomeConfiguration = {1,1};  //2, 2
-    public static final double[] groundPickup = {2, 40};          //2, 46
-    public static final double[] feederStation = {18, 4};         //18 10
+    public static final double[] startingConfiguration = {1, 0};
+    public static final double[] startingHomeConfiguration = {1,0}; 
+    public static final double[] groundPickup = {1, 52};          
+    public static final double[] feederStation = {1, 101};         
   
   }
 
@@ -149,7 +144,7 @@ public final class Constants {
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
-    public static final double WRIST_P = 0.08;
+    public static final double WRIST_P = 0.085;
     public static final double WRIST_I = 0;
     public static final double WRIST_D = 0.015;
 
@@ -164,12 +159,12 @@ public final class Constants {
     public static final double FAR_POS = -80.0;
 
     public static final int MIN_POS = 0;
-    public static final int MAX_POS = -86;
+    public static final int MAX_POS = 102;
 
-   public static final double IntakeInSpeed = -0.8; // negitive for in
-   public static final double IntakeOutSpeed = 0.9; // positive for out
+   public static final double IntakeInSpeed = 0.8; // positive for in
+   public static final double IntakeOutSpeed = -0.9; // negitive for out
 
-   public static final double IntakeShootSpeed = 1.0; // Shoot the ball\
+   public static final double IntakeShootSpeed = -1.0; // Shoot the ball\
 
    public static final double WRIST_TOLERANCE = 2.0;
     

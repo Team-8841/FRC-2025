@@ -74,7 +74,7 @@ public class RobotContainer {
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> convertJoystickQuadratic(m_driverController.getLeftY()) ,
                                                                 () -> convertJoystickQuadratic(m_driverController.getLeftX()))
-                                                            .withControllerRotationAxis(() -> MathUtil.applyDeadband(m_driverController.getRightX() *-1,OperatorConstants.DEADBAND))
+                                                            .withControllerRotationAxis(() -> MathUtil.applyDeadband(convertJoystickQuadratic(m_driverController.getRightX() *-1),OperatorConstants.DEADBAND))
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -223,9 +223,6 @@ public class RobotContainer {
 
     //TODO: Change this to a digital swtich on the dashboard
     m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
-
-    //TODO: Change this to fit the new co-pilot controller
-    m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(Commands.none());
 
   }
 

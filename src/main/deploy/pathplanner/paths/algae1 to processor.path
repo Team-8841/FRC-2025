@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 5.840434690091859,
-        "y": 0.4688938842811362
+        "y": 0.46889388428113665
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,7 +50,12 @@
       "name": "MoveToAlgaeL1",
       "waypointRelativePos": 0.2609673790776216,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL1"
+        }
+      }
     }
   ],
   "globalConstraints": {
