@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ControllerFunction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Climber;
@@ -15,6 +16,8 @@ public class DriveClimberWithJoystick extends Command {
     private boolean invertInput;
     private double m_input;
     private boolean CLIMBER_OVERRIDE;
+
+    private boolean hasRotated = false;
     
     public DriveClimberWithJoystick(CommandJoystick input, Climber climber, Boolean invert){
             this.m_Climber = climber;
@@ -24,7 +27,7 @@ public class DriveClimberWithJoystick extends Command {
             this.addRequirements(climber);
     }
 
-      public double convertJoystickQuadratic(double input)
+  public double convertJoystickQuadratic(double input)
   {
     if (input < 0) {
       return -((Math.pow(ControllerFunction.POWER, -input) - 1) / (ControllerFunction.POWER - 1));
@@ -43,7 +46,7 @@ public class DriveClimberWithJoystick extends Command {
         m_input = m_input * -1;
       }
       // Extend 
-      if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND && !m_Climber.Extended){
+      /*if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND && !m_Climber.Extended){
         if (m_Climber.getOutSensor()) { // False is triggered
           m_Climber.driveClimber(-1 * Constants.ClimberConstants.CLIMBER_DEPLOY_SPEED);
         } else {
@@ -66,6 +69,24 @@ public class DriveClimberWithJoystick extends Command {
           m_Climber.driveClimber(0);
         }
       } else {
+        m_Climber.driveClimber(0);
+      }*/
+
+      if(m_input > ClimberConstants.CLIMBER_DEADBAND) {
+        if(m_Climber.getOutSensor()) {
+          m_Climber.driveClimber(-ClimberConstants.CLIMBER_DEPLOY_SPEED);
+        } else {
+          //m_Climber.setClimberExtended(true);
+          m_Climber.driveClimber(0);
+        }
+      }else if(m_input < -ClimberConstants.CLIMBER_DEADBAND) {
+        if(m_Climber.getInSensor()){
+          m_Climber.driveClimber(convertJoystickQuadratic(-m_input));
+        } else {
+          m_Climber.driveClimber(0);
+        }
+        
+      }else {
         m_Climber.driveClimber(0);
       }
   }

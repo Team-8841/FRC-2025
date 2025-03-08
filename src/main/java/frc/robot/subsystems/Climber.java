@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase{
 
     private ControlRequest follower;
 
-    public Boolean Extended; 
+    private Boolean m_hasExtended; 
 
     private DutyCycleOut stopMotor = new DutyCycleOut(0);
 
@@ -45,13 +45,19 @@ public class Climber extends SubsystemBase{
         m_leaderConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         m_leaderConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = ClimberConstants.CLIMBER_RAMPUP; // In seconds to ramp up to 100
 
+        TalonFXConfiguration m_followerConfig = new TalonFXConfiguration();
+        m_followerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+
+
         m_climberMain.getConfigurator().apply(m_leaderConfig);
+        m_climberFollower.getConfigurator().apply(m_followerConfig);
 
         follower = new Follower(m_climberMain.getDeviceID(), true); // Inverted Follower
         m_climberFollower.setControl(follower);
         m_climberMain.setPosition(0);
 
-        Extended = false;
+        m_hasExtended = false;
 
         CLIMBER_OVERRIDE = false;
     }
@@ -90,18 +96,23 @@ public class Climber extends SubsystemBase{
         return stopSensor.get();
     }
 
+    public void setClimberExtended(boolean state) {
+        m_hasExtended = state;
+    }
+
+    public boolean hasClimberExtended() {
+        return m_hasExtended;
+    }
+
     //public boolean getClimberOveride() {
     //    return CLIMBER_OVERRIDE;
     //}
 
     @Override
     public void periodic() {
-        //SmartDashboard.putNumber("#[Climber] Encoder", m_climberMain.getRotorPosition().getValueAsDouble());
-        //SmartDashboard.putNumber("[Climber] SetPoint", setPoint);
         SmartDashboard.putBoolean("#[Climber] Home Sensor", homeSensor.get());
         SmartDashboard.putBoolean("#[Climber] Extended Sensor", stopSensor.get());
-        //SmartDashboard.putBoolean("[Climber] OVERRIDE",CLIMBER_OVERRIDE);
-        //CLIMBER_OVERRIDE = SmartDashboard.getBoolean("[Climber] OVERRIDE",false);
+        SmartDashboard.putBoolean("#[Climber] Has Extended", hasClimberExtended());
     }
     
 }
