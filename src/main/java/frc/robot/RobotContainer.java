@@ -60,11 +60,11 @@ public class RobotContainer {
   private final Vision m_Vision = new Vision();
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
-                                                                OperatorConstants.LEFT_Y_DEADBAND),
+                                                                OperatorConstants.DEADBAND),
                                                               () -> -MathUtil.applyDeadband(m_driverController.getLeftX(),
                                                                 OperatorConstants.DEADBAND),
                                                               () -> -MathUtil.applyDeadband(m_driverController.getRightX(),
-                                                                OperatorConstants.RIGHT_X_DEADBAND),
+                                                                OperatorConstants.DEADBAND),
                                                                 m_driverController.getHID()::getYButtonPressed,
                                                                 m_driverController.getHID()::getAButtonPressed,
                                                                 m_driverController.getHID()::getXButtonPressed,
@@ -250,10 +250,17 @@ public class RobotContainer {
 
   public double convertJoystickQuadratic(double input)
   {
+    double db_input = Math.abs(input) - OperatorConstants.DEADBAND; // Shift curve to zero at deadband
+    if (db_input < 0)
+    {
+      db_input = 0;
+    }
+
     if (input < 0) {
-      return -((Math.pow(ControllerFunction.POWER, -input) - 1) / (ControllerFunction.POWER - 1));
+       // Shift curves to zero at deadband
+      return -((Math.pow(ControllerFunction.POWER, db_input) - 1) / (ControllerFunction.POWER - 1));
     } else {
-      return (Math.pow(ControllerFunction.POWER, input) - 1) / (ControllerFunction.POWER -1);
+      return (Math.pow(ControllerFunction.POWER, db_input) - 1) / (ControllerFunction.POWER - 1);
     }
   }
 }

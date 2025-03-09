@@ -98,7 +98,7 @@ public final class Constants {
     public static final int kCoPilotControllerPort = 1;
       
   // Joystick Deadband
-    public static final double DEADBAND        = 0.1;
+    public static final double DEADBAND        = 0.05;
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
@@ -212,5 +212,14 @@ public final class Constants {
   public static final class ShuffleboardConstatns {
     public static final String DriverDataTabName = "Driver Data";
     public static final String DebugDataTabName = "Debug Data";
+  }
+
+  public static final class LimelightConstants {
+    public static final double FWD_OFFSET = 0.5; // Forward offset (meters)
+    public static final double SIDE_OFFSET = 0.0; // Side offset (meters)
+    public static final double HEIGHT_OFFSET = 0.5; // Height offset (Meters)
+    public static final double ROLL = 0.0; // Roll Degrees
+    public static final double PITCH = 0.0; // Pitch Degrees
+    public static final double YAW = 0.0; // Yaw
   }
 }
