@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.064,
-        "y": 3.946
+        "x": 1.554,
+        "y": 7.273
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.827035512577173,
-        "y": 4.025673280969449
+        "x": 2.7038288288288284,
+        "y": 6.475225225225224
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.694,
-        "y": 3.946
+        "x": 3.688063063063063,
+        "y": 5.107657657657657
       },
       "prevControl": {
-        "x": 5.929435477898709,
-        "y": 3.86191590075046
+        "x": 3.2425675675675674,
+        "y": 5.708558558558558
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,23 +29,21 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
     {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.047244094488191855,
-      "maxWaypointRelativePos": 0.9313835770528737,
-      "constraints": {
-        "maxVelocity": 0.5,
-        "maxAcceleration": 1.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
+      "name": "MoveToCoralL4",
+      "waypointRelativePos": 0.7533783783783737,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToCoralL4"
+        }
       }
     }
   ],
-  "pointTowardsZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -56,13 +54,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.03879277068788
+    "rotation": 119.2913621709843
   },
   "reversed": false,
-  "folder": "Robinson processor paths",
+  "folder": "Robinson coral paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.228378345545
+    "rotation": -56.10554797750817
   },
   "useDefaultConstraints": true
 }

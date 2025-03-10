@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.694,
-        "y": 3.946
+        "x": 7.666,
+        "y": 4.704
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.2521875,
-        "y": 4.119730113641349
+        "x": 5.863738738738739,
+        "y": 5.936486486486484
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.963,
-        "y": 0.251
+        "x": 5.086711711711712,
+        "y": 5.0351351351351346
       },
       "prevControl": {
-        "x": 5.840434690091859,
-        "y": 0.46889388428113665
+        "x": 5.304279279279279,
+        "y": 5.3873873873873865
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0,
+      "minWaypointRelativePos": 0.5912162162162187,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 1.0,
+        "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -47,29 +47,39 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "MoveToAlgaeL1",
-      "waypointRelativePos": 0.2609673790776216,
+      "name": "MoveToAlgaeL2",
+      "waypointRelativePos": 0.03490990990991004,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "MoveToAlgaeL1"
+          "name": "MoveToAlgaeL2"
         }
       }
-<<<<<<< Updated upstream
-=======
     },
     {
-      "name": "Shoot",
-      "waypointRelativePos": 0.947072072072069,
+      "name": "MoveToAlgaeL3",
+      "waypointRelativePos": 0.7038288288288201,
       "endWaypointRelativePos": null,
       "command": {
-        "type": "named",
+        "type": "sequential",
         "data": {
-          "name": "Shoot"
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "MoveToAlgaeL3"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeWithSensorControl"
+              }
+            }
+          ]
         }
       }
->>>>>>> Stashed changes
     }
   ],
   "globalConstraints": {
@@ -82,13 +92,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -120.98932684957207
   },
   "reversed": false,
-  "folder": "Robinson processor paths",
+  "folder": "Robinson barge paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.00887757360437
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

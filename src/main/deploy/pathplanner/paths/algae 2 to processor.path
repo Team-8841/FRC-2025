@@ -45,7 +45,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Robinson",
+  "folder": "Robinson processor paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 121.34124602504433

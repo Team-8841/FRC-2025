@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "straight from start"
+                  "pathName": "straight from center"
                 }
               },
               {
@@ -23,7 +23,19 @@
               {
                 "type": "path",
                 "data": {
+                  "pathName": "coral 1 to algae 1 (2)"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
                   "pathName": "algae1 to barge"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Barge to algae 2"
                 }
               }
             ]

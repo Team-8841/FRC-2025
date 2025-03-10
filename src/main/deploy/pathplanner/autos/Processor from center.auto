@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "straight from start"
+                  "pathName": "straight from center"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "Shoot"
                 }
               },
               {
@@ -30,6 +30,12 @@
                 "type": "named",
                 "data": {
                   "name": "MoveToAlgaeL3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeWithSensorControl"
                 }
               },
               {
