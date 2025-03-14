@@ -32,10 +32,10 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
+      "minWaypointRelativePos": 0.5444319460067487,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 1.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -46,6 +46,12 @@
   ],
   "pointTowardsZones": [],
   "eventMarkers": [
+    {
+      "name": "MoveToFeederStation",
+      "waypointRelativePos": 0.06524184476940513,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
     {
       "name": "up",
       "waypointRelativePos": 0.6164229471316008,

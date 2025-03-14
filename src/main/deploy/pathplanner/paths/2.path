@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.252477477477477,
-        "y": 5.5220720720720715
+        "x": 5.341449934980493,
+        "y": 5.663263979193757
       },
       "isLocked": false,
       "linkedName": null
@@ -65,7 +65,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.331819880930226
+    "rotation": -54.74443474949712
   },
   "reversed": false,
   "folder": "Robinson coral paths",

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.055180180180181,
-        "y": 4.941891891891891
+        "x": 7.100097529258778,
+        "y": 7.547529258777633
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.2885135135135135,
-        "y": 5.439189189189189
+        "x": 6.712776332899869,
+        "y": 7.128803641092328
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.086974431818182
       },
       "prevControl": {
-        "x": 5.532207207207207,
-        "y": 5.449549549549549
+        "x": 5.70375,
+        "y": 5.765042613636362
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,6 +32,17 @@
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
+    {
+      "name": "ready",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToFeederStation"
+        }
+      }
+    },
     {
       "name": "scoring position",
       "waypointRelativePos": 0.6340090090089963,
@@ -60,7 +71,7 @@
   "folder": "Robinson coral paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 55.437475351118174
+    "rotation": -0.47532937207543824
   },
   "useDefaultConstraints": true
 }

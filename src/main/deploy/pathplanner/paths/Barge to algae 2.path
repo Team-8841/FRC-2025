@@ -32,11 +32,24 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.5912162162162187,
+      "minWaypointRelativePos": 0.5714285714285714,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
         "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.11248593925759297,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 1.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -47,8 +60,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "MoveToAlgaeL2",
-      "waypointRelativePos": 0.03490990990991004,
+      "name": "MoveToFeederStation",
+      "waypointRelativePos": 0.05624296962879705,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -59,7 +72,7 @@
     },
     {
       "name": "MoveToAlgaeL3",
-      "waypointRelativePos": 0.7038288288288201,
+      "waypointRelativePos": 0.634420697412825,
       "endWaypointRelativePos": null,
       "command": {
         "type": "sequential",
@@ -78,6 +91,17 @@
               }
             }
           ]
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.8413948256468018,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeWithSensorControl"
         }
       }
     }

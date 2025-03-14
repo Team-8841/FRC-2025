@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.554,
-        "y": 7.273
+        "x": 7.2,
+        "y": 3.9046163849154745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7038288288288284,
-        "y": 6.475225225225224
+        "x": 6.950897193195852,
+        "y": 3.883455296987514
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.688063063063063,
-        "y": 5.107657657657657
+        "x": 5.833452535760728,
+        "y": 3.9046163849154745
       },
       "prevControl": {
-        "x": 3.2425675675675674,
-        "y": 5.708558558558558
+        "x": 6.083169570191837,
+        "y": 3.8927250975616112
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,19 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "MoveToCoralL4",
-      "waypointRelativePos": 0.6546681664791939,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToCoralL4"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -54,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.2913621709843
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Robinson coral paths",
+  "folder": "Dead robot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -56.10554797750817
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

@@ -3,6 +3,7 @@
   "robotLength": 0.9652,
   "holonomicMode": true,
   "pathFolders": [
+    "Dead robot",
     "Robinson barge paths",
     "Robinson coral paths",
     "Robinson processor paths"
