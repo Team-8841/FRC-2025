@@ -76,9 +76,9 @@ public final class Constants {
     // Absolute Max wrist position is 100 DO NOT go above this number 
 
     public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {10, 72};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {24, 72};  //57, 44 Reef L3
-    public static final double[] CoralL4 = {54, 70};  //97, 43 Reef L4
+    public static final double[] CoralL2 = {14, 72};  //31, 44 Reef L2 
+    public static final double[] CoralL3 = {28, 72};  //57, 44 Reef L3
+    public static final double[] CoralL4 = {52, 70};  //54, 43 Reef L4
 
     public static final double[] AlgaeL1 = {1, 67};   // 1, 36    processing station
     public static final double[] AlgaeL2 = {10, 77};  //37, 36    Reef Algae L2
