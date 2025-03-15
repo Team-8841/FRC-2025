@@ -87,8 +87,8 @@ public class Vision extends SubsystemBase{
         targetpose_robotspace = nt_table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
         botpose_targetspace = nt_table.getEntry("botpose_targetspace").getDoubleArray(new double [6]);
         positions = LimelightHelpers.getBotPose_TargetSpace(ll_name);
-        SmartDashboard.putNumber("ll_TX_CURRENT", positions[0]);
-        SmartDashboard.putNumber("ll_TY_CURRENT", positions[2]);
+        SmartDashboard.putNumber("ll_TX_CURRENT", positions[2]);
+        SmartDashboard.putNumber("ll_TY_CURRENT", positions[0]);
         SmartDashboard.putNumber("ll_ROT_CURRENT", positions[4]);
         tid = nt_table.getEntry("tid").getInteger(0); // Primary April Tag ID in view 
     }

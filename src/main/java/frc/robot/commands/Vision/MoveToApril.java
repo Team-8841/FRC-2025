@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants;
 import frc.robot.Constants.LimelightConstants;
+import edu.wpi.first.math.filter.MedianFilter;
 
 
 public class MoveToApril extends Command {
@@ -33,6 +34,7 @@ public class MoveToApril extends Command {
     private Timer dontSeeTagTimer, stopTimer;
     private PIDController xController, yController, rotController;
     private double tagID = -1;
+    private MedianFilter filter = new MedianFilter(6);
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
@@ -67,6 +69,8 @@ public class MoveToApril extends Command {
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
 
+        
+
         tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
     }
 
@@ -80,16 +84,15 @@ public class MoveToApril extends Command {
             double[] postions = LimelightHelpers.getBotPose_TargetSpace(m_vision.getLLName());
             SmartDashboard.putNumber("x", postions[2]);
       
-            double xSpeed = xController.calculate(postions[2]);
-            double ySpeed = -yController.calculate(postions[0]);
-            double rotValue = -rotController.calculate(postions[4]);
+            double xSpeed = xController.calculate(filter.calculate(postions[2]));
+            double ySpeed = -yController.calculate(filter.calculate(postions[0]));
+            double rotValue = -rotController.calculate(filter.calculate(postions[4]));
 
             SmartDashboard.putNumber("xspee", xSpeed);
             SmartDashboard.putNumber("yspee", ySpeed);
             SmartDashboard.putNumber("rotValue", rotValue);
       
-            m_drive.drive(new Translation2d(0, 0), 0, false);
-           // m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+            m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
       
             if (!rotController.atSetpoint() ||
                 !yController.atSetpoint() ||

@@ -224,14 +224,14 @@ public final class Constants {
     public static final double PITCH = -8.25; // Pitch Degrees
     public static final double YAW = 34.5; // Yaw
 
-    public static final double X_REEF_ALIGNMENT_P = 0.1;
-    public static final double Y_REEF_ALIGNMENT_P = 0.1;
-    public static final double ROT_REEF_ALIGNMENT_P = 0.01;
+    public static final double X_REEF_ALIGNMENT_P = 0.3;
+    public static final double Y_REEF_ALIGNMENT_P = 0.3;
+    public static final double ROT_REEF_ALIGNMENT_P = 0.3;
     public static final double REEF_ALIGNMENT_D = 0.01;
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.1,0.1,0.2}; // X, Y, Z
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.1,0.1,0.1}; // X, Y, Z
 
     // Offsets to match for placement
     // Using targetpose_botspace
@@ -243,9 +243,9 @@ public final class Constants {
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
-      -1.6, // TX (meters) 
-      0.19, // TY (meters)
-      13.0 // RY (meters)
+      -1.4, // TX (meters) 
+      0.28, // TY (meters)
+      3.7 // RY (meters)
     };
 
    
