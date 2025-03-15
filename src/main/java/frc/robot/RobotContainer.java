@@ -28,6 +28,7 @@ import frc.robot.commands.Elevator.SetElevatorTarget;
 import frc.robot.commands.Gripper.IntakeAndWait;
 import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.Gripper.ShootAlgae;
+import frc.robot.commands.Vision.MoveToApril;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -57,7 +58,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
-  private final Vision m_Vision = new Vision();
+  private final Vision m_Vision = new Vision("limelight-fwd");
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.DEADBAND),
@@ -165,7 +166,7 @@ public class RobotContainer {
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.a().onTrue(Commands.none());
+    m_driverController.a().onTrue(new MoveToApril(m_Vision, drivebase, false).withTimeout(7)); //TODO Change Right/Left Select
     m_driverController.b().onTrue(Commands.none());
     m_driverController.x().onTrue(Commands.none());
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
