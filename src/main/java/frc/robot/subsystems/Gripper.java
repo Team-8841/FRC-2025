@@ -75,7 +75,7 @@ public class Gripper extends SubsystemBase{
         /*if (position > 0) {
             position = position * -1; //Should always be negative
         }*/
-        if (position > GripperConstants.MIN_POS && position < GripperConstants.MAX_POS) { // Direction is always NEGATIVE
+        if (position >= GripperConstants.MIN_POS && position <= GripperConstants.MAX_POS) { // Direction is always NEGATIVE
             wristSetPoint = position;
             if (homeSensor.get() == false) // Home sensor is triggered 
             {
