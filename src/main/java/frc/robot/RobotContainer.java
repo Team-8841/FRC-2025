@@ -128,21 +128,21 @@ public class RobotContainer {
     // Auto Named Commands
 
     // Home positions
-    NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.startingConfiguration));
-    NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.groundPickup));
-    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.feederStation));
+    NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.startingConfiguration, false));
+    NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.groundPickup, true));
+    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.feederStation, false));
 
     // Coral positions
-    NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL1));
-    NamedCommands.registerCommand("MoveToCoralL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL2));
-    NamedCommands.registerCommand("MoveToCoralL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL3));
-    NamedCommands.registerCommand("MoveToCoralL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL4));
+    NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL1, false));
+    NamedCommands.registerCommand("MoveToCoralL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL2, false));
+    NamedCommands.registerCommand("MoveToCoralL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL3, false));
+    NamedCommands.registerCommand("MoveToCoralL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL4, false));
 
     // Algae positions
-    NamedCommands.registerCommand("MoveToAlgaeL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL1));
-    NamedCommands.registerCommand("MoveToAlgaeL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL2));
-    NamedCommands.registerCommand("MoveToAlgaeL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL3));
-    NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL4));
+    NamedCommands.registerCommand("MoveToAlgaeL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL1, true));
+    NamedCommands.registerCommand("MoveToAlgaeL2", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL2, true));
+    NamedCommands.registerCommand("MoveToAlgaeL3", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL3, true));
+    NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL4, true));
 
     // Shoot
     NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, 1));
@@ -213,17 +213,13 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.IntakeOut).whileTrue(new IntakeSensorControl(false, true, m_Gripper, m_elevator))
       .onFalse(new IntakeSensorControl(false, false, m_Gripper, m_elevator));
 
+    m_copilotController.button(OperatorConstants.startingConfiguration).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
 
-    //TODO: Change this once we have the 6 position rotary switch
-    m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false))
-    .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
+    m_copilotController.button(OperatorConstants.groundPickup).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.groundPickup, true));
 
-    m_copilotController.button(OperatorConstants.groundPickup).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.groundPickup, true))
-    .onFalse(new SetElevatorHomeTarget(m_elevator, SetpointConstants.startingHomeConfiguration, false));
+    m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false));
 
-
-    //TODO: Change this to a digital swtich on the dashboard
-    m_copilotController.button(OperatorConstants.ManualOverride).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
+    m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
 
   }
 
