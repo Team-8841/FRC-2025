@@ -19,10 +19,12 @@ public class Vision extends SubsystemBase{
     private NetworkTable nt_table;
     private boolean targetRightCoral;
 
-    private double tx, ty, ta;
+    private double TX, TY, ROT;
     
     private long tid;
     private double[] targetpose_robotspace = new double[6];
+    private double[] botpose_targetspace = new double[6];
+    private double[] positions = new double[6];
 
     public Vision(String ll_name) {
         this.ll_name = ll_name;
@@ -83,9 +85,11 @@ public class Vision extends SubsystemBase{
     @Override
     public void periodic() {
         targetpose_robotspace = nt_table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+        botpose_targetspace = nt_table.getEntry("botpose_targetspace").getDoubleArray(new double [6]);
+        positions = LimelightHelpers.getBotPose_TargetSpace(ll_name);
+        SmartDashboard.putNumber("ll_TX_CURRENT", positions[0]);
+        SmartDashboard.putNumber("ll_TY_CURRENT", positions[2]);
+        SmartDashboard.putNumber("ll_ROT_CURRENT", positions[4]);
         tid = nt_table.getEntry("tid").getInteger(0); // Primary April Tag ID in view 
-        tx = nt_table.getEntry("tx").getDouble(0.0);
-        ty = nt_table.getEntry("ty").getDouble(0.0);
-        ta = nt_table.getEntry("ta").getDouble(0.0);
     }
 }

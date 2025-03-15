@@ -32,8 +32,6 @@ public class MoveToApril extends Command {
     private double[] rightCoralOffset = LimelightConstants.LEFT_CORAL_OFFSETS;
     private Timer dontSeeTagTimer, stopTimer;
     private PIDController xController, yController, rotController;
-    private boolean isRightScore;
-    private SwerveSubsystem drivebase;
     private double tagID = -1;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
@@ -41,46 +39,29 @@ public class MoveToApril extends Command {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
 
+        xController = new PIDController(LimelightConstants.X_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Vertical movement
+        yController = new PIDController(LimelightConstants.Y_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Horitontal movement
+        rotController = new PIDController(LimelightConstants.ROT_REEF_ALIGNMENT_P, 0, LimelightConstants.REEF_ALIGNMENT_D);  // Rotation
+        
         if (toRight == true)
-        {
+        { // Target Right Reef
             m_vision.setTargetCoralToRight();
+            setPIDSetpoints(LimelightConstants.RIGHT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
         }
         else
-        {
+        { // Target Left Reef
             m_vision.setTargetCoralToLeft();
+            setPIDSetpoints(LimelightConstants.LEFT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
         }
 
-        this.addRequirements(this.m_vision, this.m_drive);
-    }
-
-    public void setPIDSetpoints(double[] offset, double[] tolerance)
-    {
-    
-        xController.setSetpoint(offset[0]); // X
-        xController.setTolerance(tolerance[0]);
-
-        yController.setSetpoint(offset[1]); // Y
-        yController.setTolerance(tolerance[1]);
-
-        rotController.setSetpoint(offset[2]); // Z
-        rotController.setTolerance(tolerance[2]);
+        
+        this.addRequirements(this.m_drive);
     }
 
 
     @Override
     public void initialize()
     {
-        if (m_vision.isTargetRightCoral() == true)
-        {
-            // Target Right Coral
-            setPIDSetpoints(LimelightConstants.RIGHT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
-        }
-        else
-        {
-            // Target Left Coral
-            setPIDSetpoints(LimelightConstants.LEFT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
-        }
-
         this.stopTimer = new Timer();
         this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
@@ -100,11 +81,15 @@ public class MoveToApril extends Command {
             SmartDashboard.putNumber("x", postions[2]);
       
             double xSpeed = xController.calculate(postions[2]);
-            SmartDashboard.putNumber("xspee", xSpeed);
             double ySpeed = -yController.calculate(postions[0]);
             double rotValue = -rotController.calculate(postions[4]);
+
+            SmartDashboard.putNumber("xspee", xSpeed);
+            SmartDashboard.putNumber("yspee", ySpeed);
+            SmartDashboard.putNumber("rotValue", rotValue);
       
-            drivebase.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+            m_drive.drive(new Translation2d(0, 0), 0, false);
+           // m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
       
             if (!rotController.atSetpoint() ||
                 !yController.atSetpoint() ||
@@ -112,7 +97,7 @@ public class MoveToApril extends Command {
               stopTimer.reset();
             }
           } else {
-            drivebase.drive(new Translation2d(), 0, false);
+            m_drive.drive(new Translation2d(0,0), 0, false);
           }
       
           SmartDashboard.putNumber("poseValidTimer", stopTimer.get());
@@ -121,15 +106,34 @@ public class MoveToApril extends Command {
    @Override
    public void end(boolean interrupted)
    {
-        drivebase.drive(new Translation2d(), 0, false);
+        m_drive.drive(new Translation2d(0,0), 0, false);
    }
  
    // Returns true when the command should end.
    @Override
    public boolean isFinished()
    {
+    if (this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME) ||
+    stopTimer.hasElapsed(LimelightConstants.POSE_VALIDATION_TIME)){
+        System.out.println("FinishedCommand");
+    }
+    
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME) ||
         stopTimer.hasElapsed(LimelightConstants.POSE_VALIDATION_TIME);
+   }
+
+
+   public void setPIDSetpoints(double[] offset, double[] tolerance)
+   {
+   
+       xController.setSetpoint(offset[0]); // X
+       xController.setTolerance(tolerance[0]);
+
+       yController.setSetpoint(offset[1]); // Y
+       yController.setTolerance(tolerance[1]);
+
+       rotController.setSetpoint(offset[2]); // Z
+       rotController.setTolerance(tolerance[2]);
    }
   
     
