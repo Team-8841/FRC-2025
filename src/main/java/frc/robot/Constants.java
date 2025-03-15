@@ -222,6 +222,10 @@ public final class Constants {
     public static final double PITCH = -8.25; // Pitch Degrees
     public static final double YAW = 34.5; // Yaw
 
+    public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
+    public static final double POSE_VALIDATION_TIME = 0.5;
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={2.0,2.0,2.0}; // X, Y, Z
+
     // Offsets to match for placement
     // Using targetpose_botspace
     public static final double[] LEFT_CORAL_OFFSETS = {
@@ -229,7 +233,7 @@ public final class Constants {
       0.0, // Y (meters)
       0.0, // Z (meters)
       0.0, // Roll (Degrees)
-      0.0, // Pitch (Degrees)
+      0.0, // Pitch (Degrees) // Can't Adjust
       0.0 // Yaw (Degrees)
     };
 
@@ -241,5 +245,7 @@ public final class Constants {
       0.0, // Pitch (Degrees)
       0.0 // Yaw (Degrees)
     };
+
+
   }
 }

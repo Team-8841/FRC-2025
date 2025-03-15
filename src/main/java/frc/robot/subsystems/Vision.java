@@ -69,7 +69,16 @@ public class Vision extends SubsystemBase{
     {
         targetRightCoral = true;
     }
-    
+
+    public boolean isTargetRightCoral()
+    {
+        return targetRightCoral;
+    }    
+
+    public String getLLName()
+    {
+        return ll_name;
+    }
 
     @Override
     public void periodic() {
