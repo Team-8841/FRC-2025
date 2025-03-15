@@ -15,6 +15,12 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "Shoot"
@@ -39,25 +45,19 @@
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "IntakeWithSensorControl"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral 1 to algae 1 (2)"
-                }
-              },
-              {
                 "type": "race",
                 "data": {
                   "commands": [
                     {
                       "type": "named",
                       "data": {
-                        "name": "MoveToStartingConfig"
+                        "name": "IntakeWithSensorControl"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "coral 1 to algae 1 (2)"
                       }
                     }
                   ]
