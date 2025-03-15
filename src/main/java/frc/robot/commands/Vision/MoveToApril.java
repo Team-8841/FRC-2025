@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
+import javax.lang.model.util.ElementScanner14;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
@@ -19,6 +22,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.util.*;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants;
 import frc.robot.Constants.LimelightConstants;
@@ -80,28 +84,36 @@ public class MoveToApril extends Command {
     @Override
     public void execute()
     {
-        double[][] sampled_postions = new double[LimelightConstants.LL_SAMPLING][6];
-        double[] postions = new double[6];
+        double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
+        double[] positions = new double[6];
         //double[] current_location = m_vision.getTargetpose_Robotspace();
         if (LimelightHelpers.getTV(m_vision.getLLName()) && LimelightHelpers.getFiducialID(m_vision.getLLName()) == tagID) {
             this.dontSeeTagTimer.reset();
       
             //Average current position 
             for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
-                sampled_postions[i] = LimelightHelpers.getBotPose_TargetSpace(m_vision.getLLName());
+                sampled_positions[i] = LimelightHelpers.getBotPose_TargetSpace(m_vision.getLLName());
             }
             for (int r = 0; r < 6; r++){   
                 double avg = 0;
                 for(int i = 0; i < LimelightConstants.LL_SAMPLING; i++)
                 {
-                    avg = avg + sampled_postions[i][r];
+                    avg = avg + sampled_positions[i][r];
                 }
-                postions[r] = avg;
+                positions[r] = avg;
             }
+
+            double TX = positions[2];
+            double TY = positions[0];
+            double ROT = positions[4];
       
-            double xSpeed = xController.calculate(postions[2]);
-            double ySpeed = -yController.calculate(postions[0]);
-            double rotValue = -rotController.calculate(postions[4]);
+            //double xSpeed = xController.calculate(positions[2]);
+            //double ySpeed = -yController.calculate(positions[0]);
+            //double rotValue = -rotController.calculate(positions[4]);
+
+            double xSpeed = getConstSpeed(TX,LimelightConstants.RIGHT_CORAL_OFFSETS[0],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
+            double ySpeed = getConstSpeed(TY,LimelightConstants.RIGHT_CORAL_OFFSETS[1],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+            double rotValue = getConstSpeed(ROT,LimelightConstants.RIGHT_CORAL_OFFSETS[2],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
 
             SmartDashboard.putNumber("#_XSPEED", xSpeed);
             SmartDashboard.putNumber("#_YSPEED", ySpeed);
@@ -146,6 +158,21 @@ public class MoveToApril extends Command {
 
        rotController.setSetpoint(offset[2]); // Z
        rotController.setTolerance(tolerance[2]);
+   }
+
+   public double getConstSpeed(double current_pos, double set_position, double tolerance)
+   {
+    double difference = current_pos - set_position;
+    if (Math.abs(difference) > tolerance)
+    {
+        if (difference > 0)
+        {
+            return LimelightConstants.SPEED_CONSTANT;
+        }else{
+            return -1*LimelightConstants.SPEED_CONSTANT;
+        }
+    }
+    return 0;
    }
   
 }

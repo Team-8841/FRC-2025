@@ -233,6 +233,8 @@ public final class Constants {
     public static final double POSE_VALIDATION_TIME = 0.5;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.1,0.1,0.1}; // X, Y, Z
 
+    public static final double SPEED_CONSTANT = 1.0;
+
     public static final int LL_SAMPLING = 6;
 
     // Offsets to match for placement
