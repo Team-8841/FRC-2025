@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.694,
-        "y": 3.946
+        "x": 5.295,
+        "y": 5.097
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.340315315315316,
-        "y": 4.144144144144144
+        "x": 5.341449934980493,
+        "y": 5.663263979193757
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.666,
-        "y": 4.703603603603603
+        "x": 1.605,
+        "y": 7.330582386363636
       },
       "prevControl": {
-        "x": 7.07545945945946,
-        "y": 4.454954954954954
+        "x": 2.3721163036848463,
+        "y": 6.813480348077228
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "MoveToFeederStation",
-      "waypointRelativePos": 0.0922384701912274,
+      "name": "intake",
+      "waypointRelativePos": 0.14301801801800912,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -44,13 +44,13 @@
       }
     },
     {
-      "name": "barge",
-      "waypointRelativePos": 0.8121484814398183,
+      "name": "get coral",
+      "waypointRelativePos": 0.7376126126126207,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "MoveToAlgaeL4"
+          "name": "IntakeWithSensorControl"
         }
       }
     }
@@ -65,13 +65,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.1447875400455247
+    "rotation": -54.74443474949712
   },
   "reversed": false,
-  "folder": "Robinson processor paths",
+  "folder": "Robinson coral paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.52221341123592
+    "rotation": 61.968259179563034
   },
   "useDefaultConstraints": true
 }

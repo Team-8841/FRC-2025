@@ -56,6 +56,20 @@
           "name": "MoveToAlgaeL1"
         }
       }
+<<<<<<< Updated upstream
+=======
+    },
+    {
+      "name": "Shoot",
+      "waypointRelativePos": 0.947072072072069,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Shoot"
+        }
+      }
+>>>>>>> Stashed changes
     }
   ],
   "globalConstraints": {
@@ -71,7 +85,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Robinson",
+  "folder": "Robinson processor paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 179.00887757360437

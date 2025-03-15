@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.155,
-        "y": 2.973
+        "x": 7.2,
+        "y": 3.9046163849154745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.284943181813196,
-        "y": 2.71373579545953
+        "x": 6.950897193195852,
+        "y": 3.883455296987514
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.9630113636363635,
-        "y": 0.57981534090909
+        "x": 5.833452535760728,
+        "y": 3.9046163849154745
       },
       "prevControl": {
-        "x": 5.853323863636364,
-        "y": 0.9587357954545449
+        "x": 6.083169570191837,
+        "y": 3.8927250975616112
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Robinson processor paths",
+  "folder": "Dead robot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 121.34124602504433
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

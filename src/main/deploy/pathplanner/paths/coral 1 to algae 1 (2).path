@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 5.693778409090909,
+        "x": 5.694,
         "y": 3.946
       },
       "prevControl": {
-        "x": 5.929213886989618,
+        "x": 5.929435477898709,
         "y": 3.86191590075046
       },
       "nextControl": null,
@@ -45,7 +45,30 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "MoveToAlgaeL2",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL3"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.8728908886389111,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeWithSensorControl"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -59,7 +82,7 @@
     "rotation": -179.03879277068788
   },
   "reversed": false,
-  "folder": "Robinson",
+  "folder": "Robinson processor paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -179.228378345545
