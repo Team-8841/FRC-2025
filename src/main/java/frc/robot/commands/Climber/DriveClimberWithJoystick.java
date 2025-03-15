@@ -39,38 +39,12 @@ public class DriveClimberWithJoystick extends Command {
 
     @Override
     public void execute() {
-      CLIMBER_OVERRIDE = joystick.button(Constants.OperatorConstants.ElevatorLock).getAsBoolean();
-      m_input = joystick.getRawAxis(OperatorConstants.WristjoystickY);
+      //CLIMBER_OVERRIDE = joystick.button(OperatorConstants.ClimberSwitch).getAsBoolean();
+      m_input = joystick.getRawAxis(OperatorConstants.ClimberJoystickY);
       if (invertInput == true)
       {
         m_input = m_input * -1;
       }
-      // Extend 
-      /*if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND && !m_Climber.Extended){
-        if (m_Climber.getOutSensor()) { // False is triggered
-          m_Climber.driveClimber(-1 * Constants.ClimberConstants.CLIMBER_DEPLOY_SPEED);
-        } else {
-          m_Climber.Extended = true;
-          m_Climber.driveClimber(0);
-        }
-      // Retract after extention
-      } else if (m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND) && m_Climber.Extended){
-        if(m_Climber.getInSensor()) { // False is tirggered
-          m_Climber.driveClimber(convertJoystickQuadratic(m_input));
-        } else {
-          m_Climber.driveClimber(0);
-        }
-      } else if (CLIMBER_OVERRIDE) { // Override 
-        if (m_input > Constants.ClimberConstants.CLIMBER_DEADBAND) {
-          m_Climber.driveClimber(-1 * Constants.ClimberConstants.CLIMBER_OVERRIDE_SPEED); // Negative
-        } else if(m_input < (-1 * Constants.ClimberConstants.CLIMBER_DEADBAND)){
-          m_Climber.driveClimber(Constants.ClimberConstants.CLIMBER_OVERRIDE_SPEED);
-        } else {
-          m_Climber.driveClimber(0);
-        }
-      } else {
-        m_Climber.driveClimber(0);
-      }*/
 
       if(m_input > ClimberConstants.CLIMBER_DEADBAND) {
         if(m_Climber.getOutSensor()) {
