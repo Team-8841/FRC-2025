@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
 import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
 import frc.robot.commands.Elevator.AutoMoveWristToSetpoint;
@@ -25,6 +26,7 @@ import frc.robot.commands.Elevator.MoveToSetpoint;
 import frc.robot.commands.Elevator.MoveToSetpointGroup;
 import frc.robot.commands.Elevator.SetElevatorHomeTarget;
 import frc.robot.commands.Elevator.SetElevatorTarget;
+import frc.robot.commands.Gripper.AutoIntakeSensorControl;
 import frc.robot.commands.Gripper.IntakeAndWait;
 import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.Gripper.ShootAlgae;
@@ -145,12 +147,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL4, true));
 
     // Shoot
-    NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, 1));
+    NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed));
 
     // Intake commands
     NamedCommands.registerCommand("IntakeAndWait", new IntakeAndWait(m_Gripper));
-    NamedCommands.registerCommand("IntakeWithSensorControl", new IntakeSensorControl(true, false, m_Gripper, m_elevator));
-    NamedCommands.registerCommand("OuttakeWithSensorControl", new IntakeSensorControl(false, true, m_Gripper, m_elevator));
+    NamedCommands.registerCommand("IntakeWithSensorControl", new AutoIntakeSensorControl(true, false, m_Gripper, m_elevator));
+    NamedCommands.registerCommand("OuttakeWithSensorControl", new AutoIntakeSensorControl(false, true, m_Gripper, m_elevator));
     NamedCommands.registerCommand("StopIntake", new IntakeSensorControl(false, false, m_Gripper, m_elevator));
 
 
@@ -172,7 +174,11 @@ public class RobotContainer {
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
       
 
-    m_driverController.start().onTrue(Commands.none());
+    m_driverController.start().onTrue(new InstantCommand( () -> { // This prob wont work
+      drivebase.zeroGyro();
+    }));
+
+
     m_driverController.back().onTrue(Commands.none());
 
     //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
