@@ -8,56 +8,54 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.340315315315316,
-        "y": 4.144144144144144
+        "x": 6.297875672738189,
+        "y": 3.946
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.666,
-        "y": 4.703603603603603
+        "x": 6.849375,
+        "y": 3.946
       },
       "prevControl": {
-        "x": 7.07545945945946,
-        "y": 4.454954954954954
+        "x": 6.5046604441715585,
+        "y": 3.946
+      },
+      "nextControl": {
+        "x": 7.099375,
+        "y": 3.946
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.499375,
+        "y": 4.62625
+      },
+      "prevControl": {
+        "x": 6.8045446795744455,
+        "y": 4.62625
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
-  "pointTowardsZones": [],
-  "eventMarkers": [
+  "rotationTargets": [
     {
-      "name": "MoveToFeederStation",
-      "waypointRelativePos": 0.0922384701912274,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToFeederStation"
-        }
-      }
-    },
-    {
-      "name": "barge",
-      "waypointRelativePos": 0.8121484814398183,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToAlgaeL4"
-        }
-      }
+      "waypointRelativePos": 0.36883116883116884,
+      "rotationDegrees": 180.0
     }
   ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -73,5 +71,5 @@
     "velocity": 0,
     "rotation": 178.52221341123592
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

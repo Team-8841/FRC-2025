@@ -5,65 +5,100 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "path",
+          "data": {
+            "pathName": "straight from center"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral 1 to algae 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL2"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "straight from center"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.0
+                  "pathName": "coral 1 to algae 1 (2)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Shoot"
+                  "name": "IntakeWithSensorControl"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.0
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral 1 to algae 1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToAlgaeL3"
-                }
-              },
-              {
-                "type": "race",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeWithSensorControl"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "coral 1 to algae 1 (2)"
-                      }
-                    }
-                  ]
+                  "waitTime": 2.0
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "algae1 to barge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToStartingConfig"
           }
         }
       ]

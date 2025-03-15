@@ -30,6 +30,7 @@ import frc.robot.commands.Gripper.AutoIntakeSensorControl;
 import frc.robot.commands.Gripper.IntakeAndWait;
 import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.Gripper.ShootAlgae;
+import frc.robot.commands.Gripper.StopIntake;
 import frc.robot.commands.Vision.MoveToApril;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
@@ -153,7 +154,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeAndWait", new IntakeAndWait(m_Gripper));
     NamedCommands.registerCommand("IntakeWithSensorControl", new AutoIntakeSensorControl(true, false, m_Gripper, m_elevator));
     NamedCommands.registerCommand("OuttakeWithSensorControl", new AutoIntakeSensorControl(false, true, m_Gripper, m_elevator));
-    NamedCommands.registerCommand("StopIntake", new IntakeSensorControl(false, false, m_Gripper, m_elevator));
+    NamedCommands.registerCommand("StopIntake", new StopIntake(false, false, m_Gripper, m_elevator));
 
 
     m_autoChooser = AutoBuilder.buildAutoChooser();
