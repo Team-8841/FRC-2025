@@ -57,7 +57,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
-  private final Vision m_Vision = new Vision();
+  private final Vision m_Vision = new Vision("limelight-fwd");
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.DEADBAND),

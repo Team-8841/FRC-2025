@@ -15,22 +15,22 @@ import frc.robot.Constants.LimelightConstants;
 
 public class Vision extends SubsystemBase{
 
-    private NetworkTable fwd_table = NetworkTableInstance.getDefault().getTable("limelight-fwd");
-    private NetworkTableEntry fwd_tx = fwd_table.getEntry("tx");
-    private NetworkTableEntry fwd_ty = fwd_table.getEntry("ty");
-    private NetworkTableEntry fwd_ta = fwd_table.getEntry("ta");
-    private NetworkTableEntry tid = fwd_table.getEntry("tid"); // Primary April Tag ID in view
-    private double[] botpose_orb = fwd_table.getEntry("bostpose_orb").getDoubleArray(new double[6]);
-    private double [] targetpose_robotspace = fwd_table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
-    private double [] targetpose_cameraspace = fwd_table.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
-    private double [] botpose_targetspace = fwd_table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+    private String ll_name;
+    private NetworkTable nt_table;
+    private boolean targetRightCoral;
 
-    private NetworkTable rear_table = NetworkTableInstance.getDefault().getTable("limelight-rear");
-    private NetworkTableEntry rear_tx = rear_table.getEntry("tx");
-    private NetworkTableEntry rear_ty = rear_table.getEntry("ty");
-    private NetworkTableEntry rear_ta = rear_table.getEntry("ta");
+    private double tx, ty, ta;
+    
+    private long tid;
+    private double[] targetpose_robotspace = new double[6];
 
-    public Vision() {
+    public Vision(String ll_name) {
+        this.ll_name = ll_name;
+        nt_table = NetworkTableInstance.getDefault().getTable(this.ll_name);
+        targetRightCoral = false; //Default target left coral
+        // Other reference frame options 
+        //private double [] targetpose_cameraspace = fwd_table.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
+        //private double [] botpose_targetspace = fwd_table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
 
         // Change the camera pose relative to robot center (x forward, y left, z up, degrees)
         LimelightHelpers.setCameraPose_RobotSpace("limelight-fwd", 
@@ -45,14 +45,38 @@ public class Vision extends SubsystemBase{
         //.withProperties(Map.of("showControls", "false"));
 
     }
+
+    public double[] getTargetpose_Robotspace() {
+        return targetpose_robotspace;
+    }
+
+    public long getTargetedApril() {
+        return tid;
+    }
+
+    public boolean visionAtSetpoint()
+    {
+        // TODO return true once near setpoint
+        return false;
+    }
+
+    public void setTargetCoralToLeft()
+    {
+        targetRightCoral = false;
+    }
+
+    public void setTargetCoralToRight()
+    {
+        targetRightCoral = true;
+    }
     
-
-  
-
-
 
     @Override
     public void periodic() {
-        
+        targetpose_robotspace = nt_table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+        tid = nt_table.getEntry("tid").getInteger(0); // Primary April Tag ID in view 
+        tx = nt_table.getEntry("tx").getDouble(0.0);
+        ty = nt_table.getEntry("ty").getDouble(0.0);
+        ta = nt_table.getEntry("ta").getDouble(0.0);
     }
 }

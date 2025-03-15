@@ -87,7 +87,23 @@ public class DriveClimberWithJoystick extends Command {
         }
         
       }else {
+        // Override
+        if (CLIMBER_OVERRIDE == true) {
+          if(m_input > ClimberConstants.CLIMBER_DEADBAND)
+          {
+            m_Climber.driveClimber(-ClimberConstants.CLIMBER_DEPLOY_SPEED);
+          } else if (m_input < ClimberConstants.CLIMBER_DEADBAND)
+          {
+            m_Climber.driveClimber(ClimberConstants.CLIMBER_DEPLOY_SPEED);
+          }
+          else {
+            m_Climber.driveClimber(0);
+          }
+        }
+        // Otherwise
+        else{
         m_Climber.driveClimber(0);
+        }
       }
   }
 

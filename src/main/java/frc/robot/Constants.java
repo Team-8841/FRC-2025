@@ -98,7 +98,7 @@ public final class Constants {
     public static final int kCoPilotControllerPort = 1;
       
   // Joystick Deadband
-    public static final double DEADBAND        = 0.05;
+    public static final double DEADBAND        = 0.03;
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
@@ -215,11 +215,31 @@ public final class Constants {
   }
 
   public static final class LimelightConstants {
-    public static final double FWD_OFFSET = 0.5; // Forward offset (meters)
-    public static final double SIDE_OFFSET = 0.0; // Side offset (meters)
-    public static final double HEIGHT_OFFSET = 0.5; // Height offset (Meters)
-    public static final double ROLL = 0.0; // Roll Degrees
-    public static final double PITCH = 0.0; // Pitch Degrees
-    public static final double YAW = 0.0; // Yaw
+    public static final double FWD_OFFSET = 0.2667; // Forward offset (meters)
+    public static final double SIDE_OFFSET = 0.1397; // Side offset (meters)
+    public static final double HEIGHT_OFFSET = 0.3429; // Height offset (Meters)
+    public static final double ROLL = 0; // Roll Degrees
+    public static final double PITCH = -8.25; // Pitch Degrees
+    public static final double YAW = 34.5; // Yaw
+
+    // Offsets to match for placement
+    // Using targetpose_botspace
+    public static final double[] LEFT_CORAL_OFFSETS = {
+      0.0, // X (meters)
+      0.0, // Y (meters)
+      0.0, // Z (meters)
+      0.0, // Roll (Degrees)
+      0.0, // Pitch (Degrees)
+      0.0 // Yaw (Degrees)
+    };
+
+    public static final double[] RIGHT_CORAL_OFFSETS = {
+      0.0, // X (meters)
+      0.0, // Y (meters)
+      0.0, // Z (meters)
+      0.0, // Roll (Degrees)
+      0.0, // Pitch (Degrees)
+      0.0 // Yaw (Degrees)
+    };
   }
 }
