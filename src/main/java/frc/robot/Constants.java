@@ -76,8 +76,8 @@ public final class Constants {
     // Absolute Max wrist position is 100 DO NOT go above this number 
 
     public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {14, 72};  //31, 44 Reef L2 
-    public static final double[] CoralL3 = {28, 72};  //57, 44 Reef L3
+    public static final double[] CoralL2 = {10, 72};  //14, 44 Reef L2 
+    public static final double[] CoralL3 = {26, 72};  //28, 44 Reef L3
     public static final double[] CoralL4 = {52, 70};  //54, 43 Reef L4
 
     public static final double[] AlgaeL1 = {1, 67};   // 1, 36    processing station
@@ -121,8 +121,8 @@ public final class Constants {
     public static final int groundPickup = 11;
   
 
-    public static final int IntakeIn = 12;
-    public static final int IntakeOut = 13;
+    public static final int IntakeIn = 13;
+    public static final int IntakeOut = 12;
 
     public static final int ManualOverride = 14;
     public static final int ClimberSwitch = 15;
