@@ -86,9 +86,9 @@ public class Vision extends SubsystemBase{
     public void periodic() {
         botpose_targetspace = nt_table.getEntry("botpose_targetspace").getDoubleArray(new double [6]);
         positions = LimelightHelpers.getBotPose_TargetSpace(ll_name);
-        SmartDashboard.putNumber("#[LL]RAW_TX_CURRENT", positions[2]);
-        SmartDashboard.putNumber("#[LL]RAW_TY_CURRENT", positions[0]);
-        SmartDashboard.putNumber("#[LL]RAW_ROT_CURRENT", positions[4]);
+        SmartDashboard.putNumber("$[LL]RAW_TX_CURRENT", positions[2]);
+        SmartDashboard.putNumber("$[LL]RAW_TY_CURRENT", positions[0]);
+        SmartDashboard.putNumber("$[LL]RAW_ROT_CURRENT", positions[4]);
         double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
         for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
             sampled_positions[i] = LimelightHelpers.getBotPose_TargetSpace(ll_name);
@@ -102,9 +102,9 @@ public class Vision extends SubsystemBase{
             positions[r] = avg/LimelightConstants.LL_SAMPLING;
         }
 
-        SmartDashboard.putNumber("#[LL]AVG_TX_CURRENT", positions[2]);
-        SmartDashboard.putNumber("#[LL]AVG_TY_CURRENT", positions[0]);
-        SmartDashboard.putNumber("#[LL]AVG_ROT_CURRENT", positions[4]);
+        SmartDashboard.putNumber("$[LL]AVG_TX_CURRENT", positions[2]);
+        SmartDashboard.putNumber("$[LL]AVG_TY_CURRENT", positions[0]);
+        SmartDashboard.putNumber("$[LL]AVG_ROT_CURRENT", positions[4]);
 
         tid = nt_table.getEntry("tid").getInteger(0); // Primary April Tag ID in view 
     }

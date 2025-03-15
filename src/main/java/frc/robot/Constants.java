@@ -217,23 +217,24 @@ public final class Constants {
   }
 
   public static final class LimelightConstants {
-    public static final double FWD_OFFSET = 0.2667; // Forward offset (meters)
-    public static final double SIDE_OFFSET = 0.1397; // Side offset (meters)
+    public static final double FWD_OFFSET = 0.15; // Forward offset (meters)
+    public static final double SIDE_OFFSET = 0.25; // Side offset (meters)
     public static final double HEIGHT_OFFSET = 0.3429; // Height offset (Meters)
-    public static final double ROLL = 0; // Roll Degrees
+    public static final double ROLL = 4.2; // Roll Degrees
     public static final double PITCH = -8.25; // Pitch Degrees
-    public static final double YAW = 34.5; // Yaw
+    public static final double YAW = 30.5; // Yaw
 
     public static final double X_REEF_ALIGNMENT_P = 0.3;
     public static final double Y_REEF_ALIGNMENT_P = 0.3;
-    public static final double ROT_REEF_ALIGNMENT_P = 0.3;
-    public static final double REEF_ALIGNMENT_D = 0.01;
+    public static final double ROT_REEF_ALIGNMENT_P = 0.1;
+    public static final double REEF_ALIGNMENT_D = 0.0;
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.1,0.1,0.1}; // X, Y, Z
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X, Y, Z
+    public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
 
-    public static final double SPEED_CONSTANT = 1.0;
+    public static final double SPEED_CONSTANT = .5;
 
     public static final int LL_SAMPLING = 6;
 
@@ -241,15 +242,15 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
-      .5, // TX (meters)
-      1.8, // TZ (meters)
-      3.7 // RY (meters)
+      .5, // TZ (meters) (Distance Away Z)
+      .14, // TX (meters) (Distance Left Right)
+      2 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
-      .5, // TX (meters) 
-      1.5, // TY (meters)
-      3.7 // RY (meters)
+      .5, // TZ (meters) (Distance Away Z)
+      -.2, // TX (meters) (Distance Left Right)
+      .8 // RY (meters)
     };
 
    
