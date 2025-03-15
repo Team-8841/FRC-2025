@@ -169,9 +169,9 @@ public class RobotContainer {
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.a().onTrue(new MoveToApril(m_Vision, drivebase, true).withTimeout(7)); //TODO Change Right/Left Select
-    m_driverController.b().onTrue(Commands.none());
-    m_driverController.x().onTrue(Commands.none());
+    m_driverController.a().onTrue(Commands.none()); //TODO Change Right/Left Select
+    m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));
+    m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false));
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
       
 
