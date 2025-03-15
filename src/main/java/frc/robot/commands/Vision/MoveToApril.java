@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
+import javax.lang.model.util.ElementScanner14;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
@@ -19,6 +22,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.util.*;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants;
 import frc.robot.Constants.LimelightConstants;
@@ -34,7 +38,6 @@ public class MoveToApril extends Command {
     private Timer dontSeeTagTimer, stopTimer;
     private PIDController xController, yController, rotController;
     private double tagID = -1;
-    private MedianFilter filter = new MedianFilter(6);
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
@@ -47,13 +50,11 @@ public class MoveToApril extends Command {
         
         if (toRight == true)
         { // Target Right Reef
-            m_vision.setTargetCoralToRight();
-            setPIDSetpoints(LimelightConstants.RIGHT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
+            m_vision.setTargetCoralToRight();   
         }
         else
         { // Target Left Reef
-            m_vision.setTargetCoralToLeft();
-            setPIDSetpoints(LimelightConstants.LEFT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
+            m_vision.setTargetCoralToLeft();   
         }
 
         
@@ -69,7 +70,13 @@ public class MoveToApril extends Command {
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
 
-        
+        if(m_vision.isTargetRightCoral())
+        {
+            setPIDSetpoints(LimelightConstants.RIGHT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
+        } else
+        {
+            setPIDSetpoints(LimelightConstants.LEFT_CORAL_OFFSETS, LimelightConstants.REEF_TOLERANCE_ALIGNMENT);
+        }
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
     }
@@ -77,20 +84,40 @@ public class MoveToApril extends Command {
     @Override
     public void execute()
     {
+        double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
+        double[] positions = new double[6];
         //double[] current_location = m_vision.getTargetpose_Robotspace();
         if (LimelightHelpers.getTV(m_vision.getLLName()) && LimelightHelpers.getFiducialID(m_vision.getLLName()) == tagID) {
             this.dontSeeTagTimer.reset();
       
-            double[] postions = LimelightHelpers.getBotPose_TargetSpace(m_vision.getLLName());
-            SmartDashboard.putNumber("x", postions[2]);
-      
-            double xSpeed = xController.calculate(filter.calculate(postions[2]));
-            double ySpeed = -yController.calculate(filter.calculate(postions[0]));
-            double rotValue = -rotController.calculate(filter.calculate(postions[4]));
+            //Average current position 
+            for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
+                sampled_positions[i] = LimelightHelpers.getBotPose_TargetSpace(m_vision.getLLName());
+            }
+            for (int r = 0; r < 6; r++){   
+                double avg = 0;
+                for(int i = 0; i < LimelightConstants.LL_SAMPLING; i++)
+                {
+                    avg = avg + sampled_positions[i][r];
+                }
+                positions[r] = avg;
+            }
 
-            SmartDashboard.putNumber("xspee", xSpeed);
-            SmartDashboard.putNumber("yspee", ySpeed);
-            SmartDashboard.putNumber("rotValue", rotValue);
+            double TX = positions[2];
+            double TY = positions[0];
+            double ROT = positions[4];
+      
+            //double xSpeed = xController.calculate(positions[2]);
+            //double ySpeed = -yController.calculate(positions[0]);
+            //double rotValue = -rotController.calculate(positions[4]);
+
+            double xSpeed = getConstSpeed(TX,LimelightConstants.RIGHT_CORAL_OFFSETS[0],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
+            double ySpeed = getConstSpeed(TY,LimelightConstants.RIGHT_CORAL_OFFSETS[1],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+            double rotValue = getConstSpeed(ROT,LimelightConstants.RIGHT_CORAL_OFFSETS[2],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+
+            SmartDashboard.putNumber("#_XSPEED", xSpeed);
+            SmartDashboard.putNumber("#_YSPEED", ySpeed);
+            SmartDashboard.putNumber("#_ROTSPEED", rotValue);
       
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
       
@@ -103,7 +130,7 @@ public class MoveToApril extends Command {
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
       
-          SmartDashboard.putNumber("poseValidTimer", stopTimer.get());
+          SmartDashboard.putNumber("#_POSEValidTimer", stopTimer.get());
     }
    // Called once the command ends or is interrupted.
    @Override
@@ -115,12 +142,7 @@ public class MoveToApril extends Command {
    // Returns true when the command should end.
    @Override
    public boolean isFinished()
-   {
-    if (this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME) ||
-    stopTimer.hasElapsed(LimelightConstants.POSE_VALIDATION_TIME)){
-        System.out.println("FinishedCommand");
-    }
-    
+   {    
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME) ||
         stopTimer.hasElapsed(LimelightConstants.POSE_VALIDATION_TIME);
    }
@@ -128,7 +150,6 @@ public class MoveToApril extends Command {
 
    public void setPIDSetpoints(double[] offset, double[] tolerance)
    {
-   
        xController.setSetpoint(offset[0]); // X
        xController.setTolerance(tolerance[0]);
 
@@ -138,7 +159,21 @@ public class MoveToApril extends Command {
        rotController.setSetpoint(offset[2]); // Z
        rotController.setTolerance(tolerance[2]);
    }
+
+   public double getConstSpeed(double current_pos, double set_position, double tolerance)
+   {
+    double difference = current_pos - set_position;
+    if (Math.abs(difference) > tolerance)
+    {
+        if (difference > 0)
+        {
+            return LimelightConstants.SPEED_CONSTANT;
+        }else{
+            return -1*LimelightConstants.SPEED_CONSTANT;
+        }
+    }
+    return 0;
+   }
   
-    
 }
 

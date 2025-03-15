@@ -233,13 +233,17 @@ public final class Constants {
     public static final double POSE_VALIDATION_TIME = 0.5;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.1,0.1,0.1}; // X, Y, Z
 
+    public static final double SPEED_CONSTANT = 1.0;
+
+    public static final int LL_SAMPLING = 6;
+
     // Offsets to match for placement
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
-      0.0, // TX (meters)
-      0.0, // TZ (meters)
-      0.0 // RY (meters)
+      -1.4, // TX (meters)
+      0.28, // TZ (meters)
+      3.7 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
