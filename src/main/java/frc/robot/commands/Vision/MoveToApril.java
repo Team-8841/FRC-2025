@@ -103,21 +103,23 @@ public class MoveToApril extends Command {
                 positions[r] = avg;
             }
 
-            double TX = positions[2];
-            double TY = positions[0];
+            double TX = positions[0];
+            double TY = positions[2];
             double ROT = positions[4];
+
+            System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
       
             //double xSpeed = xController.calculate(positions[2]);
             //double ySpeed = -yController.calculate(positions[0]);
             //double rotValue = -rotController.calculate(positions[4]);
 
             double xSpeed = getConstSpeed(TX,LimelightConstants.RIGHT_CORAL_OFFSETS[0],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
-            double ySpeed = getConstSpeed(TY,LimelightConstants.RIGHT_CORAL_OFFSETS[1],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
-            double rotValue = getConstSpeed(ROT,LimelightConstants.RIGHT_CORAL_OFFSETS[2],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+            double ySpeed = -getConstSpeed(TY,LimelightConstants.RIGHT_CORAL_OFFSETS[1],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+            double rotValue = -getConstSpeed(ROT,LimelightConstants.RIGHT_CORAL_OFFSETS[2],LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
 
-            SmartDashboard.putNumber("#_XSPEED", xSpeed);
-            SmartDashboard.putNumber("#_YSPEED", ySpeed);
-            SmartDashboard.putNumber("#_ROTSPEED", rotValue);
+            SmartDashboard.putNumber("[VISION]_XSPEED", xSpeed);
+            SmartDashboard.putNumber("[VISION]_YSPEED", ySpeed);
+            SmartDashboard.putNumber("[VISION]_ROTSPEED", rotValue);
       
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
       

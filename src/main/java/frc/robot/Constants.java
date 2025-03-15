@@ -241,14 +241,14 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
-      -1.4, // TX (meters)
-      0.28, // TZ (meters)
+      .5, // TX (meters)
+      1.8, // TZ (meters)
       3.7 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
-      -1.4, // TX (meters) 
-      0.28, // TY (meters)
+      .5, // TX (meters) 
+      1.5, // TY (meters)
       3.7 // RY (meters)
     };
 
