@@ -116,20 +116,22 @@ public final class Constants {
     public static final int AlgaeL3 = 7; //Button 7
     public static final int AlgaeL4 = 8; //Button 8
 
-    public static final int groundPickup = 9;
+    public static final int startingConfiguration = 9;
     public static final int feederStation = 10;
+    public static final int groundPickup = 11;
+  
 
-    public static final int IntakeIn = 11;
-    public static final int IntakeOut = 12;
+    public static final int IntakeIn = 12;
+    public static final int IntakeOut = 13;
 
-    public static final int ElevatorLock = 13;
     public static final int ManualOverride = 14;
+    public static final int ClimberSwitch = 15;
 
-    public static final int WristjoystickX = 0;
-    public static final int WristjoystickY = 1;
+    public static final int ElevatorJoystick = 1;
+    public static final int Wristjoystick = 2;
 
-    public static final int ElevatorjoystickY = 2;
-    public static final int ElevatorjoystickX = 3; 
+    public static final int ClimberJoystickX = 3;
+    public static final int ClimberJoystickY = 4; 
   }
 
 
