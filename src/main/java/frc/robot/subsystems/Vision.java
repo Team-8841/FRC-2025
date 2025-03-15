@@ -99,7 +99,7 @@ public class Vision extends SubsystemBase{
             {
                 avg = avg + sampled_positions[i][r];
             }
-            positions[r] = avg;
+            positions[r] = avg/LimelightConstants.LL_SAMPLING;
         }
 
         SmartDashboard.putNumber("#[LL]AVG_TX_CURRENT", positions[2]);

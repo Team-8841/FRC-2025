@@ -100,11 +100,11 @@ public class MoveToApril extends Command {
                 {
                     avg = avg + sampled_positions[i][r];
                 }
-                positions[r] = avg;
+                positions[r] = avg/LimelightConstants.LL_SAMPLING;
             }
 
-            double TX = positions[0];
-            double TY = positions[2];
+            double TX = positions[2];
+            double TY = positions[0];
             double ROT = positions[4];
 
             System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
