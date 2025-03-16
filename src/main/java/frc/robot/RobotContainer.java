@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
+import frc.robot.commands.Elevator.AutoMoveToFeederStation;
 import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
 import frc.robot.commands.Elevator.AutoMoveWristToSetpoint;
 import frc.robot.commands.Elevator.MoveToHome;
@@ -133,7 +134,7 @@ public class RobotContainer {
     // Home positions
     NamedCommands.registerCommand("MoveToStartingConfig", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.startingConfiguration, false));
     NamedCommands.registerCommand("MoveToGroundPickup", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.groundPickup, true));
-    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.feederStation, false));
+    NamedCommands.registerCommand("MoveToFeederStation", new AutoMoveToFeederStation(m_elevator, m_Gripper, SetpointConstants.feederStation, false));
 
     // Coral positions
     NamedCommands.registerCommand("MoveToCoralL1", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.CoralL1, false));
