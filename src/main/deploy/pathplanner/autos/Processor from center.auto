@@ -59,7 +59,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.0
+                  "waitTime": 5.0
                 }
               }
             ]
@@ -78,15 +78,21 @@
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "MoveToAlgaeL4"
+            "waitTime": 1.0
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "back up from barge"
           }
         },
         {
@@ -98,7 +104,7 @@
         {
           "type": "named",
           "data": {
-            "name": "MoveToStartingConfig"
+            "name": "MoveToFeederStation"
           }
         }
       ]

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.592100130039011,
+        "x": 7.1,
         "y": 4.15
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.315126331484944,
+        "x": 6.823026201445932,
         "y": 4.144476938967767
       },
       "isLocked": false,
@@ -59,7 +59,7 @@
     },
     {
       "name": "up",
-      "waypointRelativePos": 0.6164229471316008,
+      "waypointRelativePos": 0.5195369030390732,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -79,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.66637151427733
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Robinson processor paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.71610251562882
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

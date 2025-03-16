@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.5894510117029155,
-        "y": 4.285956898944852
+        "x": 5.599400980607413,
+        "y": 4.27990557691849
       },
       "isLocked": false,
       "linkedName": null
@@ -45,30 +45,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Shoot",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "Shoot"
-        }
-      }
-    },
-    {
-      "name": "MoveToAlgaeL2",
-      "waypointRelativePos": 0.4926884139482406,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToAlgaeL3"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.0,
@@ -85,7 +62,7 @@
   "folder": "Robinson processor paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.56632973890535
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

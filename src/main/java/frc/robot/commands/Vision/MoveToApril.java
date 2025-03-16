@@ -38,6 +38,7 @@ public class MoveToApril extends Command {
     private Timer dontSeeTagTimer, stopTimer;
     private double tagID = -1;
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
+    private double xSpeed, ySpeed, rotValue;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
@@ -106,11 +107,9 @@ public class MoveToApril extends Command {
             double ROT = positions[4];
 
             
-            // Calulate offset from desired setpoint, if greater than tolerance command const. speed 
-            // Replace this with a Linear or PID fucntion to improve speed
-            double xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
-            double ySpeed = -1*getConstSpeed(TY,TY_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1],LimelightConstants.REEF_CONST_SPEEDS[1]);
-            double rotValue = -1*getConstSpeed(ROT,ROT_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2],LimelightConstants.REEF_CONST_SPEEDS[2]);
+            xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
+            ySpeed = -1*getConstSpeed(TY,TY_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1],LimelightConstants.REEF_CONST_SPEEDS[1]);
+            rotValue = -1*getConstSpeed(ROT,ROT_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2],LimelightConstants.REEF_CONST_SPEEDS[2]);
 
             //SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
             //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
@@ -140,6 +139,10 @@ public class MoveToApril extends Command {
    @Override
    public boolean isFinished()
    {    
+    if (xSpeed == 0 && ySpeed == 0 && rotValue == 0)
+    {
+        return true;
+    }
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME);
    }
 
