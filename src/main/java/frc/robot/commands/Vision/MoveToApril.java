@@ -18,13 +18,13 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
+    private boolean firstLoop;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
-
-     
+        this.firstLoop = false;
 
         //xController = new PIDController(LimelightConstants.X_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Vertical movement
         //yController = new PIDController(LimelightConstants.Y_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Horitontal movement
@@ -98,6 +98,8 @@ public class MoveToApril extends Command {
             //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
             //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
             //System.out.println(); 
+
+            firstLoop = true;
             
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
@@ -118,7 +120,7 @@ public class MoveToApril extends Command {
    @Override
    public boolean isFinished()
    {    
-    if (xSpeed == 0 && ySpeed == 0 && rotValue == 0)
+    if (xSpeed == 0 && ySpeed == 0 && rotValue == 0 && firstLoop)
     {
         return true;
     }
