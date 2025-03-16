@@ -39,6 +39,7 @@ public class MoveToApril extends Command {
     private double tagID = -1;
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
+    private double TX, TY, ROT;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
@@ -102,9 +103,9 @@ public class MoveToApril extends Command {
             }
 
             // Averaged TX, TY, ROT values
-            double TX  = positions[2];
-            double TY = positions[0];
-            double ROT = positions[4];
+            TX  = positions[2];
+            TY = positions[0];
+            ROT = positions[4];
 
             
             xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
@@ -147,17 +148,6 @@ public class MoveToApril extends Command {
    }
 
 
-   public void setPIDSetpoints(double[] offset, double[] tolerance)
-   {
-       xController.setSetpoint(offset[0]); // X
-       xController.setTolerance(tolerance[0]);
-
-       yController.setSetpoint(offset[1]); // Y
-       yController.setTolerance(tolerance[1]);
-
-       rotController.setSetpoint(offset[2]); // Z
-       rotController.setTolerance(tolerance[2]);
-   }
 
    public double getConstSpeed(double current_pos, double set_position, double tolerance, double speed)
    {
