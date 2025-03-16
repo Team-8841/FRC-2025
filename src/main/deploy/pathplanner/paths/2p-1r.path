@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.113365005870091,
-        "y": 0.5123577411078725
+        "x": 7.10125,
+        "y": 2.505625
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.610835771939568,
-        "y": 1.0404393089670654
+        "x": 6.37,
+        "y": 2.294375000000001
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.2325,
-        "y": 2.83875
+        "x": 5.208125,
+        "y": 2.7575
       },
       "prevControl": {
-        "x": 5.8175,
-        "y": 2.25375
+        "x": 5.96375,
+        "y": 2.335
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8162083936324155,
+      "minWaypointRelativePos": 0.9348769898697564,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -56,11 +56,22 @@
           "name": "MoveToFeederStation"
         }
       }
+    },
+    {
+      "name": "MoveToCoralL4",
+      "waypointRelativePos": 0.9015918958031842,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToCoralL4"
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

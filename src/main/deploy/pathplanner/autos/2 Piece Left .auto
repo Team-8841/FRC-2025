@@ -11,15 +11,93 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2p-2L"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeAndWait"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2p-3L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
           }
         }
       ]
