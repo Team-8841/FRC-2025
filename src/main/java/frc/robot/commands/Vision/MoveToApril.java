@@ -1,40 +1,18 @@
 package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-
-import javax.lang.model.util.ElementScanner14;
-
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.util.*;
 import frc.robot.LimelightHelpers;
-import frc.robot.Constants;
 import frc.robot.Constants.LimelightConstants;
-import edu.wpi.first.math.filter.MedianFilter;
 
 
 public class MoveToApril extends Command {
 
     private Vision m_vision; 
     private SwerveSubsystem m_drive;
-    private double[] leftCoralOffset = LimelightConstants.RIGHT_CORAL_OFFSETS;
-    private double[] rightCoralOffset = LimelightConstants.LEFT_CORAL_OFFSETS;
     private Timer dontSeeTagTimer, stopTimer;
     private double tagID = -1;
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;

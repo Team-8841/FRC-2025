@@ -1,6 +1,5 @@
 package frc.robot.commands.Gripper;
 
-import edu.wpi.first.units.ResistanceUnit;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.GripperConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
