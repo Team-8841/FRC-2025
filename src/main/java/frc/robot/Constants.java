@@ -236,7 +236,7 @@ public final class Constants {
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
       .5, // TZ (meters) (Distance Away Z)
-      .14, // TX (meters) (Distance Left Right)
+      .14, // TX (meters) (Distance Left Right) 
       2 // RY (meters)
     };
 
