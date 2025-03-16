@@ -55,8 +55,11 @@ public class DriveClimberWithJoystick extends Command {
           m_Climber.driveClimber(convertJoystickQuadratic(-m_input));
         } else {
           m_Climber.driveClimber(0);
-        }
-        
+        } 
+      }
+      else 
+      {
+        m_Climber.driveClimber(0);
       }
     }
 
