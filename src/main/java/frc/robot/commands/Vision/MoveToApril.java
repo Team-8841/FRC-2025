@@ -18,13 +18,12 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
-    private boolean firstLoop;
+    private boolean firstLoop; //Ensures speeds are calculated at least once prior to finishing command
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
-        this.firstLoop = false;
 
         //xController = new PIDController(LimelightConstants.X_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Vertical movement
         //yController = new PIDController(LimelightConstants.Y_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Horitontal movement
@@ -55,6 +54,7 @@ public class MoveToApril extends Command {
         this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
+        this.firstLoop = false;
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
     }

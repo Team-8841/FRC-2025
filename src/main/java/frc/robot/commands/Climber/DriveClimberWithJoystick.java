@@ -38,6 +38,7 @@ public class DriveClimberWithJoystick extends Command {
     @Override
     public void execute() {
       //CLIMBER_OVERRIDE = joystick.button(OperatorConstants.ClimberSwitch).getAsBoolean();
+
       m_input = joystick.getRawAxis(OperatorConstants.ClimberJoystickY);
       if (invertInput == true)
       {
@@ -58,26 +59,28 @@ public class DriveClimberWithJoystick extends Command {
           m_Climber.driveClimber(0);
         }
         
-      }else {
-        // Override
-        if (CLIMBER_OVERRIDE == true) {
-          if(m_input > ClimberConstants.CLIMBER_DEADBAND)
-          {
-            m_Climber.driveClimber(-ClimberConstants.CLIMBER_DEPLOY_SPEED);
-          } else if (m_input < ClimberConstants.CLIMBER_DEADBAND)
-          {
-            m_Climber.driveClimber(ClimberConstants.CLIMBER_DEPLOY_SPEED);
-          }
-          else {
-            m_Climber.driveClimber(0);
-          }
-        }
-        // Otherwise
-        else{
-        m_Climber.driveClimber(0);
-        }
       }
-  }
+    }
+      //else {
+        // Override
+        //if (CLIMBER_OVERRIDE == true) {
+         // if(m_input > ClimberConstants.CLIMBER_DEADBAND)
+         // {
+          //  m_Climber.driveClimber(-ClimberConstants.CLIMBER_DEPLOY_SPEED);
+         // } else if (m_input < -ClimberConstants.CLIMBER_DEADBAND)
+         // {
+          //  m_Climber.driveClimber(ClimberConstants.CLIMBER_DEPLOY_SPEED);
+         // }
+         // else {
+          //  m_Climber.driveClimber(0);
+         // }
+       // }
+        // Otherwise
+       // else{
+       // m_Climber.driveClimber(0);
+       // }
+     // }
+  //}
 
   @Override
   public boolean isFinished() {
