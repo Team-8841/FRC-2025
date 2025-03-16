@@ -3,8 +3,9 @@
   "robotLength": 0.9652,
   "holonomicMode": true,
   "pathFolders": [
-    "Dead robot",
     "2-3 coral",
+    "Dead robot",
+    "1 Coral-2Algae",
     "Robinson barge paths",
     "Robinson coral paths",
     "Robinson processor paths"
