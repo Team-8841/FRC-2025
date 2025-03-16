@@ -242,7 +242,7 @@ public final class Constants {
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
       .5, // TZ (meters) (Distance Away Z)
-      -.2, // TX (meters) (Distance Left Right)
+      -.18, // TX (meters) (Distance Left Right)
       .8 // RY (meters)
     };
 
