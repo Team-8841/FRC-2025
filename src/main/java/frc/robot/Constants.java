@@ -127,11 +127,11 @@ public final class Constants {
     public static final int ManualOverride = 14;
     public static final int ClimberSwitch = 15;
 
-    public static final int ElevatorJoystick = 1;
-    public static final int Wristjoystick = 2;
+    public static final int ElevatorJoystick = 0;
+    public static final int Wristjoystick = 1;
 
-    public static final int ClimberJoystickX = 3;
-    public static final int ClimberJoystickY = 4; 
+    public static final int ClimberJoystickX = 2;
+    public static final int ClimberJoystickY = 3; 
   }
 
 
@@ -236,7 +236,7 @@ public final class Constants {
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
       .5, // TZ (meters) (Distance Away Z)
-      .14, // TX (meters) (Distance Left Right)
+      .14, // TX (meters) (Distance Left Right) 
       2 // RY (meters)
     };
 
@@ -246,7 +246,11 @@ public final class Constants {
       .8 // RY (meters)
     };
 
-   
+    public static final double[] CENTER_CORAL_OFFSETS = {
+      .5, // TZ
+      0, // TX
+      1 // RY
+    };
 
   }
 }

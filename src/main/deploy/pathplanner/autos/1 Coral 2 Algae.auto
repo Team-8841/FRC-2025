@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-1c"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-2c"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-3c"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-4c"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-5c"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CAG-6c"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

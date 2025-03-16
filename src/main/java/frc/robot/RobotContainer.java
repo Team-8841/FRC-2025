@@ -33,6 +33,7 @@ import frc.robot.commands.Gripper.IntakeSensorControl;
 import frc.robot.commands.Gripper.ShootAlgae;
 import frc.robot.commands.Gripper.StopIntake;
 import frc.robot.commands.Vision.MoveToApril;
+import frc.robot.commands.Vision.MoveToCenterApril;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -160,7 +161,8 @@ public class RobotContainer {
     // Vision Reef Auto Alignment
     NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false));
     NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true));
-
+    NamedCommands.registerCommand("AutoAlignReefCenter", new MoveToCenterApril(m_Vision, drivebase));
+    
     m_autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData(m_autoChooser);
 
@@ -230,7 +232,10 @@ public class RobotContainer {
 
     m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false));
 
-    m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
+    m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, true))
+    .onFalse(new InstantCommand(() -> {
+      m_Climber.stopClimber();;
+    }));
 
   }
 
