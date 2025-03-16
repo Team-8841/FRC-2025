@@ -246,7 +246,11 @@ public final class Constants {
       .8 // RY (meters)
     };
 
-   
+    public static final double[] CENTER_CORAL_OFFSETS = {
+      .5, // TZ
+      0, // TX
+      1 // RY
+    };
 
   }
 }
