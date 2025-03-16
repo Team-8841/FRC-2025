@@ -224,17 +224,10 @@ public final class Constants {
     public static final double PITCH = -8.25; // Pitch Degrees
     public static final double YAW = 30.5; // Yaw
 
-    public static final double X_REEF_ALIGNMENT_P = 0.3;
-    public static final double Y_REEF_ALIGNMENT_P = 0.3;
-    public static final double ROT_REEF_ALIGNMENT_P = 0.1;
-    public static final double REEF_ALIGNMENT_D = 0.0;
-
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X, Y, Z
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
-
-    public static final double SPEED_CONSTANT = .5;
 
     public static final int LL_SAMPLING = 6;
 

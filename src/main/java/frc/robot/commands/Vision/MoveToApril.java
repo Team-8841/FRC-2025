@@ -36,7 +36,6 @@ public class MoveToApril extends Command {
     private double[] leftCoralOffset = LimelightConstants.RIGHT_CORAL_OFFSETS;
     private double[] rightCoralOffset = LimelightConstants.LEFT_CORAL_OFFSETS;
     private Timer dontSeeTagTimer, stopTimer;
-    private PIDController xController, yController, rotController;
     private double tagID = -1;
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
 
@@ -85,7 +84,6 @@ public class MoveToApril extends Command {
     {
         double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
         double[] positions = new double[6];
-        //double[] current_location = m_vision.getTargetpose_Robotspace();
         if (LimelightHelpers.getTV(m_vision.getLLName()) && LimelightHelpers.getFiducialID(m_vision.getLLName()) == tagID) {
             this.dontSeeTagTimer.reset();
       
@@ -102,37 +100,34 @@ public class MoveToApril extends Command {
                 positions[r] = avg/LimelightConstants.LL_SAMPLING;
             }
 
+            // Averaged TX, TY, ROT values
             double TX  = positions[2];
             double TY = positions[0];
             double ROT = positions[4];
 
-            //double xSpeed = xController.calculate(TX);
-            //double ySpeed = -yController.calculate(TY);
-            //double rotValue = -rotController.calculate(ROT);
-
             
+            // Calulate offset from desired setpoint, if greater than tolerance command const. speed 
+            // Replace this with a Linear or PID fucntion to improve speed
             double xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
             double ySpeed = -1*getConstSpeed(TY,TY_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1],LimelightConstants.REEF_CONST_SPEEDS[1]);
             double rotValue = -1*getConstSpeed(ROT,ROT_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2],LimelightConstants.REEF_CONST_SPEEDS[2]);
 
-            SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
-            SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
-            SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
-      
-
+            //SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
+            //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
+            //SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
             
             //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
-            //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT
-            //+ ", Rot Set:" +ROT_SETPOINT);
+            //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
             //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
             //System.out.println(); 
-
+            
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+
           } else {
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
       
-          SmartDashboard.putNumber("#_POSEValidTimer", stopTimer.get());
+         // SmartDashboard.putNumber("$[VISION]_POSEValidTimer", stopTimer.get());
     }
    // Called once the command ends or is interrupted.
    @Override
