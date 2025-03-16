@@ -161,7 +161,7 @@ public class RobotContainer {
     // Vision Reef Auto Alignment
     NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false));
     NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true));
-    NamedCommands.registerCommand("AutoALightReefCenter", new MoveToCenterApril(m_Vision, drivebase));
+    NamedCommands.registerCommand("AutoAlignReefCenter", new MoveToCenterApril(m_Vision, drivebase));
     
     m_autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData(m_autoChooser);
