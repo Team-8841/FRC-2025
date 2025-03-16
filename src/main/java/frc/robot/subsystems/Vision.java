@@ -87,6 +87,9 @@ public class Vision extends SubsystemBase{
         for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
             sampled_positions[i] = LimelightHelpers.getBotPose_TargetSpace(ll_name);
         }
+        //System.out.println(sampled_positions[0].length);
+        if (sampled_positions[0].length > 0)
+        {
         for (int r = 0; r < 6; r++){   
             double avg = 0;
             for(int i = 0; i < LimelightConstants.LL_SAMPLING; i++)
@@ -95,6 +98,7 @@ public class Vision extends SubsystemBase{
             }
             positions[r] = avg/LimelightConstants.LL_SAMPLING;
         }
+    }
 
         //SmartDashboard.putNumber("$[LL]AVG_TX_CURRENT", positions[2]);
         //SmartDashboard.putNumber("$[LL]AVG_TY_CURRENT", positions[0]);
