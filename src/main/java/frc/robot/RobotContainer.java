@@ -232,7 +232,10 @@ public class RobotContainer {
 
     m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false));
 
-    m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, false));
+    m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, true))
+    .onFalse(new InstantCommand(() -> {
+      m_Climber.stopClimber();;
+    }));
 
   }
 

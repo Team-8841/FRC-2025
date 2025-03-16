@@ -127,11 +127,11 @@ public final class Constants {
     public static final int ManualOverride = 14;
     public static final int ClimberSwitch = 15;
 
-    public static final int ElevatorJoystick = 1;
-    public static final int Wristjoystick = 2;
+    public static final int ElevatorJoystick = 0;
+    public static final int Wristjoystick = 1;
 
-    public static final int ClimberJoystickX = 3;
-    public static final int ClimberJoystickY = 4; 
+    public static final int ClimberJoystickX = 2;
+    public static final int ClimberJoystickY = 3; 
   }
 
 

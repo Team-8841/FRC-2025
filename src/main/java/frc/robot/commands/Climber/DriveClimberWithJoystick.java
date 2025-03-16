@@ -13,9 +13,6 @@ public class DriveClimberWithJoystick extends Command {
     private CommandJoystick joystick;
     private boolean invertInput;
     private double m_input;
-    private boolean CLIMBER_OVERRIDE;
-
-    private boolean hasRotated = false;
     
     public DriveClimberWithJoystick(CommandJoystick input, Climber climber, Boolean invert){
             this.m_Climber = climber;
@@ -37,17 +34,17 @@ public class DriveClimberWithJoystick extends Command {
 
     @Override
     public void execute() {
-      m_input = joystick.getRawAxis(OperatorConstants.ClimberJoystickY);
-      if (invertInput == true)
-      {
-        m_input = m_input * -1;
-      }
 
+      if(invertInput) {
+        m_input = joystick.getRawAxis(OperatorConstants.ClimberJoystickY) * -1;
+      } else {
+        m_input = joystick.getRawAxis(OperatorConstants.ClimberJoystickY);
+      }
+      
       if(m_input > ClimberConstants.CLIMBER_DEADBAND) {
         if(m_Climber.getOutSensor()) {
           m_Climber.driveClimber(-ClimberConstants.CLIMBER_DEPLOY_SPEED);
         } else {
-          //m_Climber.setClimberExtended(true);
           m_Climber.driveClimber(0);
         }
       }else if(m_input < -ClimberConstants.CLIMBER_DEADBAND) {
@@ -59,10 +56,4 @@ public class DriveClimberWithJoystick extends Command {
         
       }
     }
-
-  @Override
-  public boolean isFinished() {
-      // TODO Auto-generated method stub
-      return false;
-  }
 }
