@@ -5,9 +5,64 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "2p-1r"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToFeederStation"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2p-1r"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefLeft"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
           }
         },
         {
@@ -17,9 +72,57 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeAndWait"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2p-3r"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefRight"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
           }
         }
       ]
