@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
 import frc.robot.commands.Elevator.AutoMoveToFeederStation;
 import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
@@ -36,6 +38,7 @@ import frc.robot.commands.Vision.MoveToApril;
 import frc.robot.commands.Vision.MoveToCenterApril;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.DriverCam;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Vision;
@@ -64,6 +67,7 @@ public class RobotContainer {
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
   private final Vision m_Vision = new Vision("limelight-fwd");
+  private final DriverCam m_DriverCam = new DriverCam();
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
                                                                 OperatorConstants.DEADBAND),
@@ -175,16 +179,20 @@ public class RobotContainer {
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.a().onTrue(Commands.none()); //TODO Change Right/Left Select
+    m_driverController.a().whileTrue(new RunCommand(() -> {
+      m_driverController.setRumble(RumbleType.kBothRumble, 1);
+    })).onFalse(new InstantCommand(() -> {
+      m_driverController.setRumble(RumbleType.kBothRumble, 0);
+    }));
+
     m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));
     m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false));
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
       
 
-    m_driverController.start().onTrue(new InstantCommand( () -> { // This prob wont work
+    m_driverController.start().onTrue(new InstantCommand( () -> {
       drivebase.zeroGyro();
     }));
-
 
     m_driverController.back().onTrue(Commands.none());
 
