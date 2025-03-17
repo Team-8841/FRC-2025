@@ -11,6 +11,42 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL2"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "CAG-2c"
@@ -23,9 +59,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeWithSensorControl"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "CAG-4c"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
           }
         },
         {
@@ -35,9 +95,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeWithSensorControl"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "CAG-6c"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
           }
         }
       ]
