@@ -19,12 +19,12 @@ public class DriverCam extends SubsystemBase {
 
     public DriverCam() {
 
-        m_cam = CameraServer.startAutomaticCapture("#DriverCam", 0);
+        m_cam = CameraServer.startAutomaticCapture();
         m_cam.setFPS(15);
         m_cam.setResolution(320, 240);
         m_cam.setExposureManual(40); // Change this value to adjust exposure
         m_cam.setExposureHoldCurrent();
-        m_cam.setWhiteBalanceManual(0); // Change this value to adjust white balance
+        m_cam.setWhiteBalanceManual(50); // Change this value to adjust white balance
         m_cam.setWhiteBalanceHoldCurrent();
 
     }

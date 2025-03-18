@@ -1,17 +1,21 @@
 package frc.robot.commands.Gripper;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Gripper;
 
 public class ShootAlgae extends Command{
 
     private Gripper m_gripper;
     private double m_speed;
+    private CommandXboxController m_driveController;
 
-    public ShootAlgae(Gripper gripper, double speed)
+    public ShootAlgae(Gripper gripper, double speed, CommandXboxController driveController)
     {
         this.m_gripper = gripper;
         this.m_speed = speed;
+        this.m_driveController = driveController;
 
         this.addRequirements(gripper);
     }
@@ -31,6 +35,7 @@ public class ShootAlgae extends Command{
 
     @Override
     public boolean isFinished() {
+        m_driveController.setRumble(RumbleType.kBothRumble, 0);
         return !m_gripper.isAlgaeDetected() && !m_gripper.isCoralDetected();
     }
     
