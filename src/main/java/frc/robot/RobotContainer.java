@@ -154,7 +154,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("MoveToAlgaeL4", new AutoMoveToSetpointGroup(m_elevator, m_Gripper, SetpointConstants.AlgaeL4, true));
 
     // Shoot
-    NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed, m_driverController));
+    NamedCommands.registerCommand("Shoot", new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed));
 
     // Intake commands
     NamedCommands.registerCommand("IntakeAndWait", new IntakeAndWait(m_Gripper));
@@ -163,8 +163,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopIntake", new StopIntake(false, false, m_Gripper, m_elevator));
 
     // Vision Reef Auto Alignment
-    NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false, m_driverController));
-    NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true, m_driverController));
+    NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false));
+    NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true));
     NamedCommands.registerCommand("AutoAlignReefCenter", new MoveToCenterApril(m_Vision, drivebase));
     
     m_autoChooser = AutoBuilder.buildAutoChooser();
@@ -185,8 +185,8 @@ public class RobotContainer {
       m_driverController.setRumble(RumbleType.kBothRumble, 0);
     }));
 
-    m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true, m_driverController));
-    m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false, m_driverController));
+    m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));
+    m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false));
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
       
 
@@ -199,8 +199,8 @@ public class RobotContainer {
     //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
     m_driverController.leftBumper().onTrue(new MoveToSetpointGroup(m_elevator, m_Gripper));  // Move elevator to target
 
-    m_driverController.rightBumper().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed, m_driverController))  // Shoot algae/coral when held down
-    .onFalse(new ShootAlgae(m_Gripper, 0, m_driverController));
+    m_driverController.rightBumper().whileTrue(new ShootAlgae(m_Gripper, GripperConstants.IntakeShootSpeed))  // Shoot algae/coral when held down
+    .onFalse(new ShootAlgae(m_Gripper, 0));
 
    
 

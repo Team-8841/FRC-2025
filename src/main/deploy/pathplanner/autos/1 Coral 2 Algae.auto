@@ -41,15 +41,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "MoveToAlgaeL2"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "CAG-2c"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL2"
           }
         },
         {

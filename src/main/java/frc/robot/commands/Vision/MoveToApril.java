@@ -21,9 +21,9 @@ public class MoveToApril extends Command {
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
     private boolean firstLoop; //Ensures speeds are calculated at least once prior to finishing command
-    private CommandXboxController m_driveController;
 
-    public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight, CommandXboxController driveController) // 0:Left, 1:Right
+
+    public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
@@ -125,7 +125,6 @@ public class MoveToApril extends Command {
    {    
     if (xSpeed == 0 && ySpeed == 0 && rotValue == 0 && firstLoop)
     {
-        m_driveController.setRumble(RumbleType.kBothRumble, 1);
         return true;
     }
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME);
