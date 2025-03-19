@@ -24,7 +24,7 @@ import frc.robot.Constants.LightingConstants;
 
 public class Lighting extends SubsystemBase {
     private final int LEDS_PER_ANIMATION = 60;
-    private final CANdle m_candle = new CANdle(LightingConstants.CANDLE_CANID, LightingConstants.CANDLE_BUS);
+    private final CANdle m_candle = new CANdle(LightingConstants.CANDLE_CANID);
     private int m_candleChannel = 0;
     private boolean m_clearAllAnims = false;
     private boolean m_last5V = false;
@@ -51,11 +51,11 @@ public class Lighting extends SubsystemBase {
     public Lighting() {
         changeAnimation(AnimationTypes.SetAll);
         CANdleConfiguration configAll = new CANdleConfiguration();
-        configAll.statusLedOffWhenActive = true;
+        configAll.statusLedOffWhenActive = false;
         configAll.disableWhenLOS = false;
         configAll.stripType = LEDStripType.RGB;
         configAll.brightnessScalar = 0.1;
-        configAll.vBatOutputMode = VBatOutputMode.Modulated;
+        configAll.vBatOutputMode = VBatOutputMode.On;
         m_candle.configAllSettings(configAll, 100);
     }
 

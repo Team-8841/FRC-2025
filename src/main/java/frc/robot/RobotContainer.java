@@ -183,10 +183,7 @@ public class RobotContainer {
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.a().onTrue(new InstantCommand(() ->{
-      m_Lighting.incrementAnimation();
-    }));
-
+    m_driverController.a().onTrue(new MoveToCenterApril(m_Vision, drivebase));
     m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));
     m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false));
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
