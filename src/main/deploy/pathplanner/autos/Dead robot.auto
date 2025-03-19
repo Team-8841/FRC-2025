@@ -11,9 +11,52 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefRight"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "dr2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeWithSensorControl"
           }
         },
         {
@@ -29,15 +72,27 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "dr5"
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "dr6"
+            "pathName": "dr5"
           }
         }
       ]
