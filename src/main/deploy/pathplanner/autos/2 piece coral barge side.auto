@@ -11,15 +11,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "MoveToCoralL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoAlignReefRight"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefRight"
+                }
+              }
+            ]
           }
         },
         {
@@ -49,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2p-2L"
+            "pathName": "2p-2L Robinson"
           }
         },
         {
@@ -61,19 +68,26 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2p-3L"
+            "pathName": "2p-3L Robinson"
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "MoveToCoralL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoAlignReefLeft"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefLeft"
+                }
+              }
+            ]
           }
         },
         {

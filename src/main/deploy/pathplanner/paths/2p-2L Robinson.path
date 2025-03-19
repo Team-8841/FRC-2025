@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.295,
-        "y": 5.097
+        "x": 5.100682704811443,
+        "y": 5.47483745123537
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.341449934980493,
-        "y": 5.663263979193757
+        "x": 5.590716027308191,
+        "y": 6.142452048114434
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.605,
-        "y": 7.330582386363636
+        "x": 2.8395643693107924,
+        "y": 6.793823146944082
       },
       "prevControl": {
-        "x": 2.3721163036848463,
-        "y": 6.813480348077228
+        "x": 3.7154410847031776,
+        "y": 6.564426864341315
+      },
+      "nextControl": {
+        "x": 1.9602405721716498,
+        "y": 7.024122236671001
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.394960988296488,
+        "y": 7.61033810143043
+      },
+      "prevControl": {
+        "x": 1.8450910273081909,
+        "y": 7.296293888166449
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,19 +49,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.14301801801800912,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToFeederStation"
-        }
-      }
-    },
-    {
-      "name": "get coral",
-      "waypointRelativePos": 0.7376126126126207,
+      "name": "IntakeWithSensorControl",
+      "waypointRelativePos": 1.2913385826771495,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -56,8 +61,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -65,13 +70,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -54.74443474949712
+    "rotation": 126.69000000000001
   },
   "reversed": false,
-  "folder": "Robinson coral paths",
+  "folder": "2-3 coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 61.968259179563034
+    "rotation": -118.17899999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.155,
-        "y": 2.973
+        "x": 1.395,
+        "y": 7.61
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.284943181813196,
-        "y": 2.71373579545953
+        "x": 2.8815811622283194,
+        "y": 5.057375161792738
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.9630113636363635,
-        "y": 0.57981534090909
+        "x": 3.38390767230169,
+        "y": 5.432964889466839
       },
       "prevControl": {
-        "x": 5.853323863636364,
-        "y": 0.9587357954545449
+        "x": 2.8190986166879037,
+        "y": 6.5465275910686
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -60.57254359681028
   },
   "reversed": false,
-  "folder": "Robinson processor paths",
+  "folder": "2-3 coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 121.34124602504433
+    "rotation": 126.69000000000001
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

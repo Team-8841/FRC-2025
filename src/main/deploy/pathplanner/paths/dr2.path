@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.833,
-        "y": 3.905
+        "x": 6.0,
+        "y": 4.145
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.068711107623176,
-        "y": 3.9883083053666053
+        "x": 6.17204610658592,
+        "y": 3.9636160503004016
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.0218790637191155,
-        "y": 4.030234070221066
+        "x": 6.147496749024707,
+        "y": 3.96742522756827
       },
       "prevControl": {
-        "x": 5.7832590692103585,
-        "y": 3.9556653219370794
+        "x": 5.988569935809432,
+        "y": 4.160407786472532
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Dead robot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

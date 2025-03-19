@@ -7,13 +7,26 @@
         {
           "type": "path",
           "data": {
-            "pathName": "straight from center"
+            "pathName": "2p-1r"
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefLeft"
+                }
+              }
+            ]
           }
         },
         {
@@ -25,44 +38,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral 1 to algae 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "MoveToAlgaeL2"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral 1 to algae 1 (2)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeWithSensorControl"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 5.0
-                }
-              }
-            ]
+            "waitTime": 0.2
           }
         },
         {
@@ -72,15 +48,46 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "algae1 to barge"
+            "name": "MoveToFeederStation"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "2p-2r"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeAndWait"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2p-3r"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefRight"
+                }
+              }
+            ]
           }
         },
         {
@@ -90,9 +97,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "back up from barge"
+            "waitTime": 0.2
           }
         },
         {

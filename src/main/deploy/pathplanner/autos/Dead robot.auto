@@ -33,12 +33,6 @@
           "data": {
             "pathName": "dr5"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "dr6"
-          }
         }
       ]
     }
