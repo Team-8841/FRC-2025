@@ -95,6 +95,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "2p-4L"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "MoveToFeederStation"
