@@ -41,7 +41,9 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriverCam;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Lighting;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Lighting.AnimationTypes;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -67,6 +69,7 @@ public class RobotContainer {
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
   private final Vision m_Vision = new Vision("limelight-fwd");
+  private final Lighting m_Lighting = new Lighting();
   //private final DriverCam m_DriverCam = new DriverCam();
 
   AbsoluteDriveAdv closAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,() -> -MathUtil.applyDeadband(m_driverController.getLeftY(),
@@ -130,6 +133,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     m_elevator.resetEncoders();
+    m_Lighting.changeAnimation(AnimationTypes.Rainbow);
 
 
 
@@ -179,10 +183,8 @@ public class RobotContainer {
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-    m_driverController.a().whileTrue(new RunCommand(() -> {
-      m_driverController.setRumble(RumbleType.kBothRumble, 1);
-    })).onFalse(new InstantCommand(() -> {
-      m_driverController.setRumble(RumbleType.kBothRumble, 0);
+    m_driverController.a().onTrue(new InstantCommand(() ->{
+      m_Lighting.incrementAnimation();
     }));
 
     m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));

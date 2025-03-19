@@ -1,19 +1,12 @@
 package frc.robot.subsystems;
 
-import java.util.Map;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriverCam extends SubsystemBase {
     
-    private ShuffleboardTab m_camTab;
-    private GenericEntry m_exposure, m_whiteBalance;
     private UsbCamera m_cam;
 
 
