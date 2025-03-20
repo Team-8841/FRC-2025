@@ -76,7 +76,7 @@ public final class Constants {
     // Absolute Max wrist position is 100 DO NOT go above this number 
 
     public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {10, 72};  //14, 44 Reef L2 
+    public static final double[] CoralL2 = {11, 72};  //14, 44 Reef L2 
     public static final double[] CoralL3 = {26, 72};  //28, 44 Reef L3
     public static final double[] CoralL4 = {52, 70};  //54, 43 Reef L4
 
@@ -89,7 +89,7 @@ public final class Constants {
     public static final double[] startingConfiguration = {1, 0};
     public static final double[] startingHomeConfiguration = {1,0}; 
     public static final double[] groundPickup = {1, 50};          
-    public static final double[] feederStation = {1, 101};         
+    public static final double[] feederStation = {3, 101};         
   
   }
 
@@ -180,6 +180,12 @@ public final class Constants {
     public static final int HOME_SENSOR_PORT = 6;
     public static final int DEPLOYED_SENSOR_PORT = 7;
 
+    public static final int CLIMBER_RIGHT_LOCK_SERVO_PORT = 8;
+    public static final int CLIMBER_LEFT_LOCK_SERVO_PORT = 9;
+
+    public static final double CLIMBER_LOCKED_SETPOINT = 0.0;
+    public static final double CLIMBER_UNLOCKED_SETPOINT = 0.0;
+
     public static final double CLIMBER_KP = .5;
     public static final double CLIMBER_KI = 0.0;
     public static final double CLIMBER_KD = 0.01;
@@ -235,21 +241,21 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
-      .5, // TZ (meters) (Distance Away Z)
-      .14, // TX (meters) (Distance Left Right) 
-      2 // RY (meters)
+      .48, // TZ (meters) (Distance Away Z)
+      .17, // TX (meters) (Distance Left Right) 
+      2.5 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
       .5, // TZ (meters) (Distance Away Z)
-      -.18, // -.2 Last TX (meters) (Distance Left Right)
-      .8 // RY (meters)
+      -.17, // -.2 Last TX (meters) (Distance Left Right)
+      2.25 // RY (meters)
     };
 
     public static final double[] CENTER_CORAL_OFFSETS = {
       .5, // TZ
       0, // TX
-      1 // RY
+      2.3 // RY
     };
 
   }

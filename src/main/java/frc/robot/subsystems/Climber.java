@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
@@ -30,6 +31,9 @@ public class Climber extends SubsystemBase{
     private static DigitalInput stopSensor = new DigitalInput(ClimberConstants.DEPLOYED_SENSOR_PORT);
     private static DigitalInput homeSensor = new DigitalInput(ClimberConstants.HOME_SENSOR_PORT);
 
+    private Servo m_lockServoRight = new Servo(ClimberConstants.CLIMBER_RIGHT_LOCK_SERVO_PORT);
+    private Servo m_lockServoLeft = new Servo(ClimberConstants.CLIMBER_LEFT_LOCK_SERVO_PORT);
+
     private boolean CLIMBER_OVERRIDE;
 
 
@@ -46,13 +50,15 @@ public class Climber extends SubsystemBase{
         m_followerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
 
-
         m_climberMain.getConfigurator().apply(m_leaderConfig);
         m_climberFollower.getConfigurator().apply(m_followerConfig);
 
         follower = new Follower(m_climberMain.getDeviceID(), true); // Inverted Follower
         m_climberFollower.setControl(follower);
         m_climberMain.setPosition(0);
+
+        m_lockServoRight.setBoundsMicroseconds(2500, 0, 0, 0, 500);
+        m_lockServoLeft.setBoundsMicroseconds(2500, 0, 0, 0, 500);
 
         m_hasExtended = false;
 
@@ -104,6 +110,29 @@ public class Climber extends SubsystemBase{
     //public boolean getClimberOveride() {
     //    return CLIMBER_OVERRIDE;
     //}
+
+    public void setClimberLocks(double setpoint){
+        m_lockServoRight.set(setpoint);
+        m_lockServoLeft.set(setpoint);
+    }
+
+    public void lockClimber() {
+        m_lockServoRight.set(ClimberConstants.CLIMBER_LOCKED_SETPOINT);
+        m_lockServoLeft.set(ClimberConstants.CLIMBER_LOCKED_SETPOINT);
+    }
+
+    public void unlockClimber() {
+        m_lockServoRight.set(ClimberConstants.CLIMBER_UNLOCKED_SETPOINT);
+        m_lockServoLeft.set(ClimberConstants.CLIMBER_UNLOCKED_SETPOINT);
+    }
+
+    public double getRightLockPosition() {
+        return m_lockServoRight.get();
+    }
+
+    public double getLeftLockPosition() {
+        return m_lockServoLeft.get();
+    }
 
     @Override
     public void periodic() {

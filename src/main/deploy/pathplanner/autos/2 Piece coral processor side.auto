@@ -11,7 +11,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -54,15 +54,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "2p-2r"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeAndWait"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2p-2r"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAndWait"
+                }
+              }
+            ]
           }
         },
         {
@@ -72,7 +79,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {

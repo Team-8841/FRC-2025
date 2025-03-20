@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
+import frc.robot.commands.Climber.SetClimberLockPosition;
 import frc.robot.commands.Elevator.AutoMoveToFeederStation;
 import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
 import frc.robot.commands.Elevator.AutoMoveWristToSetpoint;
@@ -193,7 +194,7 @@ public class RobotContainer {
       drivebase.zeroGyro();
     }));
 
-    m_driverController.back().onTrue(Commands.none());
+    m_driverController.back().onTrue(new SetClimberLockPosition(m_Climber, 10)).onFalse(new SetClimberLockPosition(m_Climber, 0));
 
     //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
     m_driverController.leftBumper().onTrue(new MoveToSetpointGroup(m_elevator, m_Gripper));  // Move elevator to target
