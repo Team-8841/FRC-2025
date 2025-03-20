@@ -40,3 +40,23 @@ public static final double[] RIGHT_CORAL_OFFSETS = {
     0.8   // Update RY
     };
 ```
+
+# Lime light Calibration
+*This should only need to be performed if the Limelight is bumped or removed and replaced.*
+
+Camera Calibration (Only should be required if Lime Light is moved or bumped)
+  1) Push robot against a vertical April Tag, and center tag on the front bumper.
+  2) Open the Lime Light https://<IP>:5801 web interface.
+  3) Go to Advanced and makes sure the 3d visualization is set to targepose in robotspace 
+  4) Adjust the offset in Constansts.java -> LimelightConstants 
+        The goal is for the visualization to see the April tag as positioned centered and at the bumper relative to the robot in 3d space.
+  5) Notes about constants
+	All these offsets are intended to provide position of the camera relative to robot center.
+
+	*** All values are in meters ****	
+	FWD_OFFSET // Positive, probably doesn't need a ton of adjustment. 
+	SIDE_OFFSET // Positive, Distance from vertical centerline
+	HEIGHT_OFFSET // Positive, Distance from ground to camera lens
+	Roll // Positive, adjust until the visualized bumper is perpendicular to April tag
+	Pitch // Negative, this roughly zeros out one of the on screen values... totally blanking on which one sorry
+	Yaw //Positive, Should zero out the RY value, I'm 90% sure.
