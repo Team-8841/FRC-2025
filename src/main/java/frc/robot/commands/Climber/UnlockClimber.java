@@ -20,7 +20,7 @@ public class UnlockClimber extends Command {
 
     @Override
     public boolean isFinished() {
-        return m_climber.getRightLockPosition() == ClimberConstants.CLIMBER_UNLOCKED_SETPOINT && m_climber.getLeftLockPosition() == ClimberConstants.CLIMBER_UNLOCKED_SETPOINT;
+        return m_climber.getRightLockPosition() == ClimberConstants.CLIMBER_RIGHT_UNLOCKED_SETPOINT && m_climber.getLeftLockPosition() == ClimberConstants.CLIMBER_LEFT_UNLOCKED_SETPOINT;
     }
     
 }

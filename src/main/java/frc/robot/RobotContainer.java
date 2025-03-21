@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.Climber.DriveClimberWithJoystick;
+import frc.robot.commands.Climber.LockClimber;
 import frc.robot.commands.Climber.SetClimberLockPosition;
+import frc.robot.commands.Climber.UnlockClimber;
 import frc.robot.commands.Elevator.AutoMoveToFeederStation;
 import frc.robot.commands.Elevator.AutoMoveToSetpointGroup;
 import frc.robot.commands.Elevator.AutoMoveWristToSetpoint;
@@ -136,9 +138,6 @@ public class RobotContainer {
     m_elevator.resetEncoders();
     m_Lighting.changeAnimation(AnimationTypes.Rainbow);
 
-
-
-
     // Auto Named Commands
 
     // Home positions
@@ -194,7 +193,7 @@ public class RobotContainer {
       drivebase.zeroGyro();
     }));
 
-    m_driverController.back().onTrue(new SetClimberLockPosition(m_Climber, 10)).onFalse(new SetClimberLockPosition(m_Climber, 0));
+    m_driverController.back().onTrue(Commands.none());
 
     //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
     m_driverController.leftBumper().onTrue(new MoveToSetpointGroup(m_elevator, m_Gripper));  // Move elevator to target
@@ -239,6 +238,8 @@ public class RobotContainer {
     m_copilotController.button(OperatorConstants.groundPickup).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.groundPickup, true));
 
     m_copilotController.button(OperatorConstants.feederStation).onTrue(new SetElevatorHomeTarget(m_elevator, SetpointConstants.feederStation, false));
+
+    m_copilotController.button(OperatorConstants.ClimberLockSwitch).onTrue(new UnlockClimber(m_Climber)).onFalse(new LockClimber(m_Climber));
 
     m_copilotController.button(OperatorConstants.ClimberSwitch).whileTrue(new DriveClimberWithJoystick(m_copilotController, m_Climber, true))
     .onFalse(new InstantCommand(() -> {

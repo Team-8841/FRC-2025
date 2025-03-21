@@ -60,6 +60,9 @@ public class Climber extends SubsystemBase{
         m_lockServoRight.setBoundsMicroseconds(2500, 0, 0, 0, 500);
         m_lockServoLeft.setBoundsMicroseconds(2500, 0, 0, 0, 500);
 
+        m_lockServoRight.set(ClimberConstants.CLIMBER_RIGHT_LOCKED_SETPOINT);
+        m_lockServoLeft.set(ClimberConstants.CLIMBER_LEFT_LOCKED_SETPOINT);
+
         m_hasExtended = false;
 
         CLIMBER_OVERRIDE = false;
@@ -117,13 +120,13 @@ public class Climber extends SubsystemBase{
     }
 
     public void lockClimber() {
-        m_lockServoRight.set(ClimberConstants.CLIMBER_LOCKED_SETPOINT);
-        m_lockServoLeft.set(ClimberConstants.CLIMBER_LOCKED_SETPOINT);
+        m_lockServoRight.set(ClimberConstants.CLIMBER_RIGHT_LOCKED_SETPOINT);
+        m_lockServoLeft.set(ClimberConstants.CLIMBER_LEFT_LOCKED_SETPOINT);
     }
 
     public void unlockClimber() {
-        m_lockServoRight.set(ClimberConstants.CLIMBER_UNLOCKED_SETPOINT);
-        m_lockServoLeft.set(ClimberConstants.CLIMBER_UNLOCKED_SETPOINT);
+        m_lockServoRight.set(ClimberConstants.CLIMBER_RIGHT_UNLOCKED_SETPOINT);
+        m_lockServoLeft.set(ClimberConstants.CLIMBER_LEFT_UNLOCKED_SETPOINT);
     }
 
     public double getRightLockPosition() {

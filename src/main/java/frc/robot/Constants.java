@@ -53,9 +53,9 @@ public final class Constants {
     public static final double RAMP_UP = .3;
 
     //PID 
-    public static final double PID_P = 0.3;
+    public static final double PID_P = 0.38;
     public static final double PID_I = 0.0;
-    public static final double PID_D = 0.05;
+    public static final double PID_D = 0.058;
     public static final double PID_FF = .000156;
 
     // Predefined Positions
@@ -124,7 +124,7 @@ public final class Constants {
     public static final int IntakeIn = 13;
     public static final int IntakeOut = 12;
 
-    public static final int ManualOverride = 14;
+    public static final int ClimberLockSwitch = 14;
     public static final int ClimberSwitch = 15;
 
     public static final int ElevatorJoystick = 0;
@@ -146,9 +146,9 @@ public final class Constants {
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
-    public static final double WRIST_P = 0.085;
+    public static final double WRIST_P = 0.12;
     public static final double WRIST_I = 0;
-    public static final double WRIST_D = 0.015;
+    public static final double WRIST_D = 0.02;
 
     public static final double RAMP_UP = .1;
 
@@ -180,11 +180,14 @@ public final class Constants {
     public static final int HOME_SENSOR_PORT = 6;
     public static final int DEPLOYED_SENSOR_PORT = 7;
 
-    public static final int CLIMBER_RIGHT_LOCK_SERVO_PORT = 8;
-    public static final int CLIMBER_LEFT_LOCK_SERVO_PORT = 9;
+    public static final int CLIMBER_RIGHT_LOCK_SERVO_PORT = 0;
+    public static final int CLIMBER_LEFT_LOCK_SERVO_PORT = 1;
 
-    public static final double CLIMBER_LOCKED_SETPOINT = 0.0;
-    public static final double CLIMBER_UNLOCKED_SETPOINT = 0.0;
+    public static final double CLIMBER_RIGHT_LOCKED_SETPOINT = 0.25;
+    public static final double CLIMBER_LEFT_LOCKED_SETPOINT = 0.0;
+
+    public static final double CLIMBER_RIGHT_UNLOCKED_SETPOINT = 0.0;
+    public static final double CLIMBER_LEFT_UNLOCKED_SETPOINT = 0.25;
 
     public static final double CLIMBER_KP = .5;
     public static final double CLIMBER_KI = 0.0;
@@ -205,6 +208,8 @@ public final class Constants {
     public static final double CLIMBER_OVERRIDE_SPEED = .1;
     public static final double CLIMBER_RETRACT_SPEED = .9;
     public static final double CLIMBER_DEPLOY_SPEED = .6;
+
+    public static final double CLIMBER_MAX_RETRACT_SPEED = 0.8;
   }
 
   public static final class LightingConstants { 
