@@ -20,6 +20,8 @@ public class Vision extends SubsystemBase{
     private double[] botpose_targetspace = new double[6];
     private double[] positions = new double[6];
 
+    private int PrimaryLimeLight;
+
     public MiniPID xController, yController, rotController;
 
     public Vision(String ll_name, String ll_alt_name) {
@@ -55,6 +57,8 @@ public class Vision extends SubsystemBase{
         xController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  // Vertical movement  
         yController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI); 
         rotController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  
+
+        PrimaryLimeLight = 0;
     }
 
     public double[] getTargetpose_Robotspace() {
@@ -86,10 +90,30 @@ public class Vision extends SubsystemBase{
         return targetRightCoral;
     }    
 
-    public String getLLName()
+    public String getLLName() //Returns primary LL name
     {
-        return ll_name;
+        if (PrimaryLimeLight == 0)
+        {
+            return this.ll_name;
+        }
+        else
+        {
+            return this.ll_alt_name;
+        }
     }
+
+    public void swapPrimaryLimeLight()
+    {
+        if (PrimaryLimeLight == 0)
+        {
+            PrimaryLimeLight = 1;
+        }
+        else
+        {
+            PrimaryLimeLight = 0;
+        }
+    }
+
 
     @Override
     public void periodic() {

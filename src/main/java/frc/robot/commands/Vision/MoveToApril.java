@@ -21,6 +21,7 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
+    private boolean xAtTolerance, yAtTolerance, rotAtTolerance;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
@@ -99,6 +100,7 @@ public class MoveToApril extends Command {
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
           } else {
+            m_vision.swapPrimaryLimeLight();
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
       
@@ -115,9 +117,9 @@ public class MoveToApril extends Command {
    @Override
    public boolean isFinished()
    {    
-    boolean xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
-    boolean yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
-    boolean rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+        xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
+        yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+        rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
 
     if (xAtTolerance && yAtTolerance && rotAtTolerance)
     {   m_vision.xController.reset();
@@ -153,6 +155,11 @@ public class MoveToApril extends Command {
         return false;
     }
     return true;
+   }
+
+   public void swapPrimaryLimeLight()
+   {
+       
    }
 }
 

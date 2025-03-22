@@ -18,7 +18,7 @@ public class MoveToCenterApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
-    private boolean firstLoop; //Ensures speeds are calculated at least once prior to finishing command
+    private boolean xAtTolerance, yAtTolerance, rotAtTolerance;
 
     public MoveToCenterApril(Vision m_vision, SwerveSubsystem m_drive) // 0:Left, 1:Right
     {
@@ -41,7 +41,6 @@ public class MoveToCenterApril extends Command {
         this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
-        this.firstLoop = false;
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
     }
@@ -72,29 +71,16 @@ public class MoveToCenterApril extends Command {
             TY = positions[0];
             ROT = positions[4];
 
-            
-            xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
-            ySpeed = -1*getConstSpeed(TY,TY_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1],LimelightConstants.REEF_CONST_SPEEDS[1]);
-            rotValue = -1*getConstSpeed(ROT,ROT_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2],LimelightConstants.REEF_CONST_SPEEDS[2]);
-
-            //SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
-            //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
-            //SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
-            
-            //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
-            //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
-            //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
-            //System.out.println(); 
-
-            firstLoop = true;
+            xSpeed = m_vision.xController.getOutput(TX, TX_SETPOINT);
+            ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
+            rotValue = m_vision.rotController.getOutput(ROT, ROT_SETPOINT);
             
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
           } else {
+            m_vision.swapPrimaryLimeLight();
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
-      
-         // SmartDashboard.putNumber("$[VISION]_POSEValidTimer", stopTimer.get());
     }
    // Called once the command ends or is interrupted.
    @Override
@@ -107,14 +93,18 @@ public class MoveToCenterApril extends Command {
    @Override
    public boolean isFinished()
    {    
-    if (xSpeed == 0 && ySpeed == 0 && rotValue == 0 && firstLoop)
-    {
+    xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
+    yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+    rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+
+    if (xAtTolerance && yAtTolerance && rotAtTolerance)
+    {   m_vision.xController.reset();
+        m_vision.yController.reset();
+        m_vision.rotController.reset();
         return true;
     }
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME);
    }
-
-
 
    public double getConstSpeed(double current_pos, double set_position, double tolerance, double speed)
    {
@@ -130,6 +120,21 @@ public class MoveToCenterApril extends Command {
     }
     return 0;
    }
-  
+
+   public boolean atTolerance(double current_pos, double set_position, double tolerance)
+   {
+    double difference = current_pos - set_position;
+    if (Math.abs(difference) > tolerance)
+    {
+        return false;
+    }
+    return true;
+   }
+
+   public void swapPrimaryLimeLight()
+   {
+       
+   }
 }
+
 
