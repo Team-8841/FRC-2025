@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerFunction;
 import frc.robot.Constants.GripperConstants;
+import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SetpointConstants;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,8 +46,8 @@ import frc.robot.subsystems.DriverCam;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lighting;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Lighting.AnimationTypes;
+import frc.robot.subsystems.Vision.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -71,7 +72,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final Gripper m_Gripper = new Gripper();
   private final Climber m_Climber = new Climber();
-  private final Vision m_Vision = new Vision("limelight-fwd");
+  private final Vision m_Vision = new Vision(LimelightConstants.ll_FRONT_RIGHT_NAME, LimelightConstants.ll_FRONT_LEFT_NAME); //Primary and Alternate Limelight
   private final Lighting m_Lighting = new Lighting();
   //private final DriverCam m_DriverCam = new DriverCam();
 

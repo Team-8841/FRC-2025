@@ -228,6 +228,7 @@ public final class Constants {
   }
 
   public static final class LimelightConstants {
+    public static final String ll_FRONT_RIGHT_NAME = "limelight-fwd";
     public static final double FWD_OFFSET = 0.15; // Forward offset (meters)
     public static final double SIDE_OFFSET = 0.25; // Side offset (meters)
     public static final double HEIGHT_OFFSET = 0.3429; // Height offset (Meters)
@@ -235,10 +236,21 @@ public final class Constants {
     public static final double PITCH = -8.25; // Pitch Degrees
     public static final double YAW = 30.5; // Yaw
 
+    public static final String ll_FRONT_LEFT_NAME = "limelight";
+    public static final double FWD_OFFSET_ALT = 0.15; // Forward offset (meters)
+    public static final double SIDE_OFFSET_ALT = 0.25; // Side offset (meters)
+    public static final double HEIGHT_OFFSET_ALT = 0.3429; // Height offset (Meters)
+    public static final double ROLL_ALT = 4.2; // Roll Degrees
+    public static final double PITCH_ALT = -8.25; // Pitch Degrees
+    public static final double YAW_ALT = 30.5; // Yaw
+
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X, Y, Z
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
+    public static final double REEF_KP = 0.1;
+    public static final double REEF_KI = 0.0;
+    public static final double REEF_KD = 0.0;
 
     public static final int LL_SAMPLING = 6;
 

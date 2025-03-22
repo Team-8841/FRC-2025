@@ -3,12 +3,13 @@ package frc.robot.commands.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.geometry.Translation2d;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Vision.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.subsystems.Vision.MiniPID;
 
 
 public class MoveToApril extends Command {
@@ -20,17 +21,11 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
-    private boolean firstLoop; //Ensures speeds are calculated at least once prior to finishing command
-
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
-
-        //xController = new PIDController(LimelightConstants.X_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Vertical movement
-        //yController = new PIDController(LimelightConstants.Y_REEF_ALIGNMENT_P, 0.0, LimelightConstants.REEF_ALIGNMENT_D);  // Horitontal movement
-        //rotController = new PIDController(LimelightConstants.ROT_REEF_ALIGNMENT_P, 0, LimelightConstants.REEF_ALIGNMENT_D);  // Rotation
         
         if (toRight == true)
         { // Target Right Reef
@@ -57,7 +52,6 @@ public class MoveToApril extends Command {
         this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
-        this.firstLoop = false;
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
     }
@@ -88,10 +82,6 @@ public class MoveToApril extends Command {
             TY = positions[0];
             ROT = positions[4];
 
-            
-            xSpeed = getConstSpeed(TX,TX_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0],LimelightConstants.REEF_CONST_SPEEDS[0]);
-            ySpeed = -1*getConstSpeed(TY,TY_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1],LimelightConstants.REEF_CONST_SPEEDS[1]);
-            rotValue = -1*getConstSpeed(ROT,ROT_SETPOINT,LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2],LimelightConstants.REEF_CONST_SPEEDS[2]);
 
             //SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
             //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
@@ -102,7 +92,9 @@ public class MoveToApril extends Command {
             //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
             //System.out.println(); 
 
-            firstLoop = true;
+            xSpeed = m_vision.xController.getOutput(TX, TX_SETPOINT);
+            ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
+            rotValue = m_vision.rotController.getOutput(ROT, ROT_SETPOINT);
             
             m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
@@ -123,8 +115,14 @@ public class MoveToApril extends Command {
    @Override
    public boolean isFinished()
    {    
-    if (xSpeed == 0 && ySpeed == 0 && rotValue == 0 && firstLoop)
-    {
+    boolean xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
+    boolean yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
+    boolean rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+
+    if (xAtTolerance && yAtTolerance && rotAtTolerance)
+    {   m_vision.xController.reset();
+        m_vision.yController.reset();
+        m_vision.rotController.reset();
         return true;
     }
     return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME);
@@ -147,5 +145,14 @@ public class MoveToApril extends Command {
     return 0;
    }
   
+   public boolean atTolerance(double current_pos, double set_position, double tolerance)
+   {
+    double difference = current_pos - set_position;
+    if (Math.abs(difference) > tolerance)
+    {
+        return false;
+    }
+    return true;
+   }
 }
 

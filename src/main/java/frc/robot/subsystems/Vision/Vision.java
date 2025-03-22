@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Vision;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -9,7 +9,7 @@ import frc.robot.Constants.LimelightConstants;
 
 public class Vision extends SubsystemBase{
 
-    private String ll_name;
+    private String ll_name, ll_alt_name;
     private NetworkTable nt_table;
     private boolean targetRightCoral;
 
@@ -20,8 +20,11 @@ public class Vision extends SubsystemBase{
     private double[] botpose_targetspace = new double[6];
     private double[] positions = new double[6];
 
-    public Vision(String ll_name) {
+    public MiniPID xController, yController, rotController;
+
+    public Vision(String ll_name, String ll_alt_name) {
         this.ll_name = ll_name;
+        this.ll_alt_name = ll_alt_name;
         nt_table = NetworkTableInstance.getDefault().getTable(this.ll_name);
         targetRightCoral = false; //Default target left coral
         // Other reference frame options 
@@ -29,7 +32,7 @@ public class Vision extends SubsystemBase{
         //private double [] botpose_targetspace = fwd_table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
 
         // Change the camera pose relative to robot center (x forward, y left, z up, degrees)
-        LimelightHelpers.setCameraPose_RobotSpace("limelight-fwd", 
+        LimelightHelpers.setCameraPose_RobotSpace(ll_name, 
             LimelightConstants.FWD_OFFSET,    // Forward offset (meters)
             LimelightConstants.SIDE_OFFSET,    // Side offset (meters)
             LimelightConstants.HEIGHT_OFFSET,    // Height offset (meters)
@@ -37,9 +40,21 @@ public class Vision extends SubsystemBase{
             LimelightConstants.PITCH,   // Pitch (degrees)
             LimelightConstants.YAW     // Yaw (degrees)
             );
+
+            LimelightHelpers.setCameraPose_RobotSpace(ll_alt_name, 
+            LimelightConstants.FWD_OFFSET_ALT,    // Forward offset (meters)
+            LimelightConstants.SIDE_OFFSET_ALT,    // Side offset (meters)
+            LimelightConstants.HEIGHT_OFFSET_ALT,    // Height offset (meters)
+            LimelightConstants.ROLL_ALT,    // Roll (degrees)
+            LimelightConstants.PITCH_ALT,   // Pitch (degrees)
+            LimelightConstants.YAW_ALT     // Yaw (degrees)
+            );
         //Shuffleboard.getTab("Driver Data").addCamera("#[Driver View]", "limelight-fwd", "mjpeg:http://10.88.41.13:5800")
         //.withProperties(Map.of("showControls", "false"));
 
+        xController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  // Vertical movement  
+        yController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI); 
+        rotController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  
     }
 
     public double[] getTargetpose_Robotspace() {
