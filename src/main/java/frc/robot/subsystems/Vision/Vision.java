@@ -56,7 +56,7 @@ public class Vision extends SubsystemBase{
 
         xController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  // Vertical movement  
         yController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI); 
-        rotController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  
+        rotController = new MiniPID(LimelightConstants.REEF_ROT_KP, LimelightConstants.REEF_ROT_KI, LimelightConstants.REEF_ROT_KI);  
 
         PrimaryLimeLight = 0;
     }

@@ -248,9 +248,14 @@ public final class Constants {
     public static final double POSE_VALIDATION_TIME = 0.5;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X, Y, Z
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
+
+    // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
     public static final double REEF_KP = 0.1;
     public static final double REEF_KI = 0.0;
     public static final double REEF_KD = 0.0;
+    public static final double REEF_ROT_KP = 0.01;
+    public static final double REEF_ROT_KI = 0.0;
+    public static final double REEF_ROT_KD = 0.0;
 
     public static final int LL_SAMPLING = 6;
 
