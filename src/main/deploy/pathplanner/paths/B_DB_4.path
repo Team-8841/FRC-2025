@@ -1,0 +1,82 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.792,
+        "y": 4.03
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.545286085825747,
+        "y": 3.988361508452535
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.367327698309492,
+        "y": 3.0043563068920673
+      },
+      "prevControl": {
+        "x": 6.375009992301558,
+        "y": 3.5037054163763326
+      },
+      "nextControl": {
+        "x": 6.35685955786736,
+        "y": 2.3239271781534443
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.0428153446033805,
+        "y": 0.49200260078023234
+      },
+      "prevControl": {
+        "x": 6.011410923276983,
+        "y": 1.2771131339401796
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "MoveToAlgaeL1",
+      "waypointRelativePos": 0.4932432432432423,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL1"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.71615994547037
+  },
+  "reversed": false,
+  "folder": "dead_robot_blue",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": false
+}

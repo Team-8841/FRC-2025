@@ -1,0 +1,91 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.043,
+        "y": 0.492
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.0951560468140435,
+        "y": 1.8109882964889459
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.163491547464239,
+        "y": 2.931079323797139
+      },
+      "prevControl": {
+        "x": 5.676430429128738,
+        "y": 1.7900520156046817
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6204954954954877,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "MoveToAlgaeL3",
+      "waypointRelativePos": 0.7105855855855814,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL3"
+        }
+      }
+    },
+    {
+      "name": "IntakeWithSensorControl",
+      "waypointRelativePos": 0.8907657657657704,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeWithSensorControl"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 120.76271953423895
+  },
+  "reversed": false,
+  "folder": "dead_robot_blue",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.01443838402031
+  },
+  "useDefaultConstraints": false
+}

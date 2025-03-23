@@ -1,0 +1,66 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.289,
+        "y": 2.668
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.8825,
+        "y": 1.86375
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.045,
+        "y": 0.831875
+      },
+      "prevControl": {
+        "x": 6.345625,
+        "y": 1.6443750000000001
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "move to L1",
+      "waypointRelativePos": 0.18447694038245285,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL1"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "center_auto_blue",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 121.67499999999998
+  },
+  "useDefaultConstraints": false
+}

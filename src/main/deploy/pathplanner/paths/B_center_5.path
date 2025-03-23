@@ -1,0 +1,77 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.004,
+        "y": 0.84
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.96375,
+        "y": 1.7337499999999997
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.289375,
+        "y": 2.668125
+      },
+      "prevControl": {
+        "x": 5.711874999999999,
+        "y": 2.02625
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "MoveToAlgaeL3",
+      "waypointRelativePos": 0.47901591895803075,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveToAlgaeL3"
+        }
+      }
+    },
+    {
+      "name": "IntakeWithSensorControl",
+      "waypointRelativePos": 0.8147612156295239,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeWithSensorControl"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 121.67499999999998
+  },
+  "reversed": false,
+  "folder": "center_auto_blue",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": false
+}

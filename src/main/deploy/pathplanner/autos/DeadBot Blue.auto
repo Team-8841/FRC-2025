@@ -1,0 +1,104 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_DB_1"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefRight"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToCoralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_DB_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToAlgaeL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeWithSensorControl"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_DB_3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_DB_4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_DB_5"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

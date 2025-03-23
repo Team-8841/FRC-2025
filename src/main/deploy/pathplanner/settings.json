@@ -3,9 +3,12 @@
   "robotLength": 0.9652,
   "holonomicMode": true,
   "pathFolders": [
-    "1 Coral-2Algae",
-    "2-3 coral",
-    "Dead robot"
+    "2_piece_auto_blue",
+    "2_piece_auto_red",
+    "dead_robot_blue",
+    "center_auto_blue",
+    "center_auto_red",
+    "dead_robot_red"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
