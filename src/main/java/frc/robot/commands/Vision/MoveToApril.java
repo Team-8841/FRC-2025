@@ -88,10 +88,10 @@ public class MoveToApril extends Command {
             //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
             //SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
             
-            //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
-            //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
-            //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
-            //System.out.println(); 
+            System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
+            System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
+            System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
+            System.out.println(); 
 
             xSpeed = m_vision.xController.getOutput(TX, TX_SETPOINT);
             ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
@@ -157,9 +157,5 @@ public class MoveToApril extends Command {
     return true;
    }
 
-   public void swapPrimaryLimeLight()
-   {
-       
-   }
 }
 
