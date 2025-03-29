@@ -42,7 +42,7 @@ public class MoveToCenterApril extends Command {
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
 
-        tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
+        tagID = LimelightHelpers.getFiducialID(m_vision.getPrimaryCam());
     }
 
     @Override
@@ -50,12 +50,14 @@ public class MoveToCenterApril extends Command {
     {
         double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
         double[] positions = new double[6];
-        if (LimelightHelpers.getTV(m_vision.getLLName()) && LimelightHelpers.getFiducialID(m_vision.getLLName()) == tagID) {
+        this.m_vision.setRightLLAsPrimary(true);
+        
+        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightHelpers.getFiducialID(m_vision.getPrimaryCam()) == tagID) {
             this.dontSeeTagTimer.reset();
       
             //Average current position 
             for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
-                sampled_positions[i] = LimelightHelpers.getTargetPose_RobotSpace(m_vision.getLLName());
+                sampled_positions[i] = LimelightHelpers.getTargetPose_RobotSpace(m_vision.getPrimaryCam());
             }
             for (int r = 0; r < 6; r++){   
                 double avg = 0;
@@ -78,7 +80,7 @@ public class MoveToCenterApril extends Command {
             m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
 
           } else {
-            m_vision.swapPrimaryLimeLight();
+            m_vision.setRightLLAsPrimary(true);
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
     }

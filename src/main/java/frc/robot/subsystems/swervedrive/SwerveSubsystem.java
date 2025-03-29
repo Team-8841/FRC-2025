@@ -586,6 +586,12 @@ public class SwerveSubsystem extends SubsystemBase
     }
   }
 
+
+  public void teleopSetup() {
+    if(!isRedAlliance()) {
+      resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.fromDegrees(getHeading().getDegrees() + 180)));
+    }
+  }
   /**
    * Sets the drive motors to brake/coast mode.
    *

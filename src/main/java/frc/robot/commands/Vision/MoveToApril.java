@@ -21,14 +21,15 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
-    private boolean xAtTolerance, yAtTolerance, rotAtTolerance;
+    private boolean xAtTolerance, yAtTolerance, rotAtTolerance, m_toRight;
 
     public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
+        this.m_toRight = toRight;
         
-        if (toRight == true)
+        /*if (toRight == true)
         { // Target Right Reef
             TX_SETPOINT = LimelightConstants.RIGHT_CORAL_OFFSETS[0];
             TY_SETPOINT = LimelightConstants.RIGHT_CORAL_OFFSETS[1];
@@ -39,7 +40,7 @@ public class MoveToApril extends Command {
             TX_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[0];
             TY_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[1];
             ROT_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[2]; 
-        }
+        }*/
 
         
         this.addRequirements(this.m_drive);
@@ -54,7 +55,7 @@ public class MoveToApril extends Command {
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
 
-        tagID = LimelightHelpers.getFiducialID(m_vision.getLLName());
+        tagID = LimelightHelpers.getFiducialID(m_vision.getPrimaryCam());
     }
 
     @Override
@@ -62,12 +63,43 @@ public class MoveToApril extends Command {
     {
         double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
         double[] positions = new double[6];
-        if (LimelightHelpers.getTV(m_vision.getLLName()) && LimelightHelpers.getFiducialID(m_vision.getLLName()) == tagID) {
+
+        if(this.m_toRight && LimelightHelpers.getTV(this.m_vision.getCamName(true))) { // Moving to right and right has target
+            this.m_vision.setRightLLAsPrimary(true); // Right is primary
+
+            TX_SETPOINT = LimelightConstants.RIGHT_CORAL_RCAM_OFFSETS[0];
+            TY_SETPOINT = LimelightConstants.RIGHT_CORAL_RCAM_OFFSETS[1];
+            ROT_SETPOINT = LimelightConstants.RIGHT_CORAL_RCAM_OFFSETS[2];
+
+        } else if(this.m_toRight && !LimelightHelpers.getTV(this.m_vision.getCamName(true))){// Moving to right and right has no target
+            this.m_vision.setRightLLAsPrimary(false); // Left is primary
+
+            TX_SETPOINT = LimelightConstants.RIGHT_CORAL_LCAM_OFFSETS[0];
+            TY_SETPOINT = LimelightConstants.RIGHT_CORAL_LCAM_OFFSETS[1];
+            ROT_SETPOINT = LimelightConstants.RIGHT_CORAL_LCAM_OFFSETS[2];
+
+        } else if(!this.m_toRight && LimelightHelpers.getTV(this.m_vision.getCamName(false))) {// Moving to left and left has target
+            this.m_vision.setRightLLAsPrimary(false); // Left is priamry
+
+            TX_SETPOINT = LimelightConstants.LEFT_CORAL_LCAM_OFFSETS[0];
+            TY_SETPOINT = LimelightConstants.LEFT_CORAL_LCAM_OFFSETS[1];
+            ROT_SETPOINT = LimelightConstants.LEFT_CORAL_LCAM_OFFSETS[2];
+
+        } else if(!this.m_toRight && !LimelightHelpers.getTV(this.m_vision.getCamName(false))) { // Moving left and left has no target
+            this.m_vision.setRightLLAsPrimary(true); // Right is primary
+
+            TX_SETPOINT = LimelightConstants.LEFT_CORAL_RCAM_OFFSETS[0];
+            TY_SETPOINT = LimelightConstants.LEFT_CORAL_RCAM_OFFSETS[1];
+            ROT_SETPOINT = LimelightConstants.LEFT_CORAL_RCAM_OFFSETS[2];
+        }
+
+
+        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightHelpers.getFiducialID(m_vision.getPrimaryCam()) == tagID) {
             this.dontSeeTagTimer.reset();
       
             //Average current position 
             for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
-                sampled_positions[i] = LimelightHelpers.getTargetPose_RobotSpace(m_vision.getLLName());
+                sampled_positions[i] = LimelightHelpers.getTargetPose_RobotSpace(m_vision.getPrimaryCam());
             }
             for (int r = 0; r < 6; r++){   
                 double avg = 0;
@@ -88,10 +120,10 @@ public class MoveToApril extends Command {
             //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
             //SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
             
-            System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
-            System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
-            System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
-            System.out.println(); 
+            //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
+            //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
+            //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
+            //System.out.println(); 
 
             xSpeed = m_vision.xController.getOutput(TX, TX_SETPOINT);
             ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
@@ -100,7 +132,7 @@ public class MoveToApril extends Command {
             m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
 
           } else {
-            m_vision.swapPrimaryLimeLight();
+            //m_vision.setRightLLAsPrimary(true);
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
       

@@ -107,6 +107,12 @@
           "data": {
             "name": "StopIntake"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
+          }
         }
       ]
     }

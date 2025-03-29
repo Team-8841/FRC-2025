@@ -109,15 +109,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "B_2p-4barge"
+            "name": "MoveToFeederStation"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "MoveToFeederStation"
+            "name": "AutoAlignBlue"
           }
         }
       ]

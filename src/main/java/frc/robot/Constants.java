@@ -55,7 +55,7 @@ public final class Constants {
     //PID 
     public static final double PID_P = 0.385;
     public static final double PID_I = 0.0;
-    public static final double PID_D = 0.0585;
+    public static final double PID_D = 0.056; //.058
     public static final double PID_FF = .000156;
 
     // Predefined Positions
@@ -146,9 +146,9 @@ public final class Constants {
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
-    public static final double WRIST_P = 0.5;
+    public static final double WRIST_P = 0.17; //.5
     public static final double WRIST_I = 0;
-    public static final double WRIST_D = 0.13;
+    public static final double WRIST_D = 0.02; //.13
 
     public static final double RAMP_UP = .1;
 
@@ -246,15 +246,15 @@ public final class Constants {
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X (fwd-back), Y(left-right), Z(rot)
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.02,0.02,2}; // X (fwd-back), Y(left-right), Z(rot)
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
-    public static final double REEF_X_KP = 2.5;
+    public static final double REEF_X_KP = 2.2;
     public static final double REEF_X_KI = 0.0;
     public static final double REEF_X_KD = 0.0;
 
-    public static final double REEF_Y_KP = 2.5;
+    public static final double REEF_Y_KP = 4;
     public static final double REEF_Y_KI = 0.0;
     public static final double REEF_Y_KD = 0.0;
 
@@ -267,16 +267,29 @@ public final class Constants {
     // Offsets to match for placement
     // Using targetpose_botspace
     // Use LL interface to get values
-    public static final double[] LEFT_CORAL_OFFSETS = {
-      .49, // TZ (meters) (Distance Away Z)
-      .15, // TX (meters) (Distance Left Right) 
-      .05 // RY (meters)
+    public static final double[] LEFT_CORAL_RCAM_OFFSETS = {
+      .47, // TZ (meters) (Distance Away Z)
+      .13, // TX (meters) (Distance Left Right) 
+      4.5 // RY (meters)
     };
 
-    public static final double[] RIGHT_CORAL_OFFSETS = {
-      .5, // TZ (meters) (Distance Away Z)
-      -.11, // -.2 Last TX (meters) (Distance Left Right)
-      3.9 // RY (meters)
+    public static final double[] RIGHT_CORAL_RCAM_OFFSETS = {
+      .47, // TZ (meters) (Distance Away Z)
+      -.15, // -.2 Last TX (meters) (Distance Left Right)
+      2.8 // RY (meters)
+    };
+
+    public static final double[] RIGHT_CORAL_LCAM_OFFSETS = {
+      .47, // TZ (meters) (Distance Away Z)
+      -.13, // -.2 Last TX (meters) (Distance Left Right)
+      -1.15 // RY (meters)
+    };
+
+
+    public static final double[] LEFT_CORAL_LCAM_OFFSETS = {
+      .47, // TZ (meters) (Distance Away Z)
+      .15, // TX (meters) (Distance Left Right) 
+      -.8 // RY (meters)
     };
 
     public static final double[] CENTER_CORAL_OFFSETS = {

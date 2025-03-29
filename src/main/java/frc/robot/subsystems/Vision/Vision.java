@@ -20,7 +20,7 @@ public class Vision extends SubsystemBase{
     private double[] botpose_targetspace = new double[6];
     private double[] positions = new double[6];
 
-    private int PrimaryLimeLight;
+    private boolean isRightPrimary;
 
     public MiniPID xController, yController, rotController;
 
@@ -58,7 +58,7 @@ public class Vision extends SubsystemBase{
         yController = new MiniPID(LimelightConstants.REEF_Y_KP, LimelightConstants.REEF_Y_KI, LimelightConstants.REEF_Y_KI); 
         rotController = new MiniPID(LimelightConstants.REEF_ROT_KP, LimelightConstants.REEF_ROT_KI, LimelightConstants.REEF_ROT_KI);  
 
-        PrimaryLimeLight = 0;
+        isRightPrimary = true;
     }
 
     public double[] getTargetpose_Robotspace() {
@@ -90,9 +90,9 @@ public class Vision extends SubsystemBase{
         return targetRightCoral;
     }    
 
-    public String getLLName() //Returns primary LL name
+    public String getPrimaryCam() //Returns primary LL name
     {
-        if (PrimaryLimeLight == 0)
+        if (isRightPrimary)
         {
             return this.ll_name;
         }
@@ -102,16 +102,17 @@ public class Vision extends SubsystemBase{
         }
     }
 
-    public void swapPrimaryLimeLight()
+    public String getCamName(boolean right){
+        if(right) {
+            return this.ll_name;
+        } else {
+            return this.ll_alt_name;
+        }
+    }
+
+    public void setRightLLAsPrimary(boolean state)
     {
-        if (PrimaryLimeLight == 0)
-        {
-            PrimaryLimeLight = 1;
-        }
-        else
-        {
-            PrimaryLimeLight = 0;
-        }
+        isRightPrimary = state;
     }
 
 
@@ -142,6 +143,18 @@ public class Vision extends SubsystemBase{
         //SmartDashboard.putNumber("$[LL]AVG_TX_CURRENT", positions[2]);
         //SmartDashboard.putNumber("$[LL]AVG_TY_CURRENT", positions[0]);
         //SmartDashboard.putNumber("$[LL]AVG_ROT_CURRENT", positions[4]);
+
+        SmartDashboard.putBoolean("$[LEFT LL]: Has Target", LimelightHelpers.getTV(ll_alt_name));
+        SmartDashboard.putBoolean("$[Right LL]: Has Target", LimelightHelpers.getTV(ll_name));
+        SmartDashboard.putBoolean("$[LL]: Right Primary", isRightPrimary);
+
+        SmartDashboard.putNumber("$[Left LL]: TX", LimelightHelpers.getTX(ll_alt_name));
+        SmartDashboard.putNumber("$[Left LL]: TY", LimelightHelpers.getTY(ll_alt_name));
+
+        SmartDashboard.putNumber("$[Right LL]: TX", LimelightHelpers.getTX(ll_name));
+        SmartDashboard.putNumber("$[Right LL]: TY", LimelightHelpers.getTY(ll_name));
+
+   
 
         tid = nt_table.getEntry("tid").getInteger(0); // Primary April Tag ID in view 
     }
