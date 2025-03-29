@@ -54,8 +54,8 @@ public class Vision extends SubsystemBase{
         //Shuffleboard.getTab("Driver Data").addCamera("#[Driver View]", "limelight-fwd", "mjpeg:http://10.88.41.13:5800")
         //.withProperties(Map.of("showControls", "false"));
 
-        xController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI);  // Vertical movement  
-        yController = new MiniPID(LimelightConstants.REEF_KP, LimelightConstants.REEF_KI, LimelightConstants.REEF_KI); 
+        xController = new MiniPID(LimelightConstants.REEF_X_KP, LimelightConstants.REEF_X_KI, LimelightConstants.REEF_X_KI);  // Vertical movement  
+        yController = new MiniPID(LimelightConstants.REEF_Y_KP, LimelightConstants.REEF_Y_KI, LimelightConstants.REEF_Y_KI); 
         rotController = new MiniPID(LimelightConstants.REEF_ROT_KP, LimelightConstants.REEF_ROT_KI, LimelightConstants.REEF_ROT_KI);  
 
         PrimaryLimeLight = 0;

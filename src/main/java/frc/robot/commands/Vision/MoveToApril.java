@@ -97,7 +97,7 @@ public class MoveToApril extends Command {
             ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
             rotValue = m_vision.rotController.getOutput(ROT, ROT_SETPOINT);
             
-            m_drive.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+            m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
 
           } else {
             m_vision.swapPrimaryLimeLight();

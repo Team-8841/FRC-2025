@@ -53,9 +53,9 @@ public final class Constants {
     public static final double RAMP_UP = .3;
 
     //PID 
-    public static final double PID_P = 0.38;
+    public static final double PID_P = 0.385;
     public static final double PID_I = 0.0;
-    public static final double PID_D = 0.058;
+    public static final double PID_D = 0.0585;
     public static final double PID_FF = .000156;
 
     // Predefined Positions
@@ -89,7 +89,7 @@ public final class Constants {
     public static final double[] startingConfiguration = {1, 0};
     public static final double[] startingHomeConfiguration = {1,0}; 
     public static final double[] groundPickup = {1, 50};          
-    public static final double[] feederStation = {3, 101};         
+    public static final double[] feederStation = {6, 101};   //originally 3      
   
   }
 
@@ -146,9 +146,9 @@ public final class Constants {
 
     public static final double WRIST_ALLOWED_ERROR = 5; //TODO: Tune this value
     
-    public static final double WRIST_P = 0.12;
+    public static final double WRIST_P = 0.5;
     public static final double WRIST_I = 0;
-    public static final double WRIST_D = 0.02;
+    public static final double WRIST_D = 0.13;
 
     public static final double RAMP_UP = .1;
 
@@ -228,32 +228,37 @@ public final class Constants {
   }
 
   public static final class LimelightConstants {
-    public static final String ll_FRONT_RIGHT_NAME = "limelight-fwd";
-    public static final double FWD_OFFSET = 0.15; // Forward offset (meters)
-    public static final double SIDE_OFFSET = 0.25; // Side offset (meters)
-    public static final double HEIGHT_OFFSET = 0.3429; // Height offset (Meters)
-    public static final double ROLL = 4.2; // Roll Degrees
-    public static final double PITCH = -8.25; // Pitch Degrees
-    public static final double YAW = 30.5; // Yaw
+    public static final String ll_FRONT_RIGHT_NAME = "limelight-right";
+    public static final double FWD_OFFSET = -0.0508; // Forward offset (meters)
+    public static final double SIDE_OFFSET = 0.0762; // Side offset (meters)
+    public static final double HEIGHT_OFFSET = 0.2921; // Height offset (Meters)
+    public static final double ROLL = 0; // Roll Degrees
+    public static final double PITCH = 0; // Pitch Degrees
+    public static final double YAW = 15; // Yaw
 
-    public static final String ll_FRONT_LEFT_NAME = "limelight";
-    public static final double FWD_OFFSET_ALT = 0.15; // Forward offset (meters)
-    public static final double SIDE_OFFSET_ALT = 0.25; // Side offset (meters)
-    public static final double HEIGHT_OFFSET_ALT = 0.3429; // Height offset (Meters)
-    public static final double ROLL_ALT = 4.2; // Roll Degrees
-    public static final double PITCH_ALT = -8.25; // Pitch Degrees
-    public static final double YAW_ALT = 30.5; // Yaw
+    public static final String ll_FRONT_LEFT_NAME = "limelight-left";
+    public static final double FWD_OFFSET_ALT = -0.0508; // Forward offset (meters)
+    public static final double SIDE_OFFSET_ALT = -0.0762; // Side offset (meters)
+    public static final double HEIGHT_OFFSET_ALT = 0.2921; // Height offset (Meters)
+    public static final double ROLL_ALT = 0; // Roll Degrees
+    public static final double PITCH_ALT = 0; // Pitch Degrees
+    public static final double YAW_ALT = -15; // Yaw
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
     public static final double POSE_VALIDATION_TIME = 0.5;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X, Y, Z
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.04,2}; // X (fwd-back), Y(left-right), Z(rot)
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
-    public static final double REEF_KP = 0.1;
-    public static final double REEF_KI = 0.0;
-    public static final double REEF_KD = 0.0;
-    public static final double REEF_ROT_KP = 0.01;
+    public static final double REEF_X_KP = 2.5;
+    public static final double REEF_X_KI = 0.0;
+    public static final double REEF_X_KD = 0.0;
+
+    public static final double REEF_Y_KP = 2.5;
+    public static final double REEF_Y_KI = 0.0;
+    public static final double REEF_Y_KD = 0.0;
+
+    public static final double REEF_ROT_KP = 0.08;
     public static final double REEF_ROT_KI = 0.0;
     public static final double REEF_ROT_KD = 0.0;
 
@@ -263,21 +268,21 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_OFFSETS = {
-      .48, // TZ (meters) (Distance Away Z)
-      .17, // TX (meters) (Distance Left Right) 
-      2.5 // RY (meters)
+      .49, // TZ (meters) (Distance Away Z)
+      .15, // TX (meters) (Distance Left Right) 
+      .05 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_OFFSETS = {
       .5, // TZ (meters) (Distance Away Z)
-      -.17, // -.2 Last TX (meters) (Distance Left Right)
-      2.25 // RY (meters)
+      -.11, // -.2 Last TX (meters) (Distance Left Right)
+      3.9 // RY (meters)
     };
 
     public static final double[] CENTER_CORAL_OFFSETS = {
       .5, // TZ
-      0, // TX
-      2.3 // RY
+      .05, // TX
+      3.6 // RY
     };
 
   }
