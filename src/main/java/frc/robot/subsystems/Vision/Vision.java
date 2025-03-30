@@ -11,6 +11,7 @@ public class Vision extends SubsystemBase{
 
     private String ll_name, ll_alt_name;
     private NetworkTable nt_table;
+    private NetworkTable rightTables, leftTables;
     private boolean targetRightCoral;
 
     private double TX, TY, ROT;
@@ -20,7 +21,7 @@ public class Vision extends SubsystemBase{
     private double[] botpose_targetspace = new double[6];
     private double[] positions = new double[6];
 
-    private boolean isRightPrimary;
+    private boolean isRightPrimary, oldState;
 
     public MiniPID xController, yController, rotController;
 
@@ -28,6 +29,8 @@ public class Vision extends SubsystemBase{
         this.ll_name = ll_name;
         this.ll_alt_name = ll_alt_name;
         nt_table = NetworkTableInstance.getDefault().getTable(this.ll_name);
+        this.rightTables = NetworkTableInstance.getDefault().getTable(this.ll_name);
+        this.leftTables = NetworkTableInstance.getDefault().getTable(this.ll_alt_name);
         targetRightCoral = false; //Default target left coral
         // Other reference frame options 
         //private double [] targetpose_cameraspace = fwd_table.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
@@ -113,8 +116,40 @@ public class Vision extends SubsystemBase{
     public void setRightLLAsPrimary(boolean state)
     {
         isRightPrimary = state;
+
+        if(LimelightConstants.DEBUG_ENABLED){
+            if(state != oldState) {
+                oldState = state;
+                if(state) {
+                    System.out.println("Handed off to Right cam");
+                } else {
+                    System.out.println("Handed off to Left cam");
+                }
+            }
+        }
     }
 
+    public double getTargetTagID(boolean right) {
+        double rightTarget = rightTables.getEntry("tid").getDouble(0);
+        double leftTarget = leftTables.getEntry("tid").getDouble(0);
+        if (right) {
+            return rightTarget;
+        } else {
+            return leftTarget;
+        }
+    }
+
+    public void enabledLEDS(boolean state) {
+        //These LEDS ARE PAIN ALL I SEE IS DOTS
+
+        if(state) {
+            rightTables.getEntry("ledMode").setNumber(3);
+            leftTables.getEntry("ledMode").setNumber(3);
+        }else {
+            rightTables.getEntry("ledMode").setNumber(1);
+            leftTables.getEntry("ledMode").setNumber(1);
+        }
+    }
 
     @Override
     public void periodic() {
@@ -144,15 +179,19 @@ public class Vision extends SubsystemBase{
         //SmartDashboard.putNumber("$[LL]AVG_TY_CURRENT", positions[0]);
         //SmartDashboard.putNumber("$[LL]AVG_ROT_CURRENT", positions[4]);
 
-        SmartDashboard.putBoolean("$[LEFT LL]: Has Target", LimelightHelpers.getTV(ll_alt_name));
-        SmartDashboard.putBoolean("$[Right LL]: Has Target", LimelightHelpers.getTV(ll_name));
-        SmartDashboard.putBoolean("$[LL]: Right Primary", isRightPrimary);
+        if(LimelightConstants.DEBUG_ENABLED) {
+            SmartDashboard.putBoolean("$[LEFT LL]: Has Target", LimelightHelpers.getTV(ll_alt_name));
+            SmartDashboard.putBoolean("$[Right LL]: Has Target", LimelightHelpers.getTV(ll_name));
+            SmartDashboard.putBoolean("$[LL]: Right Primary", isRightPrimary);
 
-        SmartDashboard.putNumber("$[Left LL]: TX", LimelightHelpers.getTX(ll_alt_name));
-        SmartDashboard.putNumber("$[Left LL]: TY", LimelightHelpers.getTY(ll_alt_name));
+            SmartDashboard.putNumber("$[Left LL]: TX", LimelightHelpers.getTX(ll_alt_name));
+            SmartDashboard.putNumber("$[Left LL]: TY", LimelightHelpers.getTY(ll_alt_name));
+            SmartDashboard.putNumber("$[Left LL]: Target ID", getTargetTagID(false));
 
-        SmartDashboard.putNumber("$[Right LL]: TX", LimelightHelpers.getTX(ll_name));
-        SmartDashboard.putNumber("$[Right LL]: TY", LimelightHelpers.getTY(ll_name));
+            SmartDashboard.putNumber("$[Right LL]: TX", LimelightHelpers.getTX(ll_name));
+            SmartDashboard.putNumber("$[Right LL]: TY", LimelightHelpers.getTY(ll_name));
+            SmartDashboard.putNumber("$[Right LL]: Target ID", getTargetTagID(true));
+        }
 
    
 

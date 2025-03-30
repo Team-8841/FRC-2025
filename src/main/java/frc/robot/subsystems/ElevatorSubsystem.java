@@ -64,7 +64,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             m_readyToMove = false;
             m_isAlgaeState = false;
             m_targetElevatorSetPoint = SetpointConstants.startingConfiguration;
-            m_targetElevatorHomeSetPoint = SetpointConstants.startingHomeConfiguration;
+            m_targetElevatorHomeSetPoint = SetpointConstants.feederStation;
         
         follower = new Follower(m_elevator_leader.getDeviceID(), true); // Inverted Follower
         m_elevator_follower.setControl(follower);

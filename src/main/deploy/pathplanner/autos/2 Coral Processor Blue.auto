@@ -17,13 +17,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefLeft"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefLeft"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]
@@ -54,22 +54,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "B_2p-2processor"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeAndWait"
-                }
-              }
-            ]
+            "pathName": "B_2p-2processor"
           }
         },
         {
@@ -85,13 +72,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefRight"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefRight"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]
@@ -125,6 +112,12 @@
           "type": "named",
           "data": {
             "name": "MoveToFeederStation"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroGyroBlue"
           }
         }
       ]

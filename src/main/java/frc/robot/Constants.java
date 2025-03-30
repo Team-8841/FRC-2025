@@ -78,7 +78,7 @@ public final class Constants {
     public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
     public static final double[] CoralL2 = {11, 72};  //14, 44 Reef L2 
     public static final double[] CoralL3 = {26, 72};  //28, 44 Reef L3
-    public static final double[] CoralL4 = {54, 67};  //54, 43 Reef L4
+    public static final double[] CoralL4 = {54, 68};  //54, 67 Reef L4
 
     public static final double[] AlgaeL1 = {1, 67};   // 1, 36    processing station
     public static final double[] AlgaeL2 = {14, 77};  //37, 36    Reef Algae L2
@@ -116,7 +116,7 @@ public final class Constants {
     public static final int AlgaeL3 = 7; //Button 7
     public static final int AlgaeL4 = 8; //Button 8
 
-    public static final int startingConfiguration = 9;
+    public static final int startingConfiguration = 18;
     public static final int feederStation = 10;
     public static final int groundPickup = 11;
   
@@ -228,6 +228,8 @@ public final class Constants {
   }
 
   public static final class LimelightConstants {
+    public static final boolean DEBUG_ENABLED = true;
+
     public static final String ll_FRONT_RIGHT_NAME = "limelight-right";
     public static final double FWD_OFFSET = -0.0508; // Forward offset (meters)
     public static final double SIDE_OFFSET = 0.0762; // Side offset (meters)
@@ -244,21 +246,21 @@ public final class Constants {
     public static final double PITCH_ALT = 0; // Pitch Degrees
     public static final double YAW_ALT = -15; // Yaw
 
-    public static final double DONT_SEE_TAG_WAIT_TIME = 1.0;
-    public static final double POSE_VALIDATION_TIME = 0.5;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.02,0.02,2}; // X (fwd-back), Y(left-right), Z(rot)
+    public static final double DONT_SEE_TAG_WAIT_TIME = 5.0;
+    public static final double POSE_VALIDATION_TIME = 1.0;
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.05,0.03,1}; // X (fwd-back), Y(left-right), Z(rot)
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
-    public static final double REEF_X_KP = 2.2;
-    public static final double REEF_X_KI = 0.0;
-    public static final double REEF_X_KD = 0.0;
+    public static final double REEF_X_KP = 3; // FWD/Back
+    public static final double REEF_X_KI = 0.0; // FWD/Back
+    public static final double REEF_X_KD = 0.17; // FWD/Back
 
-    public static final double REEF_Y_KP = 4;
-    public static final double REEF_Y_KI = 0.0;
-    public static final double REEF_Y_KD = 0.0;
+    public static final double REEF_Y_KP = 4; // Left/Rgiht
+    public static final double REEF_Y_KI = 0.0; // Left/Rgiht
+    public static final double REEF_Y_KD = 0.15; // Left/Rgiht
 
-    public static final double REEF_ROT_KP = 0.08;
+    public static final double REEF_ROT_KP = 0.095;
     public static final double REEF_ROT_KI = 0.0;
     public static final double REEF_ROT_KD = 0.0;
 

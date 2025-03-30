@@ -7,6 +7,7 @@ import frc.robot.subsystems.Vision.Vision;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.subsystems.Vision.MiniPID;
@@ -54,6 +55,8 @@ public class MoveToApril extends Command {
         this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
+
+        //this.m_vision.enabledLEDS(true);
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getPrimaryCam());
     }
@@ -149,17 +152,26 @@ public class MoveToApril extends Command {
    @Override
    public boolean isFinished()
    {    
-        xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0]);
-        yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1]);
-        rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2]);
+        xAtTolerance = atTolerance(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], "tx");
+        yAtTolerance = atTolerance(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], "ty");
+        rotAtTolerance = atTolerance(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], "rot");
 
     if (xAtTolerance && yAtTolerance && rotAtTolerance)
     {   m_vision.xController.reset();
         m_vision.yController.reset();
         m_vision.rotController.reset();
+        //this.m_vision.enabledLEDS(false);
+        System.out.println("Ended alignment within tolerance");
         return true;
     }
-    return this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME);
+
+    if(this.dontSeeTagTimer.hasElapsed(LimelightConstants.DONT_SEE_TAG_WAIT_TIME)) {
+        //this.m_vision.enabledLEDS(false);
+        System.out.println("Ended alignment on timeout");
+        return true;
+    } else {
+        return false;
+    }
    }
 
 
@@ -179,9 +191,15 @@ public class MoveToApril extends Command {
     return 0;
    }
   
-   public boolean atTolerance(double current_pos, double set_position, double tolerance)
+   public boolean atTolerance(double current_pos, double set_position, double tolerance, String label)
    {
+    
     double difference = current_pos - set_position;
+
+    if(LimelightConstants.DEBUG_ENABLED){
+        SmartDashboard.putNumber("$[Align]: " + label, Math.abs(difference));
+        SmartDashboard.putBoolean("$[At Tolerance]: " + label, Math.abs(difference) < tolerance);
+    }
     if (Math.abs(difference) > tolerance)
     {
         return false;

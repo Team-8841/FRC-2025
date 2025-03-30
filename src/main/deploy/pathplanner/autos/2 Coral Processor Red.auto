@@ -17,13 +17,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefLeft"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefLeft"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]
@@ -60,12 +60,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "IntakeAndWait"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "R_2p-3processor"
@@ -78,13 +72,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefRight"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefRight"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]

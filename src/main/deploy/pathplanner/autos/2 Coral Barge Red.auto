@@ -17,13 +17,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefRight"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefRight"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]
@@ -78,13 +78,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefLeft"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAlignReefLeft"
+                  "name": "MoveToCoralL4"
                 }
               }
             ]

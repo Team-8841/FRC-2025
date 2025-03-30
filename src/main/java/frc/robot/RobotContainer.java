@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -172,7 +174,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true));
     NamedCommands.registerCommand("AutoAlignReefCenter", new MoveToCenterApril(m_Vision, drivebase));
 
-    NamedCommands.registerCommand("AutoAlignBlue", new InstantCommand(() -> {
+    NamedCommands.registerCommand("ZeroGyroBlue", new InstantCommand(() -> {
       drivebase.teleopSetup();
     }));
     
@@ -198,7 +200,13 @@ public class RobotContainer {
       drivebase.zeroGyro();
     }));
 
-    m_driverController.back().onTrue(Commands.none());
+    m_driverController.back().onTrue(new InstantCommand(() -> {
+      if(DriverStation.getAlliance().get() == Alliance.Blue) {
+        drivebase.teleopSetup();
+      } else {
+        System.out.println("Not on the blue alliancce");
+      }
+    }));
 
     //m_driverController.leftBumper().onTrue(new MoveToSetpoint(m_elevator, m_Gripper));  // Move elevator to target
     m_driverController.leftBumper().onTrue(new MoveToSetpointGroup(m_elevator, m_Gripper));  // Move elevator to target
