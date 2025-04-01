@@ -104,10 +104,6 @@ public class MoveToApril extends Command {
             TY = positions[0];
             ROT = positions[4];
 
-
-            //SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
-            //SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
-            //SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
             
             //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
             //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
@@ -138,6 +134,12 @@ public class MoveToApril extends Command {
                     ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? LimelightConstants.MIN_FORCED_SPEED_TELEOP : ySpeed;
             }
             
+            if(LimelightConstants.DEBUG_ENABLED) {
+                SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
+                SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
+                SmartDashboard.putNumber("$[VISION]_ROTSPEED", rotValue);
+            }
+
             m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
 
           } else { // No target
