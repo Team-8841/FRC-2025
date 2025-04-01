@@ -170,8 +170,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopIntake", new StopIntake(false, false, m_Gripper, m_elevator));
 
     // Vision Reef Auto Alignment
-    NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false));
-    NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true));
+    NamedCommands.registerCommand("AutoAlignReefLeft", new MoveToApril(m_Vision, drivebase, false, true));
+    NamedCommands.registerCommand("AutoAlignReefRight", new MoveToApril(m_Vision, drivebase, true, true));
     NamedCommands.registerCommand("AutoAlignReefCenter", new MoveToCenterApril(m_Vision, drivebase));
 
     NamedCommands.registerCommand("ZeroGyroBlue", new InstantCommand(() -> {
@@ -191,8 +191,8 @@ public class RobotContainer {
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
     m_driverController.a().whileTrue(new MoveToCenterApril(m_Vision, drivebase));
-    m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true));
-    m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false));
+    m_driverController.b().whileTrue(new MoveToApril(m_Vision, drivebase, true, false));
+    m_driverController.x().whileTrue(new MoveToApril(m_Vision, drivebase, false, false));
     m_driverController.y().onTrue(new MoveToHome(m_elevator, m_Gripper));   // Home elevator
       
 

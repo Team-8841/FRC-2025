@@ -22,28 +22,15 @@ public class MoveToApril extends Command {
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
-    private boolean xAtTolerance, yAtTolerance, rotAtTolerance, m_toRight;
+    private boolean xAtTolerance, yAtTolerance, rotAtTolerance, m_toRight, m_isAuto;
 
-    public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight) // 0:Left, 1:Right
+    public MoveToApril(Vision m_vision, SwerveSubsystem m_drive, boolean toRight, boolean isAuto)
     {
         this.m_vision = m_vision;
         this.m_drive = m_drive;
         this.m_toRight = toRight;
-        
-        /*if (toRight == true)
-        { // Target Right Reef
-            TX_SETPOINT = LimelightConstants.RIGHT_CORAL_OFFSETS[0];
-            TY_SETPOINT = LimelightConstants.RIGHT_CORAL_OFFSETS[1];
-            ROT_SETPOINT = LimelightConstants.RIGHT_CORAL_OFFSETS[2];
-        }
-        else
-        { // Target Left Reef
-            TX_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[0];
-            TY_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[1];
-            ROT_SETPOINT = LimelightConstants.LEFT_CORAL_OFFSETS[2]; 
-        }*/
-
-        
+        this.m_isAuto = isAuto;
+    
         this.addRequirements(this.m_drive);
     }
 
@@ -56,7 +43,6 @@ public class MoveToApril extends Command {
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
 
-        //this.m_vision.enabledLEDS(true);
 
         tagID = LimelightHelpers.getFiducialID(m_vision.getPrimaryCam());
     }
@@ -132,7 +118,39 @@ public class MoveToApril extends Command {
             ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
             rotValue = m_vision.rotController.getOutput(ROT, ROT_SETPOINT);
             
-            m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
+
+            if(this.m_isAuto) {
+
+                if(LimelightConstants.FORCE_MIN_SPEED_AUTO) {
+
+                    //If commanded speed(xSpeed) is less than MIN_FORCED_SPEED_AUTO, set it to MIN_FORCED_SPEED_AUTO or return xSpeed
+                    double speed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? xSpeed : LimelightConstants.MIN_FORCED_SPEED_AUTO;
+
+                    // Auto align with forced minimum pid output
+                    m_drive.drive(new Translation2d(-speed, ySpeed), rotValue, false);
+                } else {
+
+                    // Auto align with full PID control
+                    m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
+                }
+
+            } else {
+
+                if(LimelightConstants.FORCE_MIN_SPEED_TELEOP) {
+
+                    //If commanded speed(xSpeed) is less than MIN_FORCED_SPEED_AUTO, set it to MIN_FORCED_SPEED_AUTO or return xSpeed
+                    double speed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? xSpeed : LimelightConstants.MIN_FORCED_SPEED_TELEOP;
+
+                    // Teleop align with forced minimum pid output
+                    m_drive.drive(new Translation2d(-speed, ySpeed), rotValue, false);
+
+                } else {
+                    // Teleop align with full PID control
+                    m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
+                }
+                
+            }
+            
 
           } else {
             //m_vision.setRightLLAsPrimary(true);
