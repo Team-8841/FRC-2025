@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 11.691874999996308,
-        "y": 4.211874999999596
+        "x": 10.45,
+        "y": 4.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.383124999996307,
-        "y": 4.1224999999995955
+        "x": 10.2,
+        "y": 4.0
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 11.261249999996307,
-        "y": 4.033124999999596
+        "x": 10.25,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 11.521249999996307,
-        "y": 4.138749999999596
+        "x": 10.5,
+        "y": 4.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,22 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "MoveToAlgaeL2",
-      "waypointRelativePos": 0.4971878515185606,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToAlgaeL2"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -62,5 +50,5 @@
     "velocity": 0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -5,9 +5,10 @@
   "pathFolders": [
     "2_piece_auto_blue",
     "2_piece_auto_red",
-    "dead_robot_blue",
+    "test",
     "center_auto_blue",
     "center_auto_red",
+    "dead_robot_blue",
     "dead_robot_red"
   ],
   "autoFolders": [],

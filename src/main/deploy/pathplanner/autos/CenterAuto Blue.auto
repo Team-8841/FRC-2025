@@ -7,19 +7,38 @@
         {
           "type": "path",
           "data": {
+            "pathName": "B_center_0"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "B_center_1"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefLeft"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
             "name": "MoveToCoralL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoAlignReefLeft"
           }
         },
         {
@@ -53,15 +72,28 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "B_center_3"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "IntakeWithSensorControl"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAlignReefCenter"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {

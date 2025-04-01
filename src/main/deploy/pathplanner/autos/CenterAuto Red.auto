@@ -7,26 +7,38 @@
         {
           "type": "path",
           "data": {
+            "pathName": "R_center_0"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "R_center_1"
           }
         },
         {
-          "type": "sequential",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToCoralL4"
+                  "name": "AutoAlignReefLeft"
                 }
               },
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "AutoAlignReefLeft"
+                  "waitTime": 2.0
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
           }
         },
         {
@@ -60,19 +72,25 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
+          "data": {
+            "name": "IntakeWithSensorControl"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeWithSensorControl"
+                  "name": "AutoAlignReefCenter"
                 }
               },
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "AutoAlignReefCenter"
+                  "waitTime": 2.0
                 }
               }
             ]
