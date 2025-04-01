@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.subsystems.Vision.MiniPID;
+import java.util.Set;
 
 
 public class MoveToApril extends Command {
@@ -83,7 +84,7 @@ public class MoveToApril extends Command {
         }
 
 
-        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightHelpers.getFiducialID(m_vision.getPrimaryCam()) == tagID) {
+        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightConstants.REEF_APRIL_TAGIDS.contains((int) LimelightHelpers.getFiducialID(m_vision.getPrimaryCam())) {
             this.dontSeeTagTimer.reset();
       
             //Average current position 

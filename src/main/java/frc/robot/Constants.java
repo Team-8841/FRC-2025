@@ -6,6 +6,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
+import java.util.Set;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -271,6 +272,8 @@ public final class Constants {
     public static final double REEF_ROT_KP = 0.095;
     public static final double REEF_ROT_KI = 0.0;
     public static final double REEF_ROT_KD = 0.0;
+
+    public static final Set<Integer> REEF_APRIL_TAGIDS = Set.of(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
 
     public static final int LL_SAMPLING = 6;
 
