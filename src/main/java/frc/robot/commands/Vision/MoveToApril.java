@@ -18,8 +18,7 @@ public class MoveToApril extends Command {
 
     private Vision m_vision; 
     private SwerveSubsystem m_drive;
-    private Timer dontSeeTagTimer, stopTimer;
-    private double tagID = -1;
+    private Timer dontSeeTagTimer;
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
@@ -39,13 +38,8 @@ public class MoveToApril extends Command {
     @Override
     public void initialize()
     {
-        this.stopTimer = new Timer();
-        this.stopTimer.start();
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
-
-
-        tagID = LimelightHelpers.getFiducialID(m_vision.getPrimaryCam());
     }
 
     @Override
@@ -84,7 +78,7 @@ public class MoveToApril extends Command {
         }
 
 
-        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightConstants.REEF_APRIL_TAGIDS.contains((int) LimelightHelpers.getFiducialID(m_vision.getPrimaryCam())) {
+        if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightConstants.REEF_APRIL_TAGIDS.contains((int) LimelightHelpers.getFiducialID(m_vision.getPrimaryCam()))) {
             this.dontSeeTagTimer.reset();
       
             //Average current position 
@@ -123,10 +117,13 @@ public class MoveToApril extends Command {
                     //If commanded speed(xSpeed) is less than MIN_FORCED_SPEED_AUTO, set it to MIN_FORCED_SPEED_AUTO or return xSpeed
                     xSpeed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : xSpeed;
                     ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : ySpeed;
+
                 } else if (LimelightConstants.FORCE_CONST_SPEED_AUTO) {
+
                     xSpeed = getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
-                    ySpeed = getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[0]);
-                    rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[0]);
+                    ySpeed = getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[1]);
+                    rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[2]);
+
                 }
 
             } else if(LimelightConstants.FORCE_MIN_SPEED_TELEOP) {
@@ -134,7 +131,7 @@ public class MoveToApril extends Command {
                     xSpeed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? LimelightConstants.MIN_FORCED_SPEED_TELEOP : xSpeed;
                     ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? LimelightConstants.MIN_FORCED_SPEED_TELEOP : ySpeed;
             }
-            
+
             if(LimelightConstants.DEBUG_ENABLED) {
                 SmartDashboard.putNumber("$[VISION]_XSPEED", xSpeed);
                 SmartDashboard.putNumber("$[VISION]_YSPEED", ySpeed);
@@ -182,8 +179,6 @@ public class MoveToApril extends Command {
         return false;
     }
    }
-
-
 
    public double getConstSpeed(double current_pos, double set_position, double tolerance, double speed)
    {
