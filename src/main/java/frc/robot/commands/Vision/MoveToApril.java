@@ -124,35 +124,23 @@ public class MoveToApril extends Command {
                 if(LimelightConstants.FORCE_MIN_SPEED_AUTO) {
 
                     //If commanded speed(xSpeed) is less than MIN_FORCED_SPEED_AUTO, set it to MIN_FORCED_SPEED_AUTO or return xSpeed
-                    double speed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? xSpeed : LimelightConstants.MIN_FORCED_SPEED_AUTO;
-
-                    // Auto align with forced minimum pid output
-                    m_drive.drive(new Translation2d(-speed, ySpeed), rotValue, false);
-                } else {
-
-                    // Auto align with full PID control
-                    m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
+                    xSpeed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : xSpeed;
+                    ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : ySpeed;
+                } else if (LimelightConstants.FORCE_CONST_SPEED_AUTO) {
+                    xSpeed = getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
+                    ySpeed = getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[0]);
+                    rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[0]);
                 }
 
-            } else {
+            } else if(LimelightConstants.FORCE_MIN_SPEED_TELEOP) {
 
-                if(LimelightConstants.FORCE_MIN_SPEED_TELEOP) {
-
-                    //If commanded speed(xSpeed) is less than MIN_FORCED_SPEED_AUTO, set it to MIN_FORCED_SPEED_AUTO or return xSpeed
-                    double speed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? xSpeed : LimelightConstants.MIN_FORCED_SPEED_TELEOP;
-
-                    // Teleop align with forced minimum pid output
-                    m_drive.drive(new Translation2d(-speed, ySpeed), rotValue, false);
-
-                } else {
-                    // Teleop align with full PID control
-                    m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
-                }
-                
+                    xSpeed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? LimelightConstants.MIN_FORCED_SPEED_TELEOP : xSpeed;
+                    ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_TELEOP) ? LimelightConstants.MIN_FORCED_SPEED_TELEOP : ySpeed;
             }
             
+            m_drive.drive(new Translation2d(-xSpeed, ySpeed), rotValue, false);
 
-          } else {
+          } else { // No target
             //m_vision.setRightLLAsPrimary(true);
             m_drive.drive(new Translation2d(0,0), 0, false);
           }

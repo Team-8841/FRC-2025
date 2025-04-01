@@ -236,6 +236,8 @@ public final class Constants {
     public static final boolean FORCE_MIN_SPEED_TELEOP = false; //Force a minimum speed during teleop
     public static final double MIN_FORCED_SPEED_TELEOP = 0.2; // Minimum speed during teleop
 
+    public static final boolean FORCE_CONST_SPEED_AUTO = false; //Force a constant speed during auto
+
     public static final String ll_FRONT_RIGHT_NAME = "limelight-right";
     public static final double FWD_OFFSET = -0.0508; // Forward offset (meters)
     public static final double SIDE_OFFSET = 0.0762; // Side offset (meters)
