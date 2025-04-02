@@ -19,6 +19,7 @@ public class MoveToApril extends Command {
     private Vision m_vision; 
     private SwerveSubsystem m_drive;
     private Timer dontSeeTagTimer;
+
     private double TX_SETPOINT,TY_SETPOINT,ROT_SETPOINT;
     private double xSpeed, ySpeed, rotValue;
     private double TX, TY, ROT;
@@ -30,7 +31,7 @@ public class MoveToApril extends Command {
         this.m_drive = m_drive;
         this.m_toRight = toRight;
         this.m_isAuto = isAuto;
-    
+
         this.addRequirements(this.m_drive);
     }
 
@@ -38,8 +39,13 @@ public class MoveToApril extends Command {
     @Override
     public void initialize()
     {
+
+
         this.dontSeeTagTimer = new Timer();
         this.dontSeeTagTimer.start();
+
+
+
     }
 
     @Override
@@ -80,7 +86,7 @@ public class MoveToApril extends Command {
 
         if (LimelightHelpers.getTV(m_vision.getPrimaryCam()) && LimelightConstants.REEF_APRIL_TAGIDS.contains((int) LimelightHelpers.getFiducialID(m_vision.getPrimaryCam()))) {
             this.dontSeeTagTimer.reset();
-      
+
             //Average current position 
             for (int i = 0; i < LimelightConstants.LL_SAMPLING; i++){
                 sampled_positions[i] = LimelightHelpers.getTargetPose_RobotSpace(m_vision.getPrimaryCam());
@@ -99,7 +105,7 @@ public class MoveToApril extends Command {
             TY = positions[0];
             ROT = positions[4];
 
-            
+
             //System.out.println("TX: " + TX + ", TY:" + TY + ", ROT:" + ROT);
             //System.out.println("TX Set:" + TX_SETPOINT + ", TY Set:" +TY_SETPOINT + ", Rot Set:" +ROT_SETPOINT);
             //System.out.println("xSpeed: " + xSpeed + ", ySpeed: " + ySpeed +", RotSpeed: " + rotValue);
@@ -108,7 +114,7 @@ public class MoveToApril extends Command {
             xSpeed = m_vision.xController.getOutput(TX, TX_SETPOINT);
             ySpeed = m_vision.yController.getOutput(TY, TY_SETPOINT);
             rotValue = m_vision.rotController.getOutput(ROT, ROT_SETPOINT);
-            
+
 
             if(this.m_isAuto) {
 
@@ -144,7 +150,7 @@ public class MoveToApril extends Command {
             //m_vision.setRightLLAsPrimary(true);
             m_drive.drive(new Translation2d(0,0), 0, false);
           }
-      
+
          // SmartDashboard.putNumber("$[VISION]_POSEValidTimer", stopTimer.get());
     }
    // Called once the command ends or is interrupted.
@@ -153,7 +159,7 @@ public class MoveToApril extends Command {
    {
         m_drive.drive(new Translation2d(0,0), 0, false);
    }
- 
+
    // Returns true when the command should end.
    @Override
    public boolean isFinished()
@@ -180,6 +186,8 @@ public class MoveToApril extends Command {
     }
    }
 
+
+
    public double getConstSpeed(double current_pos, double set_position, double tolerance, double speed)
    {
     double difference = current_pos - set_position;
@@ -194,10 +202,10 @@ public class MoveToApril extends Command {
     }
     return 0;
    }
-  
+
    public boolean atTolerance(double current_pos, double set_position, double tolerance, String label)
    {
-    
+
     double difference = current_pos - set_position;
 
     if(LimelightConstants.DEBUG_ENABLED){
@@ -212,4 +220,3 @@ public class MoveToApril extends Command {
    }
 
 }
-

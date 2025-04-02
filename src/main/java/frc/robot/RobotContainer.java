@@ -283,6 +283,10 @@ public class RobotContainer {
     drivebase.setMotorBrake(brake);
   }
 
+  public void resetDriveOdo() {
+    drivebase.teleopSetup();
+  }
+
   public double convertJoystickQuadratic(double input)
   {
     double db_input = Math.abs(input) - OperatorConstants.DEADBAND; // Shift curve to zero at deadband
