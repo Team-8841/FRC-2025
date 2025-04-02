@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.05375,
-        "y": 5.34125
+        "x": 5.015264690359178,
+        "y": 5.281186760309606
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.543783322496748,
-        "y": 6.0088645968790635
+        "x": 5.505298012855926,
+        "y": 5.94880135718867
       },
       "isLocked": false,
       "linkedName": null
@@ -64,7 +64,7 @@
   "eventMarkers": [
     {
       "name": "MoveToFeederStation",
-      "waypointRelativePos": 0.08548931383577187,
+      "waypointRelativePos": 0.04949381327333957,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

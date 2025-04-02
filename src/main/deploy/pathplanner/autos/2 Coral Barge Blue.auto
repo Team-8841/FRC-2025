@@ -11,22 +11,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAlignReefRight"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
+            "name": "AutoAlignReefRight"
           }
         },
         {
@@ -72,22 +59,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAlignReefLeft"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
+            "name": "AutoAlignReefRight"
           }
         },
         {
@@ -112,6 +86,12 @@
           "type": "named",
           "data": {
             "name": "StopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_2p-4barge"
           }
         },
         {
