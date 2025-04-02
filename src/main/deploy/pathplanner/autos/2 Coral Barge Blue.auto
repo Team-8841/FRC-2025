@@ -41,22 +41,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToFeederStation"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "B_2p-2barge"
-                }
-              }
-            ]
+            "name": "MoveToFeederStation"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_2p-2barge"
           }
         },
         {
@@ -102,28 +95,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "B_2p-4barge"
+            "name": "MoveToFeederStation"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ZeroGyroBlue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToFeederStation"
-                }
-              }
-            ]
+            "pathName": "B_2p-4barge"
           }
         }
       ]
