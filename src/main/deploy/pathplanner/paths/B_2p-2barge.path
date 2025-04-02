@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.015264690359178,
-        "y": 5.281186760309606
+        "x": 4.985795454545454,
+        "y": 5.306349431818182
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.7667308893637585,
-        "y": 5.834494674927047
+        "x": 4.737261653550035,
+        "y": 5.859657346435623
       },
       "isLocked": false,
       "linkedName": null
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 1.186619318181818,
-        "y": 7.15109375
+        "x": 1.236,
+        "y": 7.321
       },
       "prevControl": {
-        "x": 1.434038148723785,
-        "y": 7.186925611425908
+        "x": 1.4382542485937369,
+        "y": 7.174053686926881
       },
       "nextControl": null,
       "isLocked": false,
@@ -52,7 +52,7 @@
       "maxWaypointRelativePos": 0.2429696287964116,
       "constraints": {
         "maxVelocity": 3.0,
-        "maxAcceleration": 1.75,
+        "maxAcceleration": 2.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -62,17 +62,6 @@
   ],
   "pointTowardsZones": [],
   "eventMarkers": [
-    {
-      "name": "MoveToFeederStation",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToFeederStation"
-        }
-      }
-    },
     {
       "name": "IntakeWithSensorControl",
       "waypointRelativePos": 1.2913385826771495,
