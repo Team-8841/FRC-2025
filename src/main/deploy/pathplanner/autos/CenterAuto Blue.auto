@@ -7,19 +7,25 @@
         {
           "type": "path",
           "data": {
+            "pathName": "B_center_0"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "B_center_1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "MoveToCoralL4"
+            "name": "AutoAlignReefRight"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoAlignReefLeft"
+            "name": "MoveToCoralL4"
           }
         },
         {
@@ -49,79 +55,19 @@
         {
           "type": "named",
           "data": {
-            "name": "MoveToAlgaeL2"
+            "name": "IntakeAndWait"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroGyroBlue"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "B_center_3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeWithSensorControl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B_center_4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B_center_5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeWithSensorControl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "B_center_6"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntake"
           }
         }
       ]

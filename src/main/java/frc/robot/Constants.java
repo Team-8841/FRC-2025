@@ -6,6 +6,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
+import java.util.Set;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -230,11 +231,11 @@ public final class Constants {
   public static final class LimelightConstants {
     public static final boolean DEBUG_ENABLED = true;
 
-    public static final boolean FORCE_MIN_SPEED_AUTO = false; //Force a minimum speed during auto
-    public static final double MIN_FORCED_SPEED_AUTO = 0.2; //Minimum speed during auto
+    public static final boolean FORCE_MIN_SPEED_AUTO = true; //Force a minimum speed during auto
+    public static final double MIN_FORCED_SPEED_AUTO = 0.1; //Minimum speed during auto
 
-    public static final boolean FORCE_MIN_SPEED_TELEOP = false; //Force a minimum speed during teleop
-    public static final double MIN_FORCED_SPEED_TELEOP = 0.2; // Minimum speed during teleop
+    public static final boolean FORCE_MIN_SPEED_TELEOP = true; //Force a minimum speed during teleop
+    public static final double MIN_FORCED_SPEED_TELEOP = 0.1; // Minimum speed during teleop
 
     public static final boolean FORCE_CONST_SPEED_AUTO = false; //Force a constant speed during auto
 
@@ -256,8 +257,8 @@ public final class Constants {
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 5.0;
     public static final double POSE_VALIDATION_TIME = 1.0;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.05,0.03,1}; // X (fwd-back), Y(left-right), Z(rot)
-    public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.02,1}; // X (fwd-back), Y(left-right), Z(rot)
+    public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};  //x speed, y speed, rotational speed
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
     public static final double REEF_X_KP = 3; // FWD/Back
@@ -268,9 +269,11 @@ public final class Constants {
     public static final double REEF_Y_KI = 0.0; // Left/Rgiht
     public static final double REEF_Y_KD = 0.15; // Left/Rgiht
 
-    public static final double REEF_ROT_KP = 0.095;
+    public static final double REEF_ROT_KP = 0.08;
     public static final double REEF_ROT_KI = 0.0;
     public static final double REEF_ROT_KD = 0.0;
+
+    public static final Set<Integer> REEF_APRIL_TAGIDS = Set.of(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
 
     public static final int LL_SAMPLING = 6;
 
@@ -278,34 +281,34 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_RCAM_OFFSETS = {
-      .47, // TZ (meters) (Distance Away Z)
-      .13, // TX (meters) (Distance Left Right) 
-      4.5 // RY (meters)
+      .48, // TZ (meters) (Distance Away Z)
+      .1, // TX (meters) (Distance Left Right) 
+      4.75 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_RCAM_OFFSETS = {
-      .47, // TZ (meters) (Distance Away Z)
-      -.15, // -.2 Last TX (meters) (Distance Left Right)
-      2.8 // RY (meters)
+      .49, // TZ (meters) (Distance Away Z)
+      -.13, // -.2 Last TX (meters) (Distance Left Right)
+      2.4 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_LCAM_OFFSETS = {
-      .47, // TZ (meters) (Distance Away Z)
-      -.13, // -.2 Last TX (meters) (Distance Left Right)
-      -1.15 // RY (meters)
+      .49, // TZ (meters) (Distance Away Z)
+      -.12, // -.2 Last TX (meters) (Distance Left Right)
+      -3.3 // RY (meters)
     };
 
 
     public static final double[] LEFT_CORAL_LCAM_OFFSETS = {
-      .47, // TZ (meters) (Distance Away Z)
+      .48, // TZ (meters) (Distance Away Z)
       .15, // TX (meters) (Distance Left Right) 
-      -.8 // RY (meters)
+      -1.1 // RY (meters)
     };
 
     public static final double[] CENTER_CORAL_OFFSETS = {
       .5, // TZ
-      .05, // TX
-      3.6 // RY
+      .03, // TX
+      4.5 // RY
     };
 
   }
