@@ -123,7 +123,9 @@ public class MoveToApril extends Command {
                     xSpeed = (Math.abs(xSpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : xSpeed;
                     ySpeed = (Math.abs(ySpeed) <= LimelightConstants.MIN_FORCED_SPEED_AUTO) ? LimelightConstants.MIN_FORCED_SPEED_AUTO : ySpeed;
                 } else if (LimelightConstants.FORCE_CONST_SPEED_AUTO) {
-                    xSpeed = getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
+                   
+                    // Was driving away from the reef
+                    xSpeed = -getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
                     ySpeed = getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[0]);
                     rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[0]);
                 }
