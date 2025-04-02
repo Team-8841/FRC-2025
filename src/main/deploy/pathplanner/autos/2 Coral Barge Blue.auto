@@ -41,9 +41,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "B_2p-2barge"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToFeederStation"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "B_2p-2barge"
+                }
+              }
+            ]
           }
         },
         {
@@ -95,15 +108,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "MoveToFeederStation"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ZeroGyroBlue"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroGyroBlue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToFeederStation"
+                }
+              }
+            ]
           }
         }
       ]
