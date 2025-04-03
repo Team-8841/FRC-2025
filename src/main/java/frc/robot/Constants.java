@@ -76,7 +76,7 @@ public final class Constants {
     // Absolute Max elevator position is 58 DO NOT go above this value Try to keep it 1 less than max hight
     // Absolute Max wrist position is 100 DO NOT go above this number 
 
-    public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
+    public static final double[] CoralL1 = {1, 101};  //12, 31 Reef L1
     public static final double[] CoralL2 = {10, 72};  //14, 44 Reef L2 
     public static final double[] CoralL3 = {26, 72};  //28, 44 Reef L3
     public static final double[] CoralL4 = {55, 64};  //54, 67 Reef L4
@@ -231,13 +231,15 @@ public final class Constants {
   public static final class LimelightConstants {
     public static final boolean DEBUG_ENABLED = true;
 
-    public static final boolean FORCE_MIN_SPEED_AUTO = true; //Force a minimum speed during auto
-    public static final double MIN_FORCED_SPEED_AUTO = 0.1; //Minimum speed during auto
+    public static final boolean FORCE_MIN_SPEED_AUTO = false; //Force a minimum speed during auto
+    public static final double MIN_FORCED_SPEED_AUTO = 0.3; //Minimum speed during auto
+
+    public static final boolean FORCE_CONST_SPEED_AUTO = true; //Force a constant speed during auto
 
     public static final boolean FORCE_MIN_SPEED_TELEOP = true; //Force a minimum speed during teleop
     public static final double MIN_FORCED_SPEED_TELEOP = 0.1; // Minimum speed during teleop
 
-    public static final boolean FORCE_CONST_SPEED_AUTO = false; //Force a constant speed during auto
+   
 
     public static final String ll_FRONT_RIGHT_NAME = "limelight-right";
     public static final double FWD_OFFSET = -0.0508; // Forward offset (meters)
@@ -258,7 +260,7 @@ public final class Constants {
     public static final double DONT_SEE_TAG_WAIT_TIME = 5.0;
     public static final double POSE_VALIDATION_TIME = 1.0;
     public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.03,0.02,1}; // X (fwd-back), Y(left-right), Z(rot)
-    public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};  //x speed, y speed, rotational speed
+    public static final double[] REEF_CONST_SPEEDS ={.35,.25,0.2};  //x speed, y speed, rotational speed
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
     public static final double REEF_X_KP = 3; // FWD/Back
@@ -273,7 +275,7 @@ public final class Constants {
     public static final double REEF_ROT_KI = 0.0;
     public static final double REEF_ROT_KD = 0.0;
 
-    public static final Set<Integer> REEF_APRIL_TAGIDS = Set.of(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
+    public static final Set<Integer> REEF_APRIL_TAGIDS = Set.of(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22, 16);
 
     public static final int LL_SAMPLING = 6;
 
@@ -307,7 +309,7 @@ public final class Constants {
 
     public static final double[] CENTER_CORAL_OFFSETS = {
       .45, // TZ
-      .4, // TX
+      .04, // TX
       3.1 // RY
     };
 

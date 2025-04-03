@@ -53,7 +53,7 @@ public class Lighting extends SubsystemBase {
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = false;
         configAll.disableWhenLOS = false;
-        configAll.stripType = LEDStripType.RGBW;
+        configAll.stripType = LEDStripType.RGB;
         configAll.brightnessScalar = 0.1;
         configAll.vBatOutputMode = VBatOutputMode.On;
         m_candle.configAllSettings(configAll, 100);

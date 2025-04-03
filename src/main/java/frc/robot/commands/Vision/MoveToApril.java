@@ -126,9 +126,9 @@ public class MoveToApril extends Command {
 
                 } else if (LimelightConstants.FORCE_CONST_SPEED_AUTO) {
 
-                    xSpeed = getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
-                    ySpeed = getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[1]);
-                    rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[2]);
+                    xSpeed = -getConstSpeed(TX, TX_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[0], LimelightConstants.REEF_CONST_SPEEDS[0]);
+                    ySpeed = -getConstSpeed(TY, TY_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[1], LimelightConstants.REEF_CONST_SPEEDS[1]);
+                    //rotValue = getConstSpeed(ROT, ROT_SETPOINT, LimelightConstants.REEF_TOLERANCE_ALIGNMENT[2], LimelightConstants.REEF_CONST_SPEEDS[2]);
 
                 }
 
@@ -185,8 +185,6 @@ public class MoveToApril extends Command {
         return false;
     }
    }
-
-
 
    public double getConstSpeed(double current_pos, double set_position, double tolerance, double speed)
    {
