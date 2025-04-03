@@ -8,51 +8,56 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.172414772727272,
-        "y": 4.3690198863636365
+        "x": 6.573124999996094,
+        "y": 4.41499999999911
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.052755681818183,
-        "y": 4.987258522727272
+        "x": 6.093749999996094,
+        "y": 5.47937499999911
       },
       "prevControl": {
-        "x": 6.124592653209769,
-        "y": 4.747801951421984
+        "x": 6.3039350833781915,
+        "y": 5.344015365234307
       },
       "nextControl": {
-        "x": 5.980918710426596,
-        "y": 5.22671509403256
+        "x": 4.467049272491435,
+        "y": 6.526973682092001
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.236,
-        "y": 7.321
+        "x": 1.308125,
+        "y": 7.023
       },
       "prevControl": {
-        "x": 1.7361024776984595,
-        "y": 6.968660499400191
+        "x": 1.4906438033658633,
+        "y": 6.852158300119984
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.309090909090909,
+      "rotationDegrees": 126.72354249066495
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 0.9583802024746717,
       "constraints": {
-        "maxVelocity": 2.2,
-        "maxAcceleration": 2.0,
+        "maxVelocity": 2.0,
+        "maxAcceleration": 1.5,
         "maxAngularVelocity": 100.0,
         "maxAngularAcceleration": 200.0,
         "nominalVoltage": 12.0,
@@ -63,19 +68,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "MoveToFeederStation",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToFeederStation"
-        }
-      }
-    },
-    {
       "name": "IntakeWithSensorControl",
-      "waypointRelativePos": 1.7682789651293778,
+      "waypointRelativePos": 1.4876989869753985,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -86,16 +80,16 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.25,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 100.0,
-    "maxAngularAcceleration": 200.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 128.65980825409008
+    "rotation": 127.40500000000002
   },
   "reversed": false,
   "folder": "center_auto_blue",

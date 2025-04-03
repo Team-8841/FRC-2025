@@ -1,0 +1,109 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R_center_1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R_center_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeAndWait"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R_center_3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

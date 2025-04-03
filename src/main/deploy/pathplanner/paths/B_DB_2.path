@@ -3,35 +3,95 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.0,
-        "y": 4.145
+        "x": 5.862087726687239,
+        "y": 4.189881892604398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.17204610658592,
-        "y": 3.9636160503004016
+        "x": 6.808752748976724,
+        "y": 4.8618711273921615
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.147496749024707,
-        "y": 3.96742522756827
+        "x": 5.069999999997771,
+        "y": 5.78000000000025
       },
       "prevControl": {
-        "x": 5.988569935809432,
-        "y": 4.160407786472532
+        "x": 5.667188147330028,
+        "y": 5.543902360357264
+      },
+      "nextControl": {
+        "x": 4.720624999997771,
+        "y": 5.91812500000025
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.267,
+        "y": 6.974
+      },
+      "prevControl": {
+        "x": 1.6048270983950852,
+        "y": 6.869167533141461
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7610389610389611,
+      "rotationDegrees": 135.18379550893118
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.85,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.7988422575976846,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "IntakeWithSensorControl",
+      "waypointRelativePos": 1.606367583212734,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeWithSensorControl"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.5,
@@ -42,7 +102,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 126.67399999999999
   },
   "reversed": false,
   "folder": "dead_robot_blue",

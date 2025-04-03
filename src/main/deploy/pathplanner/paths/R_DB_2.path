@@ -3,40 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.043,
-        "y": 0.492
+        "x": 11.702480464918038,
+        "y": 3.8172853124543606
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0951560468140435,
-        "y": 1.8109882964889459
+        "x": 10.562500000000416,
+        "y": 3.2775000000028225
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.163491547464239,
-        "y": 2.931079323797139
+        "x": 11.935625000000591,
+        "y": 2.0587500000015915
       },
       "prevControl": {
-        "x": 5.676430429128738,
-        "y": 1.7900520156046817
+        "x": 11.711763341208497,
+        "y": 2.181174344653396
+      },
+      "nextControl": {
+        "x": 14.015625000000414,
+        "y": 0.9212500000028228
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 16.32312500000059,
+        "y": 1.0106250000015917
+      },
+      "prevControl": {
+        "x": 16.65251384220063,
+        "y": 1.0543352931138892
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.2883116883116894,
+      "rotationDegrees": -53.83
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6204954954954877,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.356005788712012,
       "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -47,19 +68,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "MoveToAlgaeL3",
-      "waypointRelativePos": 0.7105855855855814,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "MoveToAlgaeL3"
-        }
-      }
-    },
-    {
       "name": "IntakeWithSensorControl",
-      "waypointRelativePos": 0.8907657657657704,
+      "waypointRelativePos": 1.4761215629522437,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -71,7 +81,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 2.5,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -79,13 +89,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.76271953423895
+    "rotation": -53.83
   },
   "reversed": false,
-  "folder": "dead_robot_blue",
+  "folder": "dead_robot_red",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -90.01443838402031
+    "velocity": 0.0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": false
 }

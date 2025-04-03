@@ -7,32 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R_center_0"
+            "pathName": "B_center_1"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "R_center_1"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAlignReefLeft"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
+            "name": "AutoAlignReefRight"
           }
         },
         {
@@ -60,46 +41,39 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "R_center_2"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "MoveToAlgaeL2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeWithSensorControl"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAlignReefCenter"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
+            "name": "MoveToFeederStation"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R_center_3"
+            "pathName": "B_center_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeAndWait"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_center_3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAlignReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
           }
         },
         {
@@ -118,6 +92,12 @@
           "type": "named",
           "data": {
             "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveToFeederStation"
           }
         }
       ]

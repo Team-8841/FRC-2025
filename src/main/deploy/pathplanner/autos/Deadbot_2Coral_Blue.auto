@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B_center_1"
+            "pathName": "B_DB_1"
           }
         },
         {
@@ -49,7 +49,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B_center_2"
+            "pathName": "B_DB_2"
           }
         },
         {
@@ -59,15 +59,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ZeroGyroBlue"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "B_center_3"
+            "pathName": "B_DB_3"
           }
         },
         {
