@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LightingConstants;
 
 public class Lighting extends SubsystemBase {
-    private final int LEDS_PER_ANIMATION = 60;
+    private final int LEDS_PER_ANIMATION = 5;
     private final CANdle m_candle = new CANdle(LightingConstants.CANDLE_CANID);
     private int m_candleChannel = 0;
     private boolean m_clearAllAnims = false;
@@ -49,11 +49,11 @@ public class Lighting extends SubsystemBase {
     private AnimationTypes m_currentAnimation;
 
     public Lighting() {
-        changeAnimation(AnimationTypes.SetAll);
+        changeAnimation(AnimationTypes.Rainbow);
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = false;
         configAll.disableWhenLOS = false;
-        configAll.stripType = LEDStripType.RGB;
+        configAll.stripType = LEDStripType.RGBW;
         configAll.brightnessScalar = 0.1;
         configAll.vBatOutputMode = VBatOutputMode.On;
         m_candle.configAllSettings(configAll, 100);

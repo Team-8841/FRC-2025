@@ -91,7 +91,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void setElevatorPosition(double targetposition)
     {
-        if (targetposition > ElevatorConstants.MIN_POS && targetposition < ElevatorConstants.MAX_POS) {
+        if (targetposition >= ElevatorConstants.MIN_POS && targetposition <= ElevatorConstants.MAX_POS) {
             setPoint = targetposition;
             m_elevator_follower.setControl(follower);
             m_elevator_leader.setControl(new PositionDutyCycle(setPoint));

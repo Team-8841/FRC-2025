@@ -45,20 +45,21 @@ public class MoveToCenterApril extends Command {
     {
 
 
-        if(LimelightHelpers.getTV(this.m_vision.getCamName(true))) {
+        //if(LimelightHelpers.getTV(this.m_vision.getCamName(true))) {
             this.m_vision.setRightLLAsPrimary(true);
             // Target Center
             TX_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[0];
             TY_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[1];
             ROT_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[2];
-        } else if(LimelightHelpers.getTV(this.m_vision.getCamName(false))){
+        //} 
+        /*else if(LimelightHelpers.getTV(this.m_vision.getCamName(false))){
             this.m_vision.setRightLLAsPrimary(false);
             // Target Center
             TX_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[0];
             TY_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[1];
             ROT_SETPOINT = LimelightConstants.CENTER_CORAL_OFFSETS[2];
                 
-        }
+        }*/
 
         double[][] sampled_positions = new double[LimelightConstants.LL_SAMPLING][6];
         double[] positions = new double[6];

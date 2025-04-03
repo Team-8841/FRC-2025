@@ -77,14 +77,14 @@ public final class Constants {
     // Absolute Max wrist position is 100 DO NOT go above this number 
 
     public static final double[] CoralL1 = {1, 79};  //12, 31 Reef L1
-    public static final double[] CoralL2 = {11, 72};  //14, 44 Reef L2 
+    public static final double[] CoralL2 = {10, 72};  //14, 44 Reef L2 
     public static final double[] CoralL3 = {26, 72};  //28, 44 Reef L3
-    public static final double[] CoralL4 = {54, 68};  //54, 67 Reef L4
+    public static final double[] CoralL4 = {55, 64};  //54, 67 Reef L4
 
     public static final double[] AlgaeL1 = {1, 67};   // 1, 36    processing station
     public static final double[] AlgaeL2 = {14, 77};  //37, 36    Reef Algae L2
     public static final double[] AlgaeL3 = {28, 77};  //61, 36    Reef Algae L3
-    public static final double[] AlgaeL4 = {57, 101};  //95, 20    Barge Shot
+    public static final double[] AlgaeL4 = {58, 101};  //95, 20    Barge Shot
     
 
     public static final double[] startingConfiguration = {1, 0};
@@ -257,7 +257,7 @@ public final class Constants {
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 5.0;
     public static final double POSE_VALIDATION_TIME = 1.0;
-    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.04,0.02,1}; // X (fwd-back), Y(left-right), Z(rot)
+    public static final double[] REEF_TOLERANCE_ALIGNMENT ={0.03,0.02,1}; // X (fwd-back), Y(left-right), Z(rot)
     public static final double[] REEF_CONST_SPEEDS ={.3,.3,0.2};  //x speed, y speed, rotational speed
 
     // PID Constants, rotation has separate constants due to difference in units (meters vs degrees)
@@ -281,34 +281,34 @@ public final class Constants {
     // Using targetpose_botspace
     // Use LL interface to get values
     public static final double[] LEFT_CORAL_RCAM_OFFSETS = {
-      .48, // TZ (meters) (Distance Away Z)
-      .1, // TX (meters) (Distance Left Right) 
-      4.75 // RY (meters)
+      .45, // TZ (meters) (Distance Away Z)
+      .04, // TX (meters) (Distance Left Right) 
+      3.25 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_RCAM_OFFSETS = {
-      .49, // TZ (meters) (Distance Away Z)
-      -.13, // -.2 Last TX (meters) (Distance Left Right)
-      2.4 // RY (meters)
+      .46, // TZ (meters) (Distance Away Z)
+      -.12, // -.2 Last TX (meters) (Distance Left Right)
+      2.9 // RY (meters)
     };
 
     public static final double[] RIGHT_CORAL_LCAM_OFFSETS = {
-      .49, // TZ (meters) (Distance Away Z)
-      -.12, // -.2 Last TX (meters) (Distance Left Right)
-      -3.3 // RY (meters)
+      .44, // TZ (meters) (Distance Away Z)
+      -.08,// -.2 Last TX (meters) (Distance Left Right)
+      -2.2 // RY (meters)
     };
 
 
     public static final double[] LEFT_CORAL_LCAM_OFFSETS = {
-      .48, // TZ (meters) (Distance Away Z)
-      .15, // TX (meters) (Distance Left Right) 
-      -1.1 // RY (meters)
+      .45, // TZ (meters) (Distance Away Z)
+      .16, // TX (meters) (Distance Left Right) 
+      -1.95 // RY (meters)
     };
 
     public static final double[] CENTER_CORAL_OFFSETS = {
-      .5, // TZ
-      .03, // TX
-      4.5 // RY
+      .45, // TZ
+      .4, // TX
+      3.1 // RY
     };
 
   }
