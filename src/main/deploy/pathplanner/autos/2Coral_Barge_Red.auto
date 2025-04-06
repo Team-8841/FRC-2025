@@ -56,19 +56,25 @@
         {
           "type": "named",
           "data": {
-            "name": "StopIntake"
+            "name": "MoveToFeederStation"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "MoveToFeederStation"
+            "name": "StopIntake"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "R_2p-2barge"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R_2p-2.5barge"
           }
         },
         {

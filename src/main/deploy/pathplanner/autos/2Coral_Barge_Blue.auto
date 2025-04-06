@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "MoveToCoralL4"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -27,12 +33,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "MoveToCoralL4"
           }
         },
         {
@@ -69,6 +69,12 @@
           "type": "path",
           "data": {
             "pathName": "B_2p-2barge"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B_2p-2.5barge"
           }
         },
         {

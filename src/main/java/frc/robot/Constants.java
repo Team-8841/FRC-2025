@@ -208,7 +208,7 @@ public final class Constants {
 
     public static final double CLIMBER_OVERRIDE_SPEED = .1;
     public static final double CLIMBER_RETRACT_SPEED = .9;
-    public static final double CLIMBER_DEPLOY_SPEED = .6;
+    public static final double CLIMBER_DEPLOY_SPEED = .7;
 
     public static final double CLIMBER_MAX_RETRACT_SPEED = 0.8;
   }
